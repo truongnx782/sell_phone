@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+</head>
+<style>
+    .container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        border: none;
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+    h1 {
+        color: #d9534f;
+        margin-bottom: 2rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    thead {
+        background-color: #fcaba8;
+        color: #be0404;
+    }
+
+    .table th, .table td {
+        border: 1px solid #f65858;
+        padding: 12px;
+        text-align: left;
+        font-size: 18px;
+    }
+
+    tbody td {
+        border-bottom: 1px solid #ddd;
+    }
+
+    h5 {
+        color: #d9534f;
+    }
+
+    p {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    #total-amount, #discountAmount, #total-pay-amount {
+        color: #d9534f;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ff6666;
+    }
+
+
+</style>
+
+<body>
+<div class="container mt-5 card p-5">
+    <h1>Giỏ hàng của bạn</h1>
+    <table class="table mt-2">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>IMEI</th>
+            <th>Giá bán</th>
+        </tr>
+        </thead>
+        <tbody id="customer-cart-items">
+        <tr>
+            <td colspan="5" class="text-center">Loading...</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div class="row ">
+        <div class="col-7">
+            <img class="ms-5 ps-5" id="payment-qr" src="" alt="Mã QR thanh toán" style="display:none;" width="50%">
+        </div>
+        <div class="col-5 mt-4">
+            <div class="row g-2 ">
+                <div class="col">
+                    <h5>Tổng tiền:</h5>
+                </div>
+                <div class="col-auto align-self-end">
+                    <p id="total-amount">0 ₫</p>
+                </div>
+            </div>
+            <div class="row g-2 mb-1">
+                <div class="col">
+                    <h5>Số tiền giảm giá:</h5>
+                </div>
+                <div class="col-auto align-self-end">
+                    <p id="discountAmount">0 ₫</p>
+                </div>
+            </div>
+            <div class="row g-2 mb-1">
+                <div class="col">
+                    <h5>Tổng tiền cần thanh toán:</h5>
+                </div>
+                <div class="col-auto align-self-end">
+                    <p id="total-pay-amount">0 ₫</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/tabChange', function (message) {
+            var tabChangeData = JSON.parse(message.body);
+            updateCustomerCart(tabChangeData.hoaDonId, tabChangeData.discountAmount);
+        });
+
+        //Hiển thị mã QR thanh toán
+        stompClient.subscribe('/topic/showPaymentQR', function (message) {
+            var qrData = JSON.parse(message.body);
+            showPaymentQR(qrData.qrURL, qrData.totalPayAmount);
+        });
+    });
+
+    function updateCustomerCart(hoaDonId, discountAmount = 0) {
+        fetch(`/ban-hang-tai-quay/getCartDetails?gioHangId=${hoaDonId}`)
+            .then(response => response.json())
+            .then(cartData => {
+                const cartTableBody = document.getElementById('customer-cart-items');
+                const totalAmountElement = document.getElementById('total-amount');
+                const discountAmountElement = document.getElementById('discountAmount');
+                const totalPayAmountElement = document.getElementById('total-pay-amount');
+
+                cartTableBody.innerHTML = '';
+                let totalAmount = 0;
+                let totalProductCount = 0;
+
+                if (Array.isArray(cartData) && cartData.length > 0) {
+                    cartData.forEach((detail, index) => {
+                        const imeiDaBanList = detail.imeiList;
+                        imeiDaBanList.forEach((imei, imeiIndex) => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                    <td>${totalProductCount + imeiIndex + 1}</td>
+                                    <td>${detail.tenSanPham}</td>
+                                    <td>${imei}</td>
+                                    <td>${detail.giaBan.toLocaleString('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND'
+                            })}</td>`;
+                            cartTableBody.appendChild(row);
+                        });
+                        totalProductCount += imeiDaBanList.length;
+                        totalAmount += detail.giaBan * imeiDaBanList.length;
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="5" class="text-center">Không có sản phẩm trong giỏ hàng</td>`;
+                    cartTableBody.appendChild(row);
+                }
+
+                discountAmountElement.textContent = `${parseFloat(discountAmount).toLocaleString('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                })}`;
+                totalAmountElement.textContent = `${totalAmount.toLocaleString('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                })}`;
+                totalPayAmountElement.textContent = `${(totalAmount - parseFloat(discountAmount)).toLocaleString('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                })}`;
+            })
+            .catch(error => {
+                console.error('Error fetching cart details:', error);
+            });
+    }
+
+    function showPaymentQR(qrURL, totalPayAmount) {
+        const qrImage = document.getElementById('payment-qr');
+        qrImage.src = qrURL;
+        qrImage.style.display = 'block';
+    }
+</script>
+</body>
+</html>

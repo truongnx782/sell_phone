@@ -1,0 +1,128 @@
+.modal-confirm {
+    color: #0e0d0d;
+    width: 400px;
+}
+
+.modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+    border-bottom: none;
+    position: relative;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+
+.modal-confirm .btn-close {
+    position: absolute;
+    top: -5px;
+    right: -1px;
+}
+
+.modal-confirm .modal-body {
+    color: #999;
+}
+
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+}
+
+.modal-confirm .modal-footer a {
+    color: #999;
+}
+
+.modal-confirm .btn,
+.modal-confirm .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #219d53;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+    background: #918f8f;
+}
+
+.modal-confirm .btn-danger {
+    background: #b72d2d;
+}
+
+
+
+.success {
+    position: fixed;
+    bottom: 520px; /* Position it 50px from the bottom */
+    right: 20px; /* Align it to the right */
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    font-family: 'Arial', sans-serif;
+}
+
+.success__icon {
+    margin-right: 15px;
+}
+
+.success__title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Animation classes */
+.slideInRight {
+    animation: slideInRight 0.5s forwards;
+}
+
+.slideOutRight {
+    animation: slideOutRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+

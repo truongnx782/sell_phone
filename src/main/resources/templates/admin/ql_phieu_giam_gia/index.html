@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/layouts/main.html}">
+<head>
+    <meta charset="utf-8"/>
+    <title>Phiếu giảm giá</title>
+    <style>
+        .form-outline {
+            position: relative;
+        }
+
+        .form-outline label {
+            position: absolute;
+            top: -10px;
+            /* Điều chỉnh khoảng cách từ trên xuống */
+            left: 10px;
+            /* Điều chỉnh khoảng cách từ trái sang */
+            padding: 0 5px;
+            background-color: white;
+            color: gray;
+            font-size: 12px;
+        }
+        .chua-dien-ra {
+            color: yellowgreen;
+        }
+        .dang-dien-ra {
+            color: green;
+        }
+        .da-ket-thuc {
+            color: red;
+        }
+        /* CSS cho modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #radioInput:checked {
+            border-color: red;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<article layout:fragment="content">
+    <div class="container-xxl flex-grow-1 container-p-y" style="font-size: 12px">
+        <hr class="my-2"/>
+    <!--    Form tìm kiếm-->
+    <div class="card mb-4 px-4 p-3" style="background-color: #f1f1f1">
+    <div class="shadow-lg bg-white">
+        <form th:action="@{/phieu-giam-gia/get-list-pgg/search}" method="get" class="py-4">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4 ms-5" >
+                    <div class="d-flex float-end me-2">
+                        <input class="form-control" type="search" placeholder="Tìm phiếu giảm giá" aria-label="Search"
+                               style="height: 30px; width: 300px; font-size: 14px;" name="search" th:value="${search}">
+                    </div>
+                </div>
+                <div class="col-sm-6 text-dark" >
+                    <label class="me-1" style="font-size: 14px">Trạng thái:</label>
+                    <!--            <input type="hidden" name="trangThai" id="trangThaiHidden" value="">-->
+                    <div class="form-check form-check-inline" style="font-size: 13px">
+                        <input class="form-check-input" type="radio" name="trangThai" value="0" th:checked="${trangThai == 0}"  th:unchecked>
+
+                        <label class="form-check-label">Chưa diễn ra</label>
+                    </div>
+                    <div class="form-check form-check-inline" style="font-size: 13px">
+                        <input class="form-check-input" type="radio" name="trangThai"  value="1" th:checked="${trangThai == 1}"  th:unchecked>
+                        <label class="form-check-label">Đang diễn ra</label>
+                    </div>
+                    <div class="form-check form-check-inline" style="font-size: 13px">
+                        <input class="form-check-input" type="radio" name="trangThai" value="2" th:checked="${trangThai == 2}"  th:unchecked>
+                        <label class="form-check-label">Đã kết thúc</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row mt-3">
+                <!--        Ngày bắt đầu-->
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="form-outline datetimepicker">
+                            <input type="datetime-local" class="form-control text-dark" th:value="${ngayBatDau}"
+                                   id="ngayBatDau" name="ngayBatDau"
+                                   style="height: 35px; font-size: 13px; text-align: center; padding-top: 15px;">
+                            <label for="ngayBatDau" class="text-dark" style="font-size: 15px; border-radius: 5px 5px 0px 0px;">Ngày bắt
+                                đầu</label>
+                        </div>
+                    </div>
+                </div>
+                <!--        Ngày kết thúc-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="form-outline datetimepicker">
+                            <input type="datetime-local" class="form-control text-dark" th:value="${ngayKetThuc}"
+                                   id="ngayKetThuc" name="ngayKetThuc"
+                                   style="height: 35px; font-size: 13px; text-align: center; padding-top: 15px;">
+                            <label for="ngayKetThuc" class=" text-dark" style="font-size: 15px;border-radius: 5px 5px 0px 0px;">Ngày kết
+                                thúc</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <a th:href="@{/phieu-giam-gia/index}" class="btn btn-secondary"
+                       style="height: 30px;width: 100px;color: black;font-size: 12px;">Làm
+                        mới</a>
+                    <button class="btn btn-outline-success py-0" type="submit"
+                            style="height: 30px;width: 100px;background-color: #E7625F; color: white; border-color: #E7625F;font-size: 12px;">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+        <!--    Form tìm kiếm-->
+    </div>
+    </div>
+    <br>
+    <!--    Tạo mới-->
+    <div class="row text-end me-5">
+        <div class="" style="color: #EF3340;">
+            <a th:href="@{/phieu-giam-gia/add-pgg}">
+                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M7.33 2H16.66C20.06 2 22 3.92 22 7.33V16.67C22 20.06 20.07 22 16.67 22H7.33C3.92 22 2 20.06 2 16.67V7.33C2 3.92 3.92 2 7.33 2ZM12.82 12.83H15.66C16.12 12.82 16.49 12.45 16.49 11.99C16.49 11.53 16.12 11.16 15.66 11.16H12.82V8.34C12.82 7.88 12.45 7.51 11.99 7.51C11.53 7.51 11.16 7.88 11.16 8.34V11.16H8.33C8.11 11.16 7.9 11.25 7.74 11.4C7.59 11.56 7.5 11.769 7.5 11.99C7.5 12.45 7.87 12.82 8.33 12.83H11.16V15.66C11.16 16.12 11.53 16.49 11.99 16.49C12.45 16.49 12.82 16.12 12.82 15.66V12.83Z"
+                          fill="currentColor"></path>
+                </svg>
+                <label>Tạo mới</label>
+            </a>
+        </div>
+    </div>
+    <!--    Bảng phiếu giảm giá-->
+    <div class="card bg-white">
+        <div class="card-body  p-0 m-0">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tbl_pgg">
+                    <thead class="table-light">
+                    <tr>
+                        <th>
+                            <span>STT</span>
+                        </th>
+                        <th>
+                            <span>Mã </span>
+                        </th>
+                        <th>
+                            <div style="justify-content: space-around; display: flex;">
+                                <span>Tên phiếu</span>
+                                <div>
+                                    <a th:href="@{/phieu-giam-gia/sort-name-search-desc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: white;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M13.131 7.36922C13.189 7.42572 13.437 7.63906 13.641 7.8378C14.924 9.00292 17.024 12.0424 17.665 13.6332C17.768 13.8748 17.986 14.4856 18 14.812C18 15.1247 17.928 15.4228 17.782 15.7073C17.578 16.0619 17.257 16.3463 16.878 16.5022C16.615 16.6025 15.828 16.7584 15.814 16.7584C14.953 16.9143 13.554 17 12.008 17C10.535 17 9.193 16.9143 8.319 16.7867C8.305 16.772 7.327 16.6162 6.992 16.4457C6.38 16.133 6 15.5222 6 14.8685V14.812C6.015 14.3863 6.395 13.491 6.409 13.491C7.051 11.9859 9.048 9.01656 10.375 7.82319C10.375 7.82319 10.716 7.48709 10.929 7.34096C11.235 7.11301 11.614 7 11.993 7C12.416 7 12.81 7.12762 13.131 7.36922Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/phieu-giam-gia/sort-name-search-asc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: white;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M10.869 16.6308C10.811 16.5743 10.563 16.3609 10.359 16.1622C9.076 14.9971 6.976 11.9576 6.335 10.3668C6.232 10.1252 6.014 9.51437 6 9.18802C6 8.8753 6.072 8.5772 6.218 8.29274C6.422 7.93814 6.743 7.65368 7.122 7.49781C7.385 7.39747 8.172 7.2416 8.186 7.2416C9.047 7.08573 10.446 7 11.992 7C13.465 7 14.807 7.08573 15.681 7.21335C15.695 7.22796 16.673 7.38383 17.008 7.55431C17.62 7.86702 18 8.47784 18 9.13151V9.18802C17.985 9.61374 17.605 10.509 17.591 10.509C16.949 12.0141 14.952 14.9834 13.625 16.1768C13.625 16.1768 13.284 16.5129 13.071 16.659C12.765 16.887 12.386 17 12.007 17C11.584 17 11.19 16.8724 10.869 16.6308Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div style="justify-content: space-around; display: flex;">
+                                <span>Thời gian</span>
+                                <div>
+                                    <a th:href="@{/phieu-giam-gia/sort-time-search-desc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: white;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M13.131 7.36922C13.189 7.42572 13.437 7.63906 13.641 7.8378C14.924 9.00292 17.024 12.0424 17.665 13.6332C17.768 13.8748 17.986 14.4856 18 14.812C18 15.1247 17.928 15.4228 17.782 15.7073C17.578 16.0619 17.257 16.3463 16.878 16.5022C16.615 16.6025 15.828 16.7584 15.814 16.7584C14.953 16.9143 13.554 17 12.008 17C10.535 17 9.193 16.9143 8.319 16.7867C8.305 16.772 7.327 16.6162 6.992 16.4457C6.38 16.133 6 15.5222 6 14.8685V14.812C6.015 14.3863 6.395 13.491 6.409 13.491C7.051 11.9859 9.048 9.01656 10.375 7.82319C10.375 7.82319 10.716 7.48709 10.929 7.34096C11.235 7.11301 11.614 7 11.993 7C12.416 7 12.81 7.12762 13.131 7.36922Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/phieu-giam-gia/sort-time-search-asc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: white;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M10.869 16.6308C10.811 16.5743 10.563 16.3609 10.359 16.1622C9.076 14.9971 6.976 11.9576 6.335 10.3668C6.232 10.1252 6.014 9.51437 6 9.18802C6 8.8753 6.072 8.5772 6.218 8.29274C6.422 7.93814 6.743 7.65368 7.122 7.49781C7.385 7.39747 8.172 7.2416 8.186 7.2416C9.047 7.08573 10.446 7 11.992 7C13.465 7 14.807 7.08573 15.681 7.21335C15.695 7.22796 16.673 7.38383 17.008 7.55431C17.62 7.86702 18 8.47784 18 9.13151V9.18802C17.985 9.61374 17.605 10.509 17.591 10.509C16.949 12.0141 14.952 14.9834 13.625 16.1768C13.625 16.1768 13.284 16.5129 13.071 16.659C12.765 16.887 12.386 17 12.007 17C11.584 17 11.19 16.8724 10.869 16.6308Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div style="justify-content: space-around; display: flex;">
+                                <span>Loại</span>
+                                <div>
+                                    <a th:href="@{/phieu-giam-gia/sort-type-search-desc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: white;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M13.131 7.36922C13.189 7.42572 13.437 7.63906 13.641 7.8378C14.924 9.00292 17.024 12.0424 17.665 13.6332C17.768 13.8748 17.986 14.4856 18 14.812C18 15.1247 17.928 15.4228 17.782 15.7073C17.578 16.0619 17.257 16.3463 16.878 16.5022C16.615 16.6025 15.828 16.7584 15.814 16.7584C14.953 16.9143 13.554 17 12.008 17C10.535 17 9.193 16.9143 8.319 16.7867C8.305 16.772 7.327 16.6162 6.992 16.4457C6.38 16.133 6 15.5222 6 14.8685V14.812C6.015 14.3863 6.395 13.491 6.409 13.491C7.051 11.9859 9.048 9.01656 10.375 7.82319C10.375 7.82319 10.716 7.48709 10.929 7.34096C11.235 7.11301 11.614 7 11.993 7C12.416 7 12.81 7.12762 13.131 7.36922Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/phieu-giam-gia/sort-type-search-asc(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc})}" class="m-0 p-0" style="border: none; background-color: whitesmoke;">
+                                        <svg class="icon-32" width="15" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M10.869 16.6308C10.811 16.5743 10.563 16.3609 10.359 16.1622C9.076 14.9971 6.976 11.9576 6.335 10.3668C6.232 10.1252 6.014 9.51437 6 9.18802C6 8.8753 6.072 8.5772 6.218 8.29274C6.422 7.93814 6.743 7.65368 7.122 7.49781C7.385 7.39747 8.172 7.2416 8.186 7.2416C9.047 7.08573 10.446 7 11.992 7C13.465 7 14.807 7.08573 15.681 7.21335C15.695 7.22796 16.673 7.38383 17.008 7.55431C17.62 7.86702 18 8.47784 18 9.13151V9.18802C17.985 9.61374 17.605 10.509 17.591 10.509C16.949 12.0141 14.952 14.9834 13.625 16.1768C13.625 16.1768 13.284 16.5129 13.071 16.659C12.765 16.887 12.386 17 12.007 17C11.584 17 11.19 16.8724 10.869 16.6308Z"
+                                                    fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th class="text-center">Giá trị</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbl_pgg_body">
+                    <tr th:each="phieu, pggListStat : ${pggList}" th:object="${phieu}">
+                        <td th:text="${pggListStat.index+1}"></td>
+                        <td th:text="*{maPhieuGiamGia}"></td>
+                        <td class="text-center" th:text="*{tenPhieuGiamGia}"></td>
+                        <td>
+                            <span th:text="${#dates.format(phieu.ngayBatDau, 'HH:mm dd/MM/yyyy')}"></span>
+                            <span>-</span>
+                            <span th:text="${#dates.format(phieu.ngayKetThuc, 'HH:mm dd/MM/yyyy')}"></span>
+                        </td>
+                        <td class="text-center" th:if="*{loaiGiamGia == 0}">Giảm theo % </td>
+                        <td class="text-center" th:if="*{loaiGiamGia == 1}">Giảm theo tiền </td>
+                        <!--                                    <td class="text-center" th:if="*{soTienDuocGiam != 0}" th:text="*{soTienDuocGiam}"></td>-->
+                        <td class="text-center" th:if="${phieu.soTienDuocGiam != 0}" th:text="${#numbers.formatDecimal(phieu.soTienDuocGiam, 1, 0, 'COMMA') + ' VND'}"></td>
+
+                        <td class="text-center" th:if="*{phanTramGiam != 0}" th:text="*{phanTramGiam}">
+                        </td>
+                        <td class="text-center" th:text="*{soLuong}">
+                        </td>
+                        <td class="text-center text-warning" th:if="*{trangThai == 0}">
+                            Chưa diễn ra
+                        </td>
+                        <td class="text-center text-success" th:if="*{trangThai == 1}">
+                            Đang diễn ra
+                        </td>
+                        <td class="text-center text-danger" th:if="*{trangThai == 2}">
+                            Đã kết thúc
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip"
+                                   title="Cập nhật" th:href="@{/phieu-giam-gia/update-pgg/{id}(id=${phieu.id})}">
+                                    <svg class="icon-32" width="25" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                                d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z"
+                                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round"></path>
+                                        <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor"
+                                              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="btn btn-sm btn-icon text-success " data-bs-toggle="tooltip"
+                                   title="Ngừng hoạt động" href="#">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="radioInput" name="radioGroup">
+                                    </div>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <nav id="pagination_container" aria-label="Page navigation example" class="" style="height: 40px;">
+            <ul class="pagination justify-content-center">
+
+                <li th:if="${pggList.number ==0}" class="page-item disabled" style="font-size: 14px; height: 8px;">
+                    <a class="page-link disabled" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:if="${pggList.number >0}" class="page-item" style="font-size: 14px; height: 8px;">
+                    <a class="page-link" th:href="@{/phieu-giam-gia/get-list-pgg/search(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc},page=${pggList.number - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" id="page_total" style="font-size: 14px; height: 8px;"><a class="page-link">[[${pggList.number +1}]]/[[${pggList.totalPages}]]</a></li>
+                <li th:if="${pggList.totalPages - 1 == pggList.number}" class="page-item disabled" style="font-size: 14px; height: 8px;">
+                    <a class="page-link disabled" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li th:if="${pggList.totalPages - 1 > pggList.number}" class="page-item" style="font-size: 14px; height: 8px;">
+                    <a class="page-link" th:href="@{/phieu-giam-gia/get-list-pgg/search(search=${search},trangThai=${trangThai},ngayBatDau=${ngayBatDau},ngayKetThuc=${ngayKetThuc},page=${pggList.number + 1})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+</article>
+<!--&lt;!&ndash; Layout wrapper &ndash;&gt;-->
+<!--<div class="layout-wrapper layout-content-navbar">-->
+<!--    <div class="layout-container">-->
+<!--        &lt;!&ndash; Menu &ndash;&gt;-->
+<!--        <aside th:replace="~{/admin/layout_admin/menu::menu_admin}"></aside>-->
+<!--      &lt;!&ndash; / Menu &ndash;&gt;-->
+
+<!--        &lt;!&ndash; Layout container &ndash;&gt;-->
+<!--        <div class="layout-page ms-4">-->
+<!--            <h3>Quản lý phiếu giảm giá</h3>-->
+<!--            <hr>-->
+<!--            <nav class="me-2">-->
+<!--               -->
+<!--            </nav>-->
+<!--        </div>-->
+
+<!--        <div class="content-wrapper">-->
+<!--            &lt;!&ndash; Content &ndash;&gt;-->
+<!--            &lt;!&ndash;				<div class="container-xxl flex-grow-1 container-p-y">&ndash;&gt;-->
+<!--            <article layout:fragment="content"></article>-->
+<!--            &lt;!&ndash;				</div>&ndash;&gt;-->
+<!--            &lt;!&ndash;&gt;>>>>>> a53247d9066017830196c52a31c0a7dcf90fda22&ndash;&gt;-->
+<!--            &lt;!&ndash; / Content &ndash;&gt;-->
+
+<!--            &lt;!&ndash; Footer &ndash;&gt;-->
+<!--            <footer class="content-footer footer bg-footer-theme">-->
+<!--                =======-->
+<!--                					<div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">-->
+<!--                						<div class="mb-2 mb-md-0">-->
+<!--                							©-->
+<!--                							<script>-->
+<!--                								document.write(new Date().getFullYear());-->
+<!--                							</script>-->
+<!--                							, made with ❤️ by-->
+<!--                							<a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>-->
+<!--                						</div>-->
+<!--                						<div>-->
+<!--                							<a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>-->
+<!--                							<a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>-->
+
+<!--                							<a-->
+<!--                									href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"-->
+<!--                									target="_blank"-->
+<!--                									class="footer-link me-4"-->
+<!--                							>Documentation</a-->
+<!--                							>-->
+
+<!--                							<a-->
+<!--                									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"-->
+<!--                									target="_blank"-->
+<!--                									class="footer-link me-4"-->
+<!--                							>Support</a-->
+<!--                							>-->
+<!--                						</div>-->
+<!--                					</div>-->
+<!--            </footer>-->
+
+<!--            <div class="content-backdrop fade"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<script>
+    var trangThaiHidden = document.getElementById("trangThaiHidden");
+    var trangThaiRadios = document.getElementsByName("trangThai");
+
+    // Gán sự kiện change cho từng radio button
+    for (var i = 0; i < trangThaiRadios.length; i++) {
+        trangThaiRadios[i].addEventListener("change", function() {
+            trangThaiHidden.value = this.value;
+        });
+    }
+
+    // Kiểm tra xem có radio nào được chọn hay không
+    var isRadioSelected = false;
+    for (var i = 0; i < trangThaiRadios.length; i++) {
+        if (trangThaiRadios[i].checked) {
+            isRadioSelected = true;
+            break;
+        }
+    }
+
+    // Gán giá trị mặc định nếu không có radio nào được chọn
+    if (!isRadioSelected) {
+        trangThaiHidden.value = "3";
+    }
+</script>
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../assets/vendor/libs/popper/popper.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<script src="../assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+<!-- Main JS -->
+<script src="../assets/js/main.js"></script>
+
+<!-- Page JS -->
+<script src="../assets/js/dashboards-analytics.js"></script>
+<!--<script src="../js/phieu_giam_gia.js"></script>-->
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{../js/jquery.min.js}"></script>
+</body>
+</html>

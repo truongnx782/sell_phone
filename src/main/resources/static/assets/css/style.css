@@ -1,0 +1,417 @@
+/* Sử dụng lớp CSS cho bảng */
+.custom-table1 thead th {
+    color: #c20415 !important;
+    font-size: 15px !important;
+    border-bottom: 1px solid red !important;
+    border-top: 1px solid red !important;
+}
+
+.custom-table1 td {
+    border-bottom: 1px solid #fd9898 !important;
+    border-top: 1px solid  #fd9898 !important;
+}
+/*------------------------------*/
+.disabled-icon {
+    color: #d5d2d2;
+    pointer-events: none;
+}
+
+/*------------------------------*/
+@media print {
+
+    body * {
+        visibility: hidden;
+
+    }
+
+    #printableBill, #printableBill * {
+        visibility: visible;
+
+    }
+
+    #printableBill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .fixed-footer {
+        position: absolute !important;
+        bottom: 0 !important;
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+
+body {
+    color: #000000 !important;
+}
+
+/*CSS TRANG QL HÓA ĐƠN*/
+.modal-confirm {
+    color: #0e0d0d;
+    width: 400px;
+}
+
+.modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+    border-bottom: none;
+    position: relative;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+
+.modal-confirm .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 4px;
+}
+
+.modal-confirm .modal-body {
+    color: #999;
+}
+
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+}
+
+.modal-confirm .modal-footer a {
+    color: #999;
+}
+
+.modal-confirm .btn,
+.modal-confirm .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #219d53;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+    background: #918f8f;
+}
+
+.modal-confirm .btn-danger {
+    background: #b72d2d;
+}
+
+/* filter */
+.dropdown-toggle {
+    border: none;
+    color: #007bff;
+}
+
+.text-danger {
+    color: red;
+}
+
+.bi.bi-check-circle {
+    color: green;
+    font-size: 25px;
+}
+
+.bi.bi-clock {
+    color: blue;
+    font-size: 25px;
+}
+
+.bi.bi-truck {
+    color: #14646b;
+    font-size: 25px;
+}
+
+.bi.bi-x-circle {
+    color: red;
+    font-size: 25px;
+}
+
+.bi.bi-arrow-counterclockwise {
+    color: #ff8000;
+    font-size: 25px;
+}
+
+.bi.bi-house-check {
+    color: #064109;
+    font-size: 25px;
+}
+
+.bi.bi-cart-check {
+    color: #214cb6;
+    font-size: 25px;
+}
+
+.bi.bi-check2-circle {
+    color: #006403;
+    font-size: 25px;
+}
+
+.bi.bi-pencil-square {
+    color: #fcab01;
+    font-size: 25px;
+}
+
+body {
+    margin-top: 20px;
+}
+
+.steps {
+    border: 1px solid #969696;
+}
+
+.steps-header {
+    padding: .375rem;
+    border-bottom: 1px solid #e7e7e7
+}
+
+.steps-header .progress {
+    height: .100rem
+}
+
+.steps-body {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: calc(20% * 5);
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1rem .75rem;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    border-right: 1px dashed #516175;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    flex: 0 0 20%;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 120px;
+}
+
+.step:last-child {
+    border-right: 1px dashed #516175;
+}
+
+.step-icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: .75rem;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    color: #888;
+
+}
+
+
+@media (max-width: 575.98px) {
+    .steps-header {
+        display: none
+    }
+
+    .steps-body,
+    .step {
+        display: block
+    }
+
+    .step {
+        border-right: 0;
+        border-bottom: 1px dashed #e7e7e7;
+    }
+
+    .step:last-child {
+        border-bottom: 0
+    }
+}
+
+/* Tùy chỉnh kích thước của thanh cuộn */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Đối với thanh cuộn ngang */
+    height: 8px;
+    /* Đối với thanh cuộn dọc */
+}
+
+/* Tùy chỉnh nền của thanh cuộn */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Tùy chỉnh nút cuộn (thumb) */
+::-webkit-scrollbar-thumb {
+    background: #c9ddfd;
+}
+
+/* Thay đổi màu của nút cuộn khi hover hoặc click */
+::-webkit-scrollbar-thumb:hover {
+    background: #92bde8;
+}
+
+
+.custom-table td:nth-child(1) {
+    width: 20%;
+}
+
+.custom-table td:nth-child(2) {
+    width: 30%;
+}
+
+.custom-table td:nth-child(3) {
+    width: 20%;
+}
+
+.custom-table td:nth-child(4) {
+    width: 30%;
+}
+
+/******************************************************************************/
+/* button add */
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 4px;
+    height: 32px;
+    width: 81px;
+    border: none;
+    background: #4444c1d0;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 0px;
+}
+
+.lable {
+    line-height: 22px;
+    font-size: 17px;
+    color: #f8f3ed;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+.button:hover {
+    background: #222266ea;
+}
+
+.button:hover .svg-icon {
+    animation: rotate 1.3s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+
+/*==================================================*/
+/*CSS CHECKBOX CÁC HÌNH THỨC THANH TOÁN*/
+/* Kích thước và padding của hình ảnh */
+.checkbox-container img {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 80px; /* Điều chỉnh kích thước của hình ảnh */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+}
+
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 2px;
+}
+
+/* Checkbox ẩn đi */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Định dạng của nút checkbox */
+.custom-checkbox {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #ffffff;
+    border: 1px solid rgb(55, 98, 207);
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgb(55, 98, 207);
+}
+
+/* Định dạng của nút checkbox khi được chọn */
+.custom-checkbox.checked {
+    background-color: #2671c2;
+    color: #fff;
+}
+
+/* Kích thước icon */
+.custom-checkbox img {
+    margin-right: 5px;
+    vertical-align: middle;
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của nút */
+}
+
+/*=================================================*/
+
+/* Định dạng phần tử IMEI đã chọn */
+.selected-imei {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #3273e5;
+    border-radius: 5px;
+}
+
+/* Định dạng danh sách IMEI đã chọn */
+#selectedImeiList {
+    margin-top: 10px;
+}
+
+/*===========================================================================================*/

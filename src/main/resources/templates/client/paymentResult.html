@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!--<html xmlns:th="https://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/extras/java8time">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:java8="http://www.thymeleaf.org/extras/java8time">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <style>
+
+        .bank-list {
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bank-item {
+            flex: 0 0 25%; /* Mỗi phần tử chiếm 25% chiều rộng để có 4 phần tử trên một dòng */
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .bank-item img {
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .last-in-row {
+            margin-right: 0; /* Đảm bảo phần tử cuối cùng trong mỗi dòng không có margin phải */
+        }
+        .zoom-in-zoom-out {
+            margin: 24px;
+            width: 50px;
+            height: 50px;
+            background: green;
+            animation: zoom-in-zoom-out 1s ease-out infinite;
+        }
+
+        @keyframes zoom-in-zoom-out {
+            0% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1.2);
+            }
+
+            100% {
+                transform: scale(1, 1);
+            }
+        }
+
+        #sigup img:hover {
+            transform: scale(1.2);
+        }
+
+        #thuong-hieu img:hover {
+            transform: scale(1.2);
+        }
+
+        .productDetail:hover {
+            transform: scale(1.1);
+        }
+
+        #list a:hover {
+            transform: scale(1.2);
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container > .img2 {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateX(5px) rotate(5deg);
+            }
+
+            75% {
+                transform: translateX(-5px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .shake-animation img {
+            animation-name: shake;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        .fade-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fade-effect img {
+            display: block;
+            width: 100%;
+            height: auto;
+            animation: fade 2s linear infinite;
+        }
+
+        @keyframes fade {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(0.5);
+            }
+        }
+
+        .title-subcontent {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-stack {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-layer {
+            position: absolute;
+        }
+
+        .image-layer:nth-child(1) {
+            top: 20;
+            left: 0;
+            z-index: 2;
+        }
+
+        .image-layer:nth-child(2) {
+            top: 80px;
+            left: 200px;
+            z-index: 3;
+        }
+
+        .image-layer:nth-child(3) {
+            top: 50px;
+            left: 500px;
+            z-index: 1;
+        }
+
+        .input-with-icon::placeholder {
+            background-image: url('data:image/svg+xml;utf8,<svg height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            padding-left: 30px;
+            /* Điều chỉnh khoảng cách giữa icon và placeholder */
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 10px;
+            background-color: #da5361;
+            color: #fff;
+            position: relative;
+            width: auto;
+            height: 30px;
+        }
+
+        .badge .text {
+            margin-left: 6px;
+            /* Khoảng cách giữa close và văn bản */
+        }
+
+        .badge .close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        .selected {
+            border: 2px solid #da5361;
+            background-color: #da5361;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<div class="container-fluid" id="grad" style="background: #FF3131;">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light py-0 my-0" style="height: 64px;">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/trang-chu}">
+                    <img th:src="@{/images/logo/mpshop.png}" alt="" style="width: 150px; height: 52px;">
+                </a>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent"
+                     style="margin-left: 100px; justify-content: space-around;">
+                    <form class="d-flex">
+                        <input class="form-control input-with-icon" type="search" placeholder="Bạn cần tìm gì?"
+                               aria-label="Search" style="width: 500px; border-radius: 8px; height: 33px;">
+
+                    </form>
+                    <div class="d-flex float-end">
+                        <div id="sigup" class="me-2">
+                            <a th:if="${KhachHang != null}" th:href="@{'/danh-sach-don-hang/' + ${KhachHang.id}}">
+                                <img th:src="@{/images/icons/4.png}" alt="" style="width: 45px; height: 38px;"
+                                     class="mx-2">
+                            </a>
+                            <a th:if="${KhachHang == null}" href="">
+                                <img th:src="@{/images/icons/4.png}" alt="" style="width: 45px; height: 38px;"
+                                     class="mx-2">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Đơn hàng</p>
+                        </div>
+                        <div id="sigup" class="me-3">
+                            <a th:if="${KhachHang != null}" th:href="@{'/gio-hang/' + ${KhachHang.id}}">
+                                <img th:src="@{/images/icons/3.png}" alt="" style="width: 42px; height: 38px;">
+                            </a>
+                            <a th:if="${KhachHang == null}" href="">
+                                <img th:src="@{/images/icons/3.png}" alt="" style="width: 42px; height: 38px;">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Giỏ hàng</p>
+                        </div>
+                        <div id="sigup">
+                            <a href="">
+                                <img th:src="@{/images/icons/5.png}" alt="" style="width: 38px; height: 38px;">
+                            </a>
+                            <p th:if="${KhachHang != null}"  style="color: white; font-size: 11px;" class="m-0" th:text="${KhachHang.tenKhachHang}"></p>
+                            <p th:if="${KhachHang == null}"  style="color: white; font-size: 11px;" class="m-0">Tài khoản</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+</div>
+<!-- content -->
+<div class="container">
+    <div class="row">
+        <!--    Chọn hình thức thanh toán-->
+        <div class="col-sm-8">
+            <input type="hidden" id="idHoaDon" th:value="${idHoaDon}"/>
+            <div class="card text-center">
+                <div class="card-header">
+                    <img  src="../assets/img/icons/brands/vnpay-logo-inkythuatso-01.png"
+                            alt="" class="img-fluid" style="width: 120px; height: 30px">
+                </div>
+                <div class="card-body">
+                    <h3>Chọn phương thức thanh toán</h3>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-secondary" type="button" id="btnVNPay" onclick="setPaymentMethod('VNPay')">Ứng dụng thanh toán VNPay</button>
+                        <button class="btn btn-outline-secondary" type="button" id="btnATM" onclick="toggleBankList()">Thẻ ATM/ Tài khoản ngân hàng</button>
+                        <div class="d-grid gap-2 d-none" id="bankListContainer">
+                            <ul class="bank-list">
+                                <li th:each="bank, stat : ${banks}" class="bank-item border border-light"
+                                    th:classappend="${stat.index % 4 == 3} ? 'last-in-row'"
+                                    onclick="setBankCode(this)">
+                                    <img th:src="${bank.logo}" alt="Logo ngân hàng" width="130" height="75"/>
+                                    <span th:text="${bank.code}"></span>
+                                    <input type="hidden" class="bankName" th:value="${bank.name}"/>
+                                    <input type="hidden" th:value="${bank.shortName}"/>
+                                    <input type="hidden" class="bankCode" th:value="${bank.code}"/>
+                                    <input type="hidden" class="bankBin" th:value="${bank.bin}"/>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline-secondary" type="button" id="btnQR" onclick="setPaymentMethod('QR')">Thanh toán bằng mã QR</button>
+                    </div>
+
+                </div>
+            </div>
+            <button id="tiepTucThanhToan" class="btn btn-primary" onclick="submitPayment()">Tiếp tục thanh toán</button>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--Time line đơn hàng-->
+<div class="container-fluid py-5">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="horizontal-timeline">
+
+                <ul class="list-inline items">
+                    <li class="list-inline-item items-list">
+                        <div class="px-4">
+                            <div class="event-date badge bg-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542s.987-.254 1.194-.542C9.42 6.644 9.5 6.253 9.5 6a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2z"/>
+                                <path d="M16 6.5h-5.551a2.7 2.7 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5s-1.613-.412-2.006-.958A2.7 2.7 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5z"/>
+                            </svg></div>
+                            <h5 class="pt-2">Chờ xác nhận</h5>
+                            <p class="text-muted">Thời gian xác nhận</p>
+                        </div>
+                    </li>
+                    <li class="list-inline-item items-list">
+                        <div class="px-4">
+                            <div class="event-date badge bg-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
+                            </svg></div>
+                            <h5 class="pt-2">Chờ giao hàng</h5>
+                            <p class="text-muted">Thời gian giao hàng </p>
+                        </div>
+                    </li>
+                    <li class="list-inline-item items-list">
+                        <div class="px-4">
+                            <div class="event-date badge bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                                <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+                            </svg></div>
+                            <h5 class="pt-2">Đang giao hàng</h5>
+                            <p class="text-muted">Thời gian đang giao</p>
+                        </div>
+                    </li>
+                    <li class="list-inline-item items-list">
+                        <div class="px-4">
+                            <div class="event-date badge bg-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                            </svg></div>
+                            <h5 class="pt-2">Đã hoàn thành</h5>
+                            <p class="text-muted">Thời gian hoàn thành đơn hàng</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- footer -->
+
+<script type="text/javascript" th:src="@{/js/chi_tiet_san_pham_client.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+<!-- Page JS -->
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var menuItems = document.querySelectorAll('.menu-item');
+
+        menuItems.forEach(function (item) {
+            item.addEventListener('click', function (event) {
+                // Ngăn chặn hành động mặc định của thẻ a
+                event.preventDefault();
+                // Xóa trạng thái active khỏi tất cả các menu-item
+                menuItems.forEach(function (item) {
+                    item.classList.remove('active');
+                });
+                // Thêm trạng thái active vào menu-item được nhấp vào
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+
+<style>
+    .modal-confirm {
+        color: #0e0d0d;
+        width: 400px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .btn-close {
+        position: absolute;
+        top: -5px;
+        right: -1px;
+    }
+
+    .modal-confirm .modal-body {
+        color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+    .modal-confirm .modal-footer a {
+        color: #999;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #219d53;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+        background: #918f8f;
+    }
+
+    .modal-confirm .btn-danger {
+        background: #b72d2d;
+    }
+    .custom-control-label {
+        padding-left: 10px; /* Khoảng cách giữa radio button và label */
+    }
+
+    .custom-control.custom-radio .custom-control-input {
+        margin-top: 0; /* Loại bỏ khoảng cách mặc định giữa radio button trong custom-control */
+    }
+
+
+</style>
+<style>
+    .horizontal-timeline .items {
+        border-top: 3px solid #e9ecef;
+    }
+
+    .horizontal-timeline .items .items-list {
+        display: block;
+        position: relative;
+        text-align: center;
+        padding-top: 70px;
+        margin-right: 0;
+    }
+
+    .horizontal-timeline .items .items-list:before {
+        content: "";
+        position: absolute;
+        height: 36px;
+        border-right: 2px dashed #dee2e6;
+        top: 0;
+    }
+
+    .horizontal-timeline .items .items-list .event-date {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        right: 0;
+        width: 75px;
+        margin: 0 auto;
+        font-size: 0.9rem;
+        padding-top: 8px;
+    }
+
+    @media (min-width: 1140px) {
+        .horizontal-timeline .items .items-list {
+            display: inline-block;
+            width: 24%;
+            padding-top: 45px;
+        }
+
+        .horizontal-timeline .items .items-list .event-date {
+            top: -40px;
+        }
+    }
+
+</style>
+
+<script>
+    function toggleBankList() {
+        const bankListContainer = document.getElementById("bankListContainer");
+        bankListContainer.classList.toggle("d-none");
+        bankListContainer.classList.toggle("d-block");
+    }
+</script>
+
+<script>
+    let phuongThucThanhToan = '';
+    let bankCode = '';
+    let bankName = '';
+    let bankBin = '';
+    let idHoaDon = document.getElementById("idHoaDon").value;
+
+    function toggleBankList() {
+        const bankListContainer = document.getElementById("bankListContainer");
+        bankListContainer.classList.toggle("d-none");
+        bankListContainer.classList.toggle("d-block");
+    }
+
+    function setPaymentMethod(method) {
+        phuongThucThanhToan = method;
+        bankCode = ''; // Reset bank code if payment method is not ATM
+        bankName = ''; // Reset bank code if payment method is not ATM
+        bankBin = ''; // Reset bank code if payment method is not ATM
+        console.log('Phương thức thanh toán:', phuongThucThanhToan);
+    }
+
+    // function setBankCode(method) {
+    //     phuongThucThanhToan = method;
+    //     let bankCodeValue = document.getElementById("bankCode").value;
+    //     bankCode = bankCodeValue;
+    //     console.log('Phương thức thanh toán:', phuongThucThanhToan, 'Mã ngân hàng:', bankCode);
+    // }
+
+    function setBankCode(element) {
+        phuongThucThanhToan = 'ATM';
+        let bankCodeValue = element.querySelector(".bankCode").value;
+        let bankNameValue = element.querySelector(".bankName").value;
+        let bankBinValue = element.querySelector(".bankBin").value;
+        bankCode = bankCodeValue;
+        bankName = bankNameValue;
+        bankBin = bankBinValue;
+        console.log('Phương thức thanh toán:', phuongThucThanhToan, 'Tên ngân hàng:', bankName, 'Mã ngân hàng:', bankCode, 'Bin:', bankBin);
+    }
+
+
+
+    function submitPayment() {
+        // Tạo chuỗi truy vấn từ các biến
+        const queryString = new URLSearchParams({
+            phuongThucThanhToan: phuongThucThanhToan,
+            bankCode: bankCode,
+            bankName: bankName,
+            bankBin: bankBin,
+            idHoaDon: idHoaDon
+
+        }).toString();
+
+        fetch(`/phuong-thuc-thanh-toan?${queryString}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert('Thanh toán thành công!');
+                let url = "/payment?idHoaDon=" + encodeURIComponent(data.idHoaDon);
+                if (data.phuongThucThanhToan === 'ATM') {
+                    url += "&phuongThucThanhToan=" + encodeURIComponent(data.phuongThucThanhToan) + "&bankCode=" + encodeURIComponent(data.bankCode) + "&bankName=" + encodeURIComponent(data.bankName) + "&bankBin=" + encodeURIComponent(data.bankBin);
+                } else if (data.phuongThucThanhToan === 'VNPay' || data.phuongThucThanhToan === 'QR') {
+                    url += "&phuongThucThanhToan=" + encodeURIComponent(data.phuongThucThanhToan);
+                }
+                window.location.href = url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra, vui lòng thử lại.');
+            });
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div id="diaChiMacDinhFragment" th:fragment="diaChiMacDinhFragment">
+    <div th:if="${lstDiaChiMacDinh.size() > 0}" th:each="dc : ${lstDiaChiMacDinh}" class="row mt-2">
+        <div class="col-md-12">
+            <label class="form-label" th:text="${dc.diaChiCuThe +', '+dc.phuong+', '+dc.quan+', '+dc.tinh}"></label>
+        </div>
+    </div>
+    <div th:if="${lstDiaChiMacDinh.size() == 0}">
+        <p>Không có địa chỉ mặc định nào</p>
+    </div>
+</div>
+</body>
+</html>

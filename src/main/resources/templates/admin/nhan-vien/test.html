@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"         xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<img src="https://res.cloudinary.com/dgqhaa60g/image/upload/v1712375960/dixfwdmhhodiddrdqtdd.png">
+<form id="formAccountSettings"
+      th:action="@{/uploads}" method="POST" enctype="multipart/form-data">
+<h1>test</h1>
+<div class="button-wrapper">
+    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+        <span class="d-none d-sm-block">Tải lên ảnh</span>
+        <i class="bx bx-upload d-block d-sm-none"></i>
+        <input type="file" id="upload" class="account-file-input" hidden
+               accept="image/png, image/jpeg,image/jpg" name="avatar"/>
+    </label>
+    <button type="button"
+            class="btn btn-outline-secondary account-image-reset mb-4">
+        <i class="bx bx-reset d-block d-sm-none"></i>
+        <span class="d-none d-sm-block">Làm mới</span>
+    </button>
+<button type="submit">ok</button>
+
+</div>
+</form>
+<img th:src="@{${img}}">
+</body>
+</html>

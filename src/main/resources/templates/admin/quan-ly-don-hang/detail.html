@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="http://www.thymeleaf.org"
+
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Chi tiết đơn hàng</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/favicon.ico}">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3'></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item active">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3'></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3'></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div>Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div>Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div>Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div>Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/rom/index';|" class="menu-link">
+                                <div>ROM</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div>Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3'></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <h4 style="color: black" class="fw-bold py-3 mb-2 mt-2"><span class="text-muted fw-light">Quản lý hóa đơn /</span>Chi
+                        tiết đơn hàng</h4>
+
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img th:src="@{/assets/img/avatars/avt.png}" alt="Avatar" class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!-- / Navbar -->
+                    <!-- ALERT -->
+                    <div th:if="${success != null}" class="success slideInRight" id="successMessage1">
+                        <div class="success__icon">
+                            <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                      d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                                      fill="#393a37" fill-rule="evenodd">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="success__title" th:text="${success}"></div>
+                    </div>
+                    <!-- ALERT DELETE SUCCESS-->
+                    <div class="success slideInRight" id="successMessage">
+                        <div class="success__icon">
+                            <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                      d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                                      fill="#393a37" fill-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="success__title"></div>
+                    </div>
+
+
+                    <div th:if="${error != null}" class="error slideInRight" id="errorMessage">
+                        <div class="error__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24"
+                                 fill="none">
+                                <path fill="#393a37"
+                                      d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="error__title" th:text="${error}"></div>
+                    </div>
+
+                    <!-- QR Modal -->
+                    <div class="modal fade" id="qrModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Quét mã QR</h4>
+                                    <button id="qrButton" th:data-hoa-don-id="${hoaDon.id}" type="button"
+                                            class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="qr-reader" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="card container pb-5 mb-sm-4">
+                        <div class="steps mt-3">
+                            <div class="steps-header">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 100%"
+                                         aria-valuenow="${currentStatus * 20}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="steps-body">
+                                <div class="step" th:each="status : ${lshd}">
+                                    <span class="step-icon" th:class="${statusIcons[status.trangThai]}"></span>
+                                    <span style="color: black" class="step-text"
+                                          th:text="${statusTextHelper.statusText(status.trangThai)}"></span>
+                                    <span class="step-text badge bg-label-primary me-1"
+                                          th:text="${#dates.format(status.thoiGian, 'dd-MM-yyyy  HH:mm:ss')}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex">
+
+                            <!-- Modal Confirm -->
+                            <div id="confirmModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-check-circle"
+                                               style="color: #19702d; font-size: 50px;"></i>
+                                            <h4 class="modal-title w-100">Xác nhận đơn hàng?</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Khi đồng ý xác nhận, đơn hàng sẽ chuyển sang trạng thái chờ giao
+                                                hàng!</p>
+                                            <input type="text" id="confirmationNote" class="form-control"
+                                                   value="Xác nhận đơn hàng">
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Hủy
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    style="color: white; padding-top: 10px" onclick="confirmOrder()">Xác
+                                                nhận
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal ship-order -->
+                            <div id="shipModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-check-circle"
+                                               style="color: #19702d; font-size: 50px;"></i>
+                                            <h4 class="modal-title w-100">Xác nhận giao hàng?</h4>
+                                            <button type="button" class="btn-close" aria-label="Close"
+                                                    data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Khi đồng ý xác nhận, đơn hàng sẽ được giao cho đơn vị vận chuyển!</p>
+                                            <input type="text" id="shipNote" class="form-control"
+                                                   value="Xác nhận giao hàng cho đơn vị vận chuyển">
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Hủy
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    style="color: white; padding-top: 10px" onclick="shipOrder()">Xác
+                                                nhận
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal complete-order -->
+                            <div id="completeModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-check-circle"
+                                               style="color: #19702d; font-size: 50px;"></i>
+                                            <h4 class="modal-title w-100">Xác nhận hoàn thành đơn hàng?</h4>
+                                            <button type="button" class="btn-close" aria-label="Close"
+                                                    data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Khi đồng ý xác nhận, đơn hàng sẽ chuyển sang trạng thái giao hàng
+                                                thành
+                                                công!</p>
+                                            <input type="text" id="completeNote" class="form-control"
+                                                   value="Xác nhận giao hàng thành công">
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    style="color: white; padding-top: 10px" onclick="completeOrder()">
+                                                Xác
+                                                nhận
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal hoàn tác -->
+                            <div id="undoModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-arrow-counterclockwise"
+                                               style="color: #f17814; font-size: 50px;"></i>
+                                            <p class="modal-title w-100 fs-4">Nhập lý do hoàn tác đơn hàng?</p>
+                                            <button type="button" class="btn-close" aria-label="Close"
+                                                    data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form id="undoForm"
+                                              th:action="@{'/quan-ly-don-hang/undo-order/' + ${hoaDonId}}"
+                                              method="post">
+                                            <div class="mb-3 mx-4">
+                                                    <textarea style="border: solid 1px #dee2e6"
+                                                              class="form-control mt-4" id="confirmGhiChu"
+                                                              th:name="ghiChu"
+                                                              oninput="checkInputUndo()">
+                                                 </textarea>
+                                                <p class="mt-1" id="errorMss" style="color: red; display: none;">Vui
+                                                    lòng nhập lý do hoàn tác trên 30 ký tự.</p>
+                                            </div>
+                                        </form>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy
+                                            </button>
+                                            <button type="submit" form="undoForm" class="btn btn-primary"
+                                                    id="confirmButton" disabled>Xác nhận
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal hủy đơn -->
+                            <div id="cancelModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-x-circle" style="color: #bf2121; font-size: 50px;"></i>
+                                            <h4 class="modal-title w-100">Nhập lý do hủy hàng</h4>
+                                            <button type="button" class="btn-close" aria-label="Close"
+                                                    data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form id="confirmForm"
+                                              th:action="@{'/quan-ly-don-hang/cancel-order/' + ${hoaDonId}}"
+                                              method="post">
+                                            <div class="mb-3 mx-4">
+                                                    <textarea style="border: solid 1px #dee2e6"
+                                                              class="form-control mt-4" id="confirmDescription"
+                                                              th:name="description" oninput="checkInputCancel()">
+                                                </textarea>
+                                                <p class="mt-1" id="errorMssCancel"
+                                                   style="color: red; display: none;">
+                                                    Vui lòng nhập lý do hủy đơn trên 30 ký tự.</p>
+                                            </div>
+                                            <p th:if="${checkLength != null}" style="color: red">${checkLength}</p>
+                                        </form>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy
+                                            </button>
+                                            <button type="submit" form="confirmForm" class="btn btn-primary"
+                                                    id="confirmCancel" disabled>Xác nhận
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="actions d-flex justify-content-start mt-3 col-8">
+                                <button th:if="${trangThaiHoaDon == 1}" type="button"
+                                        th:data-hoa-don-id="${hoaDon.id}"
+                                        class="btn btn-primary me-2"
+                                        id="confirmOrderButton">Xác nhận
+                                </button>
+
+                                <!-- Nút Giao hàng -->
+                                <button th:if="${trangThaiHoaDon == 2}" type="button" class="btn btn-primary me-2"
+                                        data-bs-toggle="modal" data-bs-target="#shipModal"
+                                        th:data-hoa-don-id="${hoaDon.id}">Giao hàng
+                                </button>
+                                <!-- Nút Hoàn thành đơn -->
+                                <button th:if="${trangThaiHoaDon == 3}" type="button" class="btn btn-primary me-2"
+                                        id="completeButton" th:data-hoa-don-id="${hoaDon.id}">Hoàn thành đơn
+                                </button>
+
+                                <!-- Nút Hoàn tác -->
+                                <button th:if="${trangThaiHoaDon == 2 || trangThaiHoaDon == 3}" type="button"
+                                        class="btn btn-warning me-2" data-bs-toggle="modal"
+                                        data-bs-target="#undoModal">Hoàn tác
+                                </button>
+
+                                <!-- Nút Hủy -->
+                                <button
+                                        th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2 || trangThaiHoaDon == 3}"
+                                        type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
+                                        data-bs-target="#cancelModal">Hủy
+                                </button>
+
+                            </div>
+
+                            <!-- Phần chi tiết đơn hàng -->
+                            <div class="d-flex justify-content-end mt-3 col-4">
+                                <button style="background-color: #0184bb; color: #ffffff" class="btn me-1"
+                                        id="inHoaDon">In hóa đơn
+                                </button>
+                                <button style="background-color: #fd5151; color: black" class="btn" id="openModalBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#largeModal">Chi tiết
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card container pb-5 mb-sm-4">
+                        <h4 style="color: black"
+                            class="card-header d-flex justify-content-between align-items-center">
+                            Thông tin đơn hàng
+                            <button data-bs-toggle="modal" data-bs-target="#modalShipping"
+                                    th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2}" type="button"
+                                    class="btn btn-primary ">Cập nhật
+                            </button>
+
+                        </h4>
+                        <input type="hidden" id="khach-hang-id" th:value="${hoaDon.idKhachHang.id}">
+                        <div class="table-responsive text-nowrap mb-3">
+                            <table style="color: black" class="table custom-table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3 ">
+                                        </i> <strong>Mã đơn hàng:</strong>
+                                    </td>
+                                    <td class="border-end">
+                                                <span class="badge bg-label-primary me-1"
+                                                      th:text="${hoaDon.maHD}"></span>
+                                    </td>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Ngày đặt hàng:</strong>
+                                    </td>
+                                    <td th:text="${#dates.format(hoaDon.ngayTao,'HH:mm:ss  dd-MM-yyyy' )}"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Loại đơn hàng:</strong>
+                                    </td>
+                                    <td class="border-end">
+                                                <span class="badge bg-label-info me-1"
+                                                      th:text="${hoaDon.loaiHoaDon == 1 ? 'Bán hàng tại quầy':'Giao hàng'}">
+                                                </span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Tên người nhận:</strong>
+                                    </td>
+                                    <td th:text="${hoaDon.tenNguoiNhan}"></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Trạng thái:</strong>
+                                    </td>
+                                    <td class="border-end">
+                                                <span class="badge me-1" th:class="${hoaDon.trangThai == 1 ? 'bg-label-warning badge me-1' :
+                                                    (hoaDon.trangThai == 2 ? 'bg-label-primary badge me-1' :
+                                                    (hoaDon.trangThai == 3 ? 'bg-label-info badge me-1' :
+                                                    (hoaDon.trangThai == 4 ? 'bg-label-success badge me-1' :
+                                                    'bg-label-danger badge me-1')))}">
+                                                    [[${hoaDon.trangThai == 1 ? 'Chờ xác nhận' :
+                                                    (hoaDon.trangThai == 2 ? 'Chờ giao hàng' :
+                                                    (hoaDon.trangThai == 3 ? 'Đang giao' :
+                                                    (hoaDon.trangThai == 4 ? 'Hoàn thành' :
+                                                    'Đã hủy')))}]]
+                                                </span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Số điện thoại:</strong>
+                                    </td>
+                                    <td th:text="${hoaDon.sdtNguoiNhan}"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Phiếu giảm giá:</strong>
+                                    </td>
+                                    <td class="border-end">
+                                                <span class="badge bg-label-warning me-1"
+                                                      th:text="${hoaDon.idPhieuGiamGia != null ?
+                                              hoaDon.idPhieuGiamGia.maPhieuGiamGia : 'Không có phiếu giảm giá nào được áp dụng'}">
+                                                </span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                        <strong>Địa chỉ người nhận:</strong>
+                                    </td>
+                                    <td th:text="${hoaDon.diaChi}"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--  Table lịch sử thanh toán -->
+                    <div class="card container pb-5 mb-sm-4">
+                        <h4 style="color: black" class="card-header">Lịch sử thanh toán</h4>
+                        <div class="card-body">
+                            <div class="table-responsive text-nowrap">
+                                <table style="color: black" class="table table-bordered">
+                                    <caption class="ms-4"></caption>
+                                    <thead style="color: black">
+                                    <tr>
+                                        <th class="fw-bold">STT</th>
+                                        <th class="fw-bold">Phương thức thanh toán</th>
+                                        <th class="fw-bold">Số tiền</th>
+                                        <th class="fw-bold">Thời gian</th>
+                                        <th class="fw-bold">Ghi chú</th>
+                                        <th class="fw-bold">Người xác nhận</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="payment-list">
+                                    <tr th:each="lstt, i: ${listLSTT}"
+                                        th:class="${lstt.trangThai == 2 || lstt.trangThai == 3 ? 'text-danger' : ''}">
+                                        <td th:text="${i.index + 1}"></td>
+                                        <td th:text="${lstt.idHinhThuc.tenHinhThuc}"></td>
+                                        <td class="payment-amount"
+                                            th:text="${#strings.replace(#numbers.formatDecimal(lstt.tongTien, 0, 'COMMA', 2, 'POINT'), '.00', '')}">
+                                        </td>
+                                        <td
+                                                th:text="${#dates.format(lstt.idHoaDon.ngayThanhToan,'HH:mm:ss dd-MM-yyyy' )}">
+                                        </td>
+                                        <td th:text="${lstt.ghiChu}"></td>
+                                        <td th:text="${lstt.idHoaDon.idNhanVien.tenNhanVien}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Table  lịch sử thanh toán  -->
+
+                    <!--  Table danh sách sản phẩm đã mua -->
+                    <div class="card container pb-5 mb-sm-4">
+                        <h4 style="color: black"
+                            class="card-header d-flex justify-content-between align-items-center">
+                            Danh sách sản phẩm đã mua
+                            <div>
+                                <!-- Nút để mở modal quét QR -->
+                                <button th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2}"
+                                        style="background-color: #ff8548; color: #ffffff;" type="button"
+                                        class="btn me-2" data-bs-toggle="modal"
+                                        data-bs-target="#qrModal">Quét QR
+                                </button>
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addProduct" th:data-hoa-don-id="${hoaDon.id}"
+                                        th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2}">
+                                    Thêm sản phẩm
+                                </button>
+                            </div>
+                        </h4>
+                        <div class="card-body">
+                            <div class="table-responsive text-nowrap">
+                                <table style="color: black" class="table table-hover">
+                                    <caption class="ms-4"></caption>
+                                    <thead>
+                                    <tr style="color: black">
+                                        <th class="fw-bold">STT</th>
+                                        <th class="fw-bold">SẢN PHẨM</th>
+                                        <th class="fw-bold">IMEI</th>
+                                        <th class="fw-bold">ĐƠN GIÁ</th>
+                                        <th class="fw-bold"
+                                            th:if="${currentStatus == 1 || currentStatus == 2 || currentStatus == 7 }">
+                                            THAO TÁC
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="color: black" id="product-list">
+                                    <tr style="color: black" th:each="hdct, i: ${listImei}">
+                                        <td th:text="${i.index + 1}"></td>
+                                        <td
+                                                th:text="${hdct.getIdHoaDonCT().idChiTietSP.idSanPham.tenSanPham + ' ' + hdct.idHoaDonCT.idChiTietSP.idRAM.ten + ' ' + hdct.idHoaDonCT.idChiTietSP.idROM.tenRom + ' (' + hdct.idHoaDonCT.idChiTietSP.idMauSac.tenMauSac + ')'}">
+                                        </td>
+                                        <td th:text="${hdct.getMaImei()}"></td>
+                                        <td class="product-price"
+                                            th:text="${#strings.replace(#numbers.formatDecimal(hdct.idHoaDonCT.getGia(), 0, 'COMMA', 2, 'POINT'), '.00', '')}">
+                                        </td>
+                                        <td th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2}">
+                                            <i class="bi bi-trash text-danger" th:data-hoa-don-id="${hoaDon.id}"
+                                               th:data-imei="${hdct.getMaImei()}"
+                                               onclick="confirmDelete(this)"></i>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Table danh sách sản phẩm đã mua  -->
+
+
+                    <div class="row">
+                        <div class="col-7">
+                            <div th:if="${HienThiForm}" id="payment-info" class="card p-4 text-nowrap mb-3 px-5"
+                                 style="display: none;">
+                                <h4 style="color: black">Thông tin thanh toán bổ sung</h4>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Tổng tiền cần thanh toán:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="totalAmount">
+                                            <span th:text="${formattedTongTienSauGiam}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Số tiền khách đã thanh toán:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="pay-amount">
+                                            <span th:text="${formattedTongTienThanhToan}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <p>Tổng tiền chênh lệch:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="price_difference">
+                                            <span th:text="${tongTienPhuThu}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                            <span id="trangThaiThanhToan1" class="badge me-1 bg-label-danger mb-1">Trạng
+                                                thái: </span><br>
+                                        <span id="trangThaiThanhToan2"
+                                              style="color: red; font-style: italic; font-size: 18px">Trạng thái:
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="text-end mt-3 mb-2">
+                                    <div class="text-end mt-3 mb-2">
+                                        <!-- Button Xác nhận thanh toán -->
+                                        <button style="background-color: #1f5dba; color: white" class="btn" id="confirmPaymentButton" disabled>
+                                            Xác nhận thanh toán
+                                        </button>
+                                        <!-- Dòng text in nghiêng -->
+                                        <em class="d-block mt-2">Vui lòng áp dụng voucher trước khi xác nhận.</em>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${trangThaiHoaDon == 1 || trangThaiHoaDon == 2}" class="col-5">
+                            <div class="card p-4 text-nowrap mb-3 ps-4">
+                                <input type="hidden" id="current-voucher-id"
+                                       th:value="${hoaDon.idPhieuGiamGia != null} ? ${hoaDon.idPhieuGiamGia.id} : ''">
+                                <div class="row g-2 mb-3">
+                                    <div class="col">
+                                        <label class="form-label" style="color: black">Mã giảm giá</label>
+                                        <select id="discount-code-select" class="form-control"
+                                                th:data-order-id="${hoaDon.id}">
+                                            <option value="">Không áp dụng voucher</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <button id="apply-voucher-button" class="btn btn-primary">Áp dụng</button>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Tổng tiền hàng:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="total-amount">0 ₫</p>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p th:if="${hoaDon.idPhieuGiamGia != null}">
+                                            Giảm giá <span class="badge bg-label-primary me-1 fs-7"
+                                                           th:text="${hoaDon.idPhieuGiamGia.maPhieuGiamGia}"></span>
+                                            <br>
+                                            <span style="color: red; font-style: italic;"
+                                                  th:text="${hoaDon.idPhieuGiamGia.tenPhieuGiamGia}"></span> -
+                                            <span style="color: red; font-style: italic;"
+                                                  th:if="${hoaDon.idPhieuGiamGia.phanTramGiam != null && hoaDon.idPhieuGiamGia.loaiGiamGia == 0}">
+                                                    Giảm <span
+                                                    th:text="${hoaDon.idPhieuGiamGia.phanTramGiam} + '%'"></span>
+                                                </span>
+                                            <span style="color: red; font-style: italic;"
+                                                  th:if="${hoaDon.idPhieuGiamGia.soTienDuocGiam != null && hoaDon.idPhieuGiamGia.loaiGiamGia == 1}">
+                                                    Giảm <span
+                                                    th:text="${#strings.replace(#numbers.formatDecimal(hoaDon.idPhieuGiamGia.soTienDuocGiam, 0, 'COMMA', 2, 'POINT'), '.00', '')} + ' ₫'"></span>
+                                                </span>
+                                        </p>
+                                        <p th:if="${hoaDon.idPhieuGiamGia == null}">Giảm giá</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="discount-amount">0 ₫</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Tổng tiền cần thanh toán:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="total-pay-amount">0 ₫</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${trangThaiHoaDon == 3 || trangThaiHoaDon == 4 || trangThaiHoaDon == 5}"
+                             class="col-5">
+                            <div id="id-hoa-don" th:data-order-id="${hoaDon.id}"
+                                 class="card p-4 text-nowrap mb-3 ps-4">
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Tổng tiền hàng:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="total-amount1">
+                                            <span th:text="${formattedTongTienHang}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p th:if="${hoaDon.idPhieuGiamGia != null}">
+                                            Giảm giá <span class="badge bg-label-primary me-1 fs-7"
+                                                           th:text="${hoaDon.idPhieuGiamGia.maPhieuGiamGia}"></span>
+                                            <br>
+                                            <span style="color: red; font-style: italic;"
+                                                  th:text="${hoaDon.idPhieuGiamGia.tenPhieuGiamGia}"></span> -
+                                            <span style="color: red; font-style: italic;"
+                                                  th:if="${hoaDon.idPhieuGiamGia.phanTramGiam != null}">
+                                                    Giảm <span
+                                                    th:text="${hoaDon.idPhieuGiamGia.phanTramGiam} + '%'"></span>
+                                                </span>
+                                            <span style="color: red; font-style: italic;"
+                                                  th:if="${hoaDon.idPhieuGiamGia.soTienDuocGiam != null}">
+                                                    Giảm <span
+                                                    th:text="${hoaDon.idPhieuGiamGia.soTienDuocGiam} + ' ₫'"></span>
+                                                </span>
+                                        </p>
+                                        <p th:if="${hoaDon.idPhieuGiamGia == null}">Giảm giá</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="discount-amount1">
+                                            <span th:text="${formattedTongTienGiamGia}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-1">
+                                    <div class="col">
+                                        <p>Tổng tiền cần thanh toán:</p>
+                                    </div>
+                                    <div class="col-auto align-self-end">
+                                        <p id="total-pay-amount1">
+                                            <span th:text="${formattedTongTienSauGiam}"></span>
+                                            <span class="currency-symbol"> ₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- Modal Confirm DELETE -->
+            <div id="confirmDeleteModal" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <i class="bi bi-check-circle" style="color: #19702d; font-size: 50px;"></i>
+                            <h5 class="modal-title w-100">Xác nhận xóa sản phẩm khỏi đơn hàng?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button id="confirm-delete-btn" type="button" class="btn btn-primary"
+                                    style="color: white; padding-top: 10px">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Confirm thanh toán khi cửa hàng nợ khách hàng -->
+            <div id="confirmPaymentModal" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <i class="bi bi-check-circle" style="color: #19702d; font-size: 50px;"></i>
+                            <h5 class="modal-title w-100">Xác nhận thanh toán thành công cho khách hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Vui lòng lưu giữ thông tin giao dịch giữa bạn và khách hàng để phục vụ cho việc báo
+                                cáo
+                                và thống kê trong trường hợp có sai sót.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button id="confirm-payment-modal-btn" type="button" class="btn btn-primary"
+                                    style="color: white; padding-top: 10px">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="confirmPayment" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <i class="bi bi-check-circle" style="color: #19702d; font-size: 50px;"></i>
+                            <h5 class="modal-title w-100">Xác nhận khách hàng thanh toán thành công</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Vui lòng lưu giữ thông tin giao dịch giữa bạn và khách hàng để phục vụ cho việc báo
+                                cáo
+                                và thống kê trong trường hợp có sai sót.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button id="confirm-payment-modal-btn1" type="button" class="btn btn-primary"
+                                    style="color: white; padding-top: 10px">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Confirm thanh toán tiền phụ thu từ khách hàng -->
+            <div id="confirmTTPhu" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <i class="bi bi-exclamation-triangle" style="color: #faa12d; font-size: 50px;"></i>
+                            <h5 class="modal-title w-100">Xác nhận hoàn thành đơn hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color: red">Vui lòng đảm bảo nhân viên giao hàng đã phụ thu đủ số tiền thiếu
+                                từ
+                                khách hàng
+                                trước khi xác nhận hoàn thành đơn hàng!</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="confirm-payment-modal-btn2" type="button" class="btn btn-primary"
+                                    style="color: white; padding-top: 10px">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Confirm thanh toán tiền nợ khách hàng -->
+            <div id="confirmTTTien" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <i class="bi bi-exclamation-triangle" style="color: #faa12d; font-size: 50px;"></i>
+                            <h5 class="modal-title w-100">Bạn không thể chuyển trạng thái đơn hàng khi chưa xác nhận
+                                hoàn thành thanh toán tiền nợ cho khách hàng!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Vui lòng xác nhận thanh toán trước khi chuyển trạng thái đơn hàng.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal cập nhật thông tin giao hàng -->
+            <div class="modal fade" id="modalShipping" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Cập nhật thông tin giao hàng</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body recipient-info">
+                            <div class="row g-2 mb-3">
+                                <div class="col mb-0">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input th:value="${hoaDon.tenNguoiNhan}" id="recipient-name"
+                                           style="border: solid 1px #dee2e6" type="text" class="form-control"/>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input th:value="${hoaDon.sdtNguoiNhan}" id="recipient-phone"
+                                           style="border: solid 1px #dee2e6" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col mb-0">
+                                    <label class="form-label">Tỉnh/ Thành phố</label>
+                                    <select id="city" class="form-select" aria-label="Default select example"></select>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Quận/ Huyện</label>
+                                    <select id="district" class="form-select"
+                                            aria-label="Default select example"></select>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Phường/ Xã</label>
+                                    <select id="ward" class="form-select" aria-label="Default select example"></select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">Địa chỉ cụ thể</label>
+                                    <input id="address" th:value="${hoaDon.specificAddress}"
+                                           style="border: solid 1px #dee2e6" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button"
+                                    id="confirm-update"
+                                    th:data-hoa-don-id="${hoaDon.id}"
+                                    style="background-color: #fd5353; color: white"
+                                    class="btn">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal chi tiết lịch sử đơn hàng-->
+            <div class="modal fade" id="largeModal" tabindex="-1" aria-labelledby="exampleModalLabel3"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 style="color: black" class="modal-title fw-bold" id="exampleModalLabel3">Lịch sử đơn
+                                hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                    <caption class="ms-4"></caption>
+                                    <thead>
+                                    <tr>
+                                        <th class="fw-bold">TRẠNG THÁI</th>
+                                        <th class="fw-bold">THỜI GIAN</th>
+                                        <th class="fw-bold">NGƯỜI XÁC NHẬN</th>
+                                        <th class="fw-bold">GHI CHÚ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="color: black">
+                                    <tr th:each="lshd, i: ${history}" style="color: black">
+                                        <td>
+                                                    <span th:switch="${lshd.trangThai}">
+                                                        <i th:case="1" class="bi bi-check-circle me-2"></i>
+                                                        <i th:case="2" class="bi bi-clock me-2"></i>
+                                                        <i th:case="3" class="bi bi-truck me-2"></i>
+                                                        <i th:case="4" class="bi bi-house-check me-2"></i>
+                                                        <i th:case="5" class="bi bi-arrow-counterclockwise me-2"></i>
+                                                        <i th:case="6" class="bi bi-x-circle me-2"></i>
+                                                        <i th:case="7" class="bi bi-pencil-square me-2"></i>
+                                                        <i th:case="8" class="bi bi-check2-circle me-2"></i>
+                                                        <span th:case="*" th:text="${lshd.trangThai}"></span>
+                                                    </span>
+                                            <span th:text="${lshd.trangThai == 1 ? 'Chờ xác nhận' :
+                                               lshd.trangThai == 2 ? 'Chờ giao hàng' :
+                                               lshd.trangThai == 3 ? 'Đã giao cho đơn vị vận chuyển' :
+                                               lshd.trangThai == 4 ? 'Giao hàng thành công' :
+                                               lshd.trangThai == 5 ? 'Hoàn tác' :
+                                               lshd.trangThai == 6 ? 'Đã hủy' :
+                                               lshd.trangThai == 7 ? 'Cập nhật đơn hàng' :
+                                               lshd.trangThai == 8 ? 'Hoàn thành đơn hàng' :''}">
+                                                    </span>
+                                        </td>
+                                        <td th:text="${#dates.format(lshd.thoiGian, 'HH:mm:ss - dd-MM-yyyy')}">
+                                        </td>
+                                        <td th:text="${lshd.idNhanVien.tenNhanVien}"></td>
+                                        <td th:text="${lshd.ghiChu}"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  Modal Thêm sản phẩm vào giỏ hàng-->
+
+            <!-- Modal Thêm sản phẩm vào giỏ hàng -->
+            <div class="modal fade" id="addProduct" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="color: black" id="exampleModalLabel4">Chọn sản phẩm</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="product-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Mã sản phẩm</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Giá sản phẩm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                <tr th:each="sp, i : ${products}">
+                                    <th th:text="${i.index + 1}"></th>
+                                    <td th:text="${sp.idSanPham.maSanPham}"></td>
+                                    <td th:text="${sp.idSanPham.maSanPham}"></td>
+                                    <td th:text="${sp.idSanPham.tenSanPham + ' ' + sp.idRAM.ten + ' ' + sp.idROM.tenRom + ' (' + sp.idMauSac.tenMauSac + ')'}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatDecimal(sp.giaBan, 0, 'COMMA', 2, 'POINT'), '.00', '')}"></td>
+                                    <td th:text="${imeiCounts[sp.getId()]}"></td>
+                                    <td>
+                                        <button style="background-color: #3c7c33; color: white;" class="btn"
+                                                th:attr="data-product-id=${sp.id}"
+                                                onclick="loadImeis(this);" data-bs-toggle="modal"
+                                                data-bs-target="#imeiProduct">Chọn
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="imeiProduct" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Danh sách Imei</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã Imei</th>
+                                    <th scope="col">Chọn</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-group-divider" id="imeiTableBody">
+                                <!-- IMEI list -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button class="btn btn-sm" id="prevPage" onclick="prevPage()"><i
+                                        class="tf-icon bx bx-chevrons-left"
+                                        style="color: #010a17;background-color: #c9ddfd"></i></button>
+                                <span id="pageInfo"></span>
+                                <button class="btn btn-sm" id="nextPage" onclick="nextPage()"><i
+                                        class="tf-icon bx bx-chevrons-right"
+                                        style="color: #010a17;background-color: #c9ddfd"></i></button>
+                            </div>
+                            <h5>Imei đã chọn</h5>
+                            <div id="selectedImeiList"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-primary" onclick="addProductsToCart()">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- / Content -->
+            <!-- Footer -->
+            <footer class="footer bg-light">
+                <div
+                        class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                    <div>
+                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                           target="_blank" class="footer-text fw-bolder ms-5">MPSHOP</a>
+                        ©
+                    </div>
+
+                </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+    </div>
+    <!-- / Layout page -->
+</div>
+<!-- Modal chứa thông tin hóa đơn -->
+<section id="printableBill" style="display: none;">
+    <div class=" my-1 ">
+        <div class="text-center">
+            <!--                <img src="images/logo_dark.png" alt="">-->
+        </div>
+        <div class="text-center border-top border-bottom my-2 py-2">
+            <img class="mb-1" src="/assets/img/icons/logo/logo.png" alt="" width="25%">
+            <p class="m-0">Số điện thoại: 0123456789</p>
+            <p class="m-0">Email: mpshop6868@gmail.com</p>
+            <p class="m-0">Địa chỉ: FPT POLYTECHNIC Cơ Sở Kiều Mai Tunzo, P. Kiều Mai, Phúc Diễn, Từ Liêm, Hà Nội
+            </p>
+        </div>
+        <h1 class="text-center my-4" style="color: black">HÓA ĐƠN BÁN HÀNG</h1>
+        <div class="d-flex justify-content-between">
+            <div class="mt-2">
+                <p class="text-primary mt-2">Số HĐ: <span th:text="${hoaDon.maHD}"></span></p>
+                <ul class="list-unstyled">
+                    <li>Ngày bán: <span th:text="${#dates.format(hoaDon.ngayTao,'HH:mm - dd-MM-yyyy')}"></span></li>
+                    <li>Nhân viên: <span th:text="${hoaDon.idNhanVien.getMaNhanVien()}"></span></li>
+                </ul>
+            </div>
+            <div class="mt-2">
+                <p class="text-primary mt-2">
+                    Khách hàng:
+                    <span th:text="${hoaDon.tenNguoiNhan != null ? hoaDon.tenNguoiNhan : 'Khách lẻ'}"></span>
+                </p>
+                <ul class="list-unstyled">
+                    <li>Sđt: <span th:text="${hoaDon.sdtNguoiNhan}"></span></li>
+                    <li>Địa chỉ: <span th:text="${hoaDon.diaChi}"></span></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table border my-5">
+        <thead>
+        <tr class="bg-primary-subtle">
+            <th scope="col">STT</th>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Imei</th>
+            <th scope="col">Đơn giá</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hdct, i: ${listImei}">
+            <td th:text="${i.index + 1}"></td>
+            <td
+                    th:text="${hdct.getIdHoaDonCT().idChiTietSP.idSanPham.tenSanPham + ' ' + hdct.idHoaDonCT.idChiTietSP.idRAM.ten + ' ' + hdct.idHoaDonCT.idChiTietSP.idROM.tenRom + ' (' + hdct.idHoaDonCT.idChiTietSP.idMauSac.tenMauSac + ')'}">
+            </td>
+            <td th:text="${hdct.getMaImei()}"></td>
+            <td
+                    th:text="${#strings.replace(#numbers.formatDecimal(hdct.idHoaDonCT.getGia(), 0, 'COMMA', 2, 'POINT'), '.00', '')}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-md-flex justify-content-between my-5">
+        <div>
+            <h5 class="fw-bold my-4">Thông tin thanh toán</h5>
+            <ul class="list-unstyled">
+                <li><span class="fw-semibold">Tổng giá trị hóa đơn: </span>
+                    <span th:text="${#strings.replace(#numbers.formatDecimal(hoaDon.tongTien, 0, 'COMMA', 2, 'POINT'), '.00', '') + ' ₫'}"></span>
+                </li>
+
+                <li>
+                    <span class="fw-semibold">Tổng tiền thanh toán: </span>
+                    <span th:text="${tongTienDaThanhToan == 0 ? #numbers.formatDecimal(hoaDon.tongTien, 0, 'COMMA', 2, 'POINT') + ' ₫' :
+                        #strings.replace(#numbers.formatDecimal(tongTienDaThanhToan, 0, 'COMMA', 2, 'POINT'), '.00', '') + ' ₫'}"></span>
+                    <span class="badge me-1"
+                          th:class="${trangThaiThanhToan ? 'bg-label-success badge me-1' : 'badge me-1 bg-label-warning'}">
+        [[${trangThaiThanhToan ? 'Đã thanh toán' : 'Thanh toán khi nhận hàng'}]]
+    </span>
+                </li>
+
+                <li class="mt-2"
+                    th:if="${tongTienPhuThu3Value != null && tongTienPhuThu3Value > 0 || tongTienPhuThuValue != null && tongTienPhuThuValue > 0}">
+                        <span style="color: red; font-size: 20px"
+                              th:text="'Note: Phụ thu thêm bên phía khách hàng: ' + (${tongTienPhuThu3Value != null && tongTienPhuThu3Value > 0 ? tongTienPhuThu3 : tongTienPhuThu})">
+                        </span>
+                    <span class="currency-symbol" style="color: red; font-size: 20px"> ₫</span>
+                </li>
+
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="fixed-bottom text-center">
+        <p class="text-muted">
+            Cảm ơn quý khách và hẹn gặp lại! ❤️
+        </p>
+    </div>
+    </div>
+</section>
+<div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" th:src="@{/js/quan_ly_hoa_don.js}"></script>
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/print.js/1.6.0/print.min.js}"></script>
+<!-- HTML5 QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+</div>
+</body>
+
+</html>
+<script>
+    // Tìm kiếm sản phẩm theo mã/tên trong modal thêm sản phẩm vào giỏ hàng
+    $(document).ready(function () {
+        var table = $('#product-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "language": {
+                "search": "Tìm kiếm sản phẩm: ",
+                "zeroRecords": "Không tìm thấy sản phẩm",
+                "info": "",
+                "infoEmpty": " ",
+                "infoFiltered": "",
+                "lengthMenu": "Hiển thị _MENU_ ",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "  Kế tiếp",
+                    "previous": " Trước đó "
+                }
+            },
+            "columnDefs": [
+                {
+                    "targets": [1, 2, 3],
+                    "searchable": true
+                },
+                {
+                    "targets": '_all',
+                    "searchable": false
+                }
+            ]
+        });
+        $('#button-addon2').on('click', function () {
+            var searchTerm = $('#product-search').val();
+            table.search(searchTerm).draw();
+        });
+    });
+
+    //================================================================================================================
+
+</script>

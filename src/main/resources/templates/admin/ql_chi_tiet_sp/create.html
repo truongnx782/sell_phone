@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+      data-template="vertical-menu-template-free" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <title>Thêm sản phẩm</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3' ></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3' ></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item active">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div >Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div >Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div >Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div >Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/rom/index';|" class="menu-link">
+                                <div >ROM</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div >Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3' ></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    <div class="fw-bold py-3 mb-2 mt-2">
+                        <a th:href="@{'/san-pham/index'}" class="text-decoration-none">
+                            <span class="text-muted fw-light" th:text="${message_title1}"></span>
+                        </a>
+                        /
+                        <span th:text="${message_title2}"></span>
+                    </div>
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- Place this tag where you want the button to render. -->
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img th:src="@{/assets/img/avatars/avt.png}" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="../assets/img/avatars/1.png" alt
+                                                         class="w-px-40 h-auto rounded-circle"/>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">John Doe</span>
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="card mb-4 px-4 p-3">
+
+                            <form th:action="@{/san-pham/store}" method="POST" th:object="${sanPham}" enctype="multipart/form-data" id="productForm"
+                                  onsubmit="return validateForm(event)">
+                                <div class="card-body m-2" style="height: auto">
+                                    <h2 class="text-center">THÊM SẢN PHẨM</h2>
+                                    <!-- ALERT -->
+                                    <div th:if="${success != null}" class="success slideInRight" id="successMessage">
+                                        <div class="success__icon">
+                                            <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path clip-rule="evenodd"
+                                                      d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                                                      fill="#ffffff" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="success__title" th:text="${success}"></div>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Tên sản phẩm</label>
+                                        <input type="text" class="form-control" id="tenSanPham" th:field="*{tenSanPham}"
+                                               th:value="${tenSanPham}">
+                                    </div>
+                                    <small id="tenSanPhamHelp" class="form-text text-danger"
+                                           th:if="${#fields.hasErrors('tenSanPham')}"
+                                           th:errors="*{tenSanPham}"></small>
+                                    <p th:text="${messageTen}" style="color: red"></p>
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Hệ Điều Hành</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idHeDieuHanh" class="form-select me-1">
+                                                    <option th:each="hdh : ${lstHeDieuHanh}" th:value="${hdh.id}"
+                                                            th:text="${hdh.ten}"
+                                                            th:selected="${sanPham.idHeDieuHanh != null and hdh.id == sanPham.idHeDieuHanh}">
+                                                    </option>
+                                                </select>
+
+                                                <small id="idHeDieuHanhHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idHeDieuHanh')}"
+                                                       th:errors="*{idHeDieuHanh}"></small>
+
+                                                <button id="heDieuHanh/store" type="button" class="btn btn-primary btn-xs"
+                                                        data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhHeDieuHanh'">+
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Màn Hình</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idManHinh" class="form-select me-1">
+                                                    <option th:each="mh : ${lstManHinh}" th:value="${mh.id}"
+                                                            th:text="${mh.ten}"
+                                                            th:selected="${sanPham.idManHinh != null and mh.id == sanPham.idManHinh}"></option>
+                                                </select>
+                                                <small id="idManHinhhHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idManHinh')}"
+                                                       th:errors="*{idManHinh}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhManHinh'">+
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Hãng</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idHang" class="form-select me-1">
+                                                    <option th:each="hang : ${lstHang}" th:value="${hang.id}"
+                                                            th:text="${hang.ten}"
+                                                            th:selected="${sanPham.idHang != null and hang.id == sanPham.idHang}"></option>
+                                                </select>
+                                                <small id="idHangHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idHang')}"
+                                                       th:errors="*{idHang}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhHang'">+
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Camera Trước</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idCameraTruoc" class="form-select me-1">
+                                                    <option th:each="cameraTruoc : ${lstCameraTruoc}" th:value="${cameraTruoc.id}"
+                                                            th:text="${cameraTruoc.ten}"
+                                                            th:selected="${sanPham.idCameraTruoc != null and cameraTruoc.id == sanPham.idCameraTruoc}"></option>
+                                                </select>
+                                                <small id="idCameraTruocHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idCameraTruoc')}"
+                                                       th:errors="*{idCameraTruoc}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhCameraTruoc'">+
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="form-label">Camera Sau</label>
+                                            <div class="d-flex">
+                                                <div class="form-select"
+                                                     style="border: 1px solid #ced4da; border-radius: .25rem; padding: .375rem .75rem; height: auto; position: relative;">
+                                                    <div class="option-toggle" onclick="toggleOptions(event)">
+                                                        <span>Chọn Camera Sau</span>
+                                                    </div>
+                                                    <div class="options"
+                                                         style="position: absolute; top: 100%; left: 0; background-color: #fff; width: 100%; border: 1px solid #ced4da; border-top: none; display: none;">
+                                                        <div th:each="cameraSau : ${lstCameraSau}" class="option"
+                                                             style="display: flex; align-items: center; padding: 4px 0;">
+                                                            <input type="checkbox" name="idCameraSau" th:value="${cameraSau.id}"
+                                                                   th:checked="${lstSanPhamCameraSau != null and lstSanPhamCameraSau.contains(cameraSau.id)}"
+                                                                   onclick="toggleRadioAvailability(event)"
+                                                                   style="margin-right: 8px;">
+                                                            <label th:text="${cameraSau.ten}" style="margin: 0;"></label>
+                                                            <input type="radio" name="idCameraChinhSau"
+                                                                   th:value="${cameraSau.id}"
+                                                                   th:checked="${idCameraChinhSau != null and idCameraChinhSau eq cameraSau.id}"
+                                                                   disabled style="margin-left: auto;"
+                                                                   onclick="savecmrcsToLocalStorage(this.value)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhCameraSau'">+
+                                                </button>
+                                            </div>
+                                            <small id="idCameraSauHelp" class="form-text text-danger"
+                                                   th:if="${#fields.hasErrors('idCameraSau')}"
+                                                   th:errors="*{idCameraSau}"></small>
+                                            <small id="idCameraChinhSauHelp" class="form-text text-danger"
+                                                   th:if="${#fields.hasErrors('idCameraChinhSau')}"
+                                                   th:errors="*{idCameraChinhSau}"></small>
+                                            <div id="error-message" style="color: red; display: none;">Vui lòng chọn ít nhất một
+                                                camera sau và camera chính.
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            // Hàm lưu giá trị vào localStorage
+                                            function savecmrcsToLocalStorage(value) {
+                                                localStorage.setItem('idCameraChinhSau', value);
+                                            }
+
+                                            // Hàm để tự động chọn và enable radio button dựa trên giá trị từ localStorage
+                                            function loadSelectedRadio() {
+                                                const savedValue = localStorage.getItem('idCameraChinhSau');
+                                                if (savedValue) {
+                                                    const radios = document.querySelectorAll('input[name="idCameraChinhSau"]');
+                                                    radios.forEach(radio => {
+                                                        if (radio.value === savedValue) {
+                                                            radio.checked = true;
+                                                            radio.disabled = false;  // Bỏ khóa (enable) radio button đã chọn
+                                                        } else {
+                                                            radio.disabled = true;  // Khóa (disable) các radio button khác
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                loadSelectedRadio();
+                                            });
+                                        </script>
+
+
+
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Sim</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idSim" class="form-select me-1">
+                                                    <option th:each="sim : ${lstSim}" th:value="${sim.id}"
+                                                            th:text="${sim.ten}"
+                                                            th:selected="${sanPham.idSim != null and sim.id == sanPham.idSim}"></option>
+                                                </select>
+                                                <small id="idSimHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idSim')}"
+                                                       th:errors="*{idSim}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhSim'">+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Pin</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idPin" class="form-select me-1">
+                                                    <option th:each="pin : ${lstPin}" th:value="${pin.id}"
+                                                            th:text="${pin.ten}"
+                                                            th:selected="${sanPham.idPin != null and pin.id == sanPham.idPin}"></option>
+                                                </select>
+                                                <small id="idPinHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idPin')}"
+                                                       th:errors="*{idPin}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhPin'">+
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Chip</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <select name="idChip" class="form-select me-1">
+                                                    <option th:each="chip : ${lstChip}" th:value="${chip.id}"
+                                                            th:text="${chip.ten}"
+                                                            th:selected="${sanPham.idChip != null and chip.id == sanPham.idChip}"></option>
+                                                </select>
+                                                <small id="idChipHelp" class="form-text text-danger"
+                                                       th:if="${#fields.hasErrors('idChip')}"
+                                                       th:errors="*{idChip}"></small>
+                                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhChip'">+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body m-2" style="height: auto">
+                                    <h2 class="text-center">THÊM PHIÊN BẢN</h2>
+                                    <div class="row mb-3">
+                                        <div class="dropdown col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label"> RAM</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <button class="btn btn-white dropdown-toggle w-100 text-start me-1"
+                                                        style="border: 1px solid #9da8b5;" type="button" id="ramDropdownMenuButton"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Chọn RAM
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="ramDropdownMenuButton">
+                                                    <li class="form-check" id="form-check-ram" th:each="ram : ${lstRam}">
+                                                        <input class="form-check-input" type="checkbox" th:id="'ram' + ${ram.id}"
+                                                               th:name="idRAM" th:value="${ram.id}"
+                                                               th:checked="${listIdRamChecked != null and listIdRamChecked.contains(ram.id)}">
+                                                        <label class="form-check-label" th:for="'ram' + ${ram.id}"
+                                                               th:text="${ram.ten}"></label>
+                                                    </li>
+                                                </ul>
+                                                <button th:if="${lstCTSP!= null && lstCTSP.size<=0}" type="button"
+                                                        class="btn btn-primary btn-xs"
+                                                        data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhRam'">+
+                                                </button>
+                                            </div>
+                                            <p th:text="${messageRam}" style="color: red"></p>
+                                        </div>
+
+
+                                        <div class="dropdown col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label"> ROM</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <button class="btn btn-white dropdown-toggle w-100 text-start me-1"
+                                                        style="border: 1px solid #9da8b5;" type="button" id="romDropdownMenuButton"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Chọn ROM
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="romDropdownMenuButton">
+                                                    <li class="form-check" id="form-check-rom" th:each="rom : ${lstRom}">
+                                                        <input class="form-check-input" type="checkbox" th:name="idROM"
+                                                               th:value="${rom.id}" th:id="'rom' + ${rom.id}"
+                                                               th:checked="${listIdRomChecked != null and listIdRomChecked.contains(rom.id)}">
+                                                        <label class="form-check-label" th:for="'rom' + ${rom.id}"
+                                                               th:text="${rom.tenRom}"></label>
+                                                    </li>
+                                                </ul>
+                                                <button th:if="${lstCTSP!= null && lstCTSP.size<=0}" type="button"
+                                                        class="btn btn-primary btn-xs"
+                                                        data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhRom'">+
+                                                </button>
+                                            </div>
+                                            <p th:text="${messageRom}" style="color: red"></p>
+                                        </div>
+
+
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="form-label">Màu Sắc</label>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <button type="button" class="btn btn-white text-start w-100 me-1"
+                                                        data-bs-toggle="modal"
+                                                        style="border: 1px solid #9da8b5;"
+                                                        data-bs-target="#exampleModal">
+                                                    Chọn Màu sắc
+                                                </button>
+                                                <button th:if="${lstCTSP!= null && lstCTSP.size<=0}" type="button"
+                                                        class="btn btn-primary btn-xs"
+                                                        data-bs-toggle="modal"
+                                                        th:data-bs-target="'#themNhanhMauSac'">+
+                                                </button>
+                                            </div>
+                                            <!-- Button trigger modal -->
+
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Chọn màu sắc</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="btn-group-toggle" data-bs-toggle="buttons">
+                                                                <label class="btn mb-2 ms-2" th:each="mauSac : ${lstMauSac}"
+                                                                       th:style="'background: ' + ${mauSac.maMauSac}">
+                                                                    <input type="checkbox" autocomplete="off" th:name="idMauSac"  id="idMauSac"
+                                                                           th:value="${mauSac.id}"
+                                                                           onchange="changeButtonBackground(this)"
+                                                                           th:text="${mauSac.tenMauSac}">
+                                                                </label>
+                                                            </div>
+                                                            <!--                                                <div class="mt-3" id="selectedButtons">-->
+                                                            <!--                                                    <p>Các màu sắc được chọn:</p>-->
+                                                            <!--                                                </div>-->
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                Đóng
+                                                            </button>
+                                                            <button th:if="${ lstCTSP!= null && lstCTSP.size<=0}" type="submit"
+                                                                    class="btn btn-primary">Xác nhận
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form th:action="@{/san-pham/updatePrice}" method="POST" enctype="multipart/form-data"
+                                  id="updatePriceForm">
+                                <div class="card-body">
+                                    <div class="mb-3">
+
+                                        <div th:each="ram : ${dsRAM}">
+                                            <div th:each="rom : ${dsROM}">
+                                                <div th:each="spct, indexStart : ${lstCTSP}"
+                                                     th:if="${ spct.idROM.id == rom.id && spct.idRAM.id == ram.id}">
+                                                    <div class="spct-container"
+                                                         th:id="'spct-' + ${ram.id} + '-' + ${rom.id}">
+
+                                                        <div class="row align-items-center" >
+                                                            <div class="col-6">
+                                                                <h3 class="mt-2 mb-2"
+                                                                    th:text="'PHIÊN BẢN ' + ${ram.ten} + '/' + ${rom.tenRom}"></h3>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group">
+                                                                    <input type="number" min="0" class="form-control version-input"
+                                                                           th:attr="data-ram-id=${ram.id}, data-rom-id=${rom.id}"
+                                                                           placeholder="Nhập giá trị">
+                                                                    <a th:href="@{'/san-pham/delete/' + ${ram.id} + '/' + ${rom.id} }" class="bx bx-trash btn btn-danger btn-sm"></a>
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <table class="table table-hover mt-2 mb-2">
+                                                            <thead>
+                                                            <th>STT</th>
+                                                            <th>Tên sản phẩm</th>
+                                                            <th>Màu sắc</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Đơn giá</th>
+                                                            <th colspan="2">Thao tác</th>
+                                                            </thead>
+                                                            <tbody>
+                                                            <div th:each="spct, indexStart : ${lstCTSP}">
+                                                                <th:block th:with="innerList=${lstIM[indexStart.index]}">
+                                                                    <tr th:each="mauSac, index : ${dsMauSac}"
+                                                                        th:if="${spct.idMauSac.id == mauSac.id && spct.idROM.id == rom.id && spct.idRAM.id == ram.id}">
+                                                                        <td th:text="${indexStart.index + 1}"></td>
+                                                                        <td th:text="${tenSanPham}"></td>
+                                                                        <td class="m-3 rounded-3">
+                                                                            <input th:style="'width: 60px; hight: 60px; background: ' + ${mauSac.maMauSac}">
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <span th:text="${#lists.size(innerList)}"></span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="number" class="form-control price-input"
+                                                                                   name="price" required placeholder="Đơn giá"
+                                                                                   th:attr="data-ram-id=${spct.idRAM.id}, data-rom-id=${spct.idROM.id}, data-color-id=${spct.idMauSac.id}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="hidden" th:value="${spct.idMauSac.id}"
+                                                                                   name="idRam">
+                                                                            <input type="hidden" th:value="${spct.idROM.id}"
+                                                                                   name="idRom">
+                                                                            <input type="hidden" th:value="${spct.idRAM.id}"
+                                                                                   name="idMauSac">
+                                                                            <a th:href="@{'/san-pham/delete/' + ${ram.id} + '/' + ${rom.id} + '/' + ${mauSac.id}}"
+                                                                               class="bx bx-trash"></a>
+                                                                        </td>
+
+                                                                        <td class="d-flex">
+                                                                            <form>
+                                                                            </form>
+                                                                            <form th:id="'formImport'+${spct.idRAM.id} + '_' + ${spct.idROM.id} + '_' + ${spct.idMauSac.id}"
+                                                                                  th:action="@{'/san-pham/importIM/' + ${spct.idRAM.id} + '/' + ${spct.idROM.id} + '/' + ${spct.idMauSac.id}}"
+                                                                                  method="post" enctype="multipart/form-data"
+                                                                                  class="ms-3 d-flex">
+                                                                                <input type="file" name="file"
+                                                                                       class="form-control flex-grow-1 me-2 form-control-sm"
+                                                                                       accept=".xlsx, .xls">
+                                                                                <button type="button" class="btn btn-primary sm"
+                                                                                        th:onclick="'uploadFile(' + ${spct.idRAM.id} + ',' + ${spct.idROM.id} + ',' + ${spct.idMauSac.id} + ')'">
+                                                                                    Upload
+                                                                                </button>
+                                                                            </form>
+
+                                                                            <button th:id="${spct.idRAM.id} + '_' + ${spct.idROM.id} + '_' + ${spct.idMauSac.id}"
+                                                                                    type="button" class="btn btn-primary "
+                                                                                    style="height: 38px; padding-left:5px; font-size: 12px"
+                                                                                    data-bs-toggle="modal"
+                                                                                    th:data-bs-target="'#addModal' + ${spct.idRAM.id} + '_' + ${spct.idROM.id} + '_' + ${spct.idMauSac.id}">
+                                                                                Nhập
+                                                                            </button>
+
+                                                                            <div class="modal fade"
+                                                                                 th:id="'addModal' + ${spct.idRAM.id} + '_' + ${spct.idROM.id} + '_' + ${spct.idMauSac.id}"
+                                                                                 tabindex="-1" aria-labelledby="addModalLabel"
+                                                                                 aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="addModalLabel">
+                                                                                                Thêm Mới</h5>
+                                                                                            <button type="button" class="btn-close"
+                                                                                                    data-bs-dismiss="modal"
+                                                                                                    aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <form th:id="'formAdd'+${spct.idRAM.id} + '_' + ${spct.idROM.id} + '_' + ${spct.idMauSac.id}"
+                                                                                              th:action="@{'/san-pham/addIM/' + ${spct.idRAM.id} + '/' + ${spct.idROM.id} + '/' + ${spct.idMauSac.id}}"
+                                                                                              method="post">
+                                                                                            <div class="modal-body">
+                                                                                                <div class="mb-3">
+                                                                                                    <label for="inputField"
+                                                                                                           class="form-label"> nhập
+                                                                                                        IM</label>
+                                                                                                    <input class="form-control"
+                                                                                                           id="inputField"
+                                                                                                           name="inputField">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button"
+                                                                                                        class="btn btn-secondary"
+                                                                                                        data-bs-dismiss="modal">Đóng
+                                                                                                </button>
+                                                                                                <button type="button"
+                                                                                                        class="btn btn-primary"
+                                                                                                        th:onclick="'addIM(' + ${spct.idRAM.id} + ',' + ${spct.idROM.id} + ',' + ${spct.idMauSac.id} + ')'">
+                                                                                                    Xác nhận
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </th:block>
+                                                            </div>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <h2 class="text-center">THÊM ẢNH</h2>
+                                        <style>
+                                            .table-centered th,
+                                            .table-centered td {
+                                                text-align: center;
+                                            }
+                                        </style>
+
+                                        <table class="table table-hover mt-2 mb-2 table-centered"
+                                               th:if="${dsMauSac.size>0 && lstCTSP.size>0}">
+                                            <thead>
+                                            <tr>
+                                                <th>Tên màu</th>
+                                                <th>Màu sắc</th>
+                                                <th>Ảnh</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Ảnh chính</td>
+                                                <td class="m-3 rounded-3">
+                                                <td class="m-3 rounded-3">
+                                                    <input style="width: 60px; height: 20px; background-color: white; border: none; outline: none;">
+                                                </td>
+
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                                        <div id="selectedImages" class="d-flex flex-wrap gap-2"></div>
+                                                        <div class="button-wrapper">
+                                                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                                <span class="d-none d-sm-block">Tải lên ảnh</span>
+                                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                                <input type="file" id="upload" class="account-file-input" hidden
+                                                                       accept="image/png, image/jpeg" name="image" multiple
+                                                                       required="true"
+                                                                       onchange="previewImage(event)"/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr th:each="ms, i : ${dsMauSac}">
+                                                <td th:text="${ms.tenMauSac}"></td>
+                                                <td class="m-3 rounded-3">
+                                                <td class="m-3 rounded-3">
+                                                    <input th:style="'width: 60px; hight: 60px; background: ' + ${ms.maMauSac}">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                                        <div th:id="'selectedImages_' + ${ms.id}"
+                                                             class="d-flex flex-wrap gap-2"></div>
+                                                        <div class="button-wrapper">
+                                                            <label th:for="'upload_' + ${ms.id}" class="btn btn-primary me-2 mb-4"
+                                                                   tabindex="0">
+                                                                <span class="d-none d-sm-block">Tải lên ảnh</span>
+                                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                                <input required="true" type="file" th:id="'upload_' + ${ms.id}"
+                                                                       th:attr="data-sanPhamId=${ms.id}" class="account-file-input"
+                                                                       hidden
+                                                                       accept="image/png, image/jpeg" th:name="'images'+${ms.id}"
+                                                                       multiple
+                                                                       onchange="previewImages(event, this.getAttribute('data-sanPhamId'))"/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="modal-footer">
+                                            <a href="/san-pham/them/huy">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                        onclick="clearPriceKeys()">
+                                                    Làm mới
+                                                </button>
+
+                                            </a>
+                                            <button th:if="${lstCTSP.size() > 0}" class="btn btn-primary me-2" type="submit"
+                                                    onclick="return submitCreate()">Xác nhận
+                                            </button>
+
+
+                                            <!--                                MODAL CONFIRM CREATE-->
+                                            <div id="myModalConfirmCreate" class="modal fade">
+                                                <div class="modal-dialog modal-confirm">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header flex-column">
+                                                            <i class="bi bi-x-circle" style="color: #bf2121; font-size: 50px;"></i>
+                                                            <h4 class="modal-title w-100">Xác nhận thêm?</h4>
+                                                            <button type="button" class="btn-close" aria-label="Close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Bạn xác nhận thêm sản phẩm này?</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                Trở lại
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                function submitCreate() {
+                                                    $('#myModalConfirmCreate').modal('show');
+                                                    return false;
+                                                }
+                                            </script>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer bg-light">
+                <div
+                        class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                    <div>
+                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                           target="_blank" class="footer-text fw-bolder ms-5">MPSHOP</a>
+                        ©
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="bx bx-log-out-circle"></i>
+                            Logout</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- / Layout page -->
+</div>
+
+<!--thông báo success-->
+<script>
+    var successMessage = document.getElementById('successMessage');
+    if (successMessage) {
+        successMessage.classList.add('slideInRight');
+        setTimeout(function () {
+            successMessage.classList.remove('slideInRight');
+            successMessage.classList.add('slideOutRight');
+            setTimeout(function () {
+                successMessage.style.display = 'none';
+            }, 500); // Match this duration with slideOutRight animation duration
+        }, 4000);
+    }
+</script>
+
+<!--sự kiện thêm ảnh chính-->
+<script>
+    function previewImage(event) {
+        const selectedImagesDiv = document.getElementById("selectedImages");
+        selectedImagesDiv.innerHTML = ""; // Reset previously selected images
+        const files = event.target.files;
+        for (let i = 0; i < Math.min(files.length, 4); i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("d-block", "rounded", "mb-2");
+                img.height = 100;
+                img.width = 100;
+                selectedImagesDiv.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+
+<!--Sự kiện chọn ảnh theo màu-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function previewImages(event, sanPhamId) {
+        const selectedImagesDiv = document.getElementById('selectedImages_' + sanPhamId);
+        selectedImagesDiv.innerHTML = ""; // Reset previously selected images
+        const files = event.target.files;
+        selectedImages[sanPhamId] = files; // Ghi nhớ danh sách ảnh vào biến selectedImages
+
+        for (let i = 0; i < Math.min(files.length, 4); i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("d-block", "rounded", "mb-2");
+                img.height = 100;
+                img.width = 100;
+                selectedImagesDiv.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    var selectedImages = {}; // Biến JavaScript để lưu trữ danh sách ảnh đã chọn
+
+    function submitForm() {
+        var form = document.getElementById('updatePriceForm');
+        var formData = new FormData(form);
+
+        // Thêm các ảnh đã chọn vào formData với tên trường động
+        for (var sanPhamId in selectedImages) {
+            if (selectedImages.hasOwnProperty(sanPhamId)) {
+                var images = selectedImages[sanPhamId];
+                for (var i = 0; i < images.length; i++) {
+                    formData.append('images_' + sanPhamId, images[i]);
+                }
+            }
+        }
+
+        // Tạo và gửi yêu cầu POST
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", form.action, true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Xử lý phản hồi từ server nếu cần thiết
+                alert('Form submitted successfully!');
+            } else {
+                // Xử lý lỗi nếu có
+                alert('Form submission failed.');
+            }
+        };
+        xhr.send(formData);
+    }
+
+    /*]]>*/
+</script>
+
+
+<!--Ngăn sự kiện khi nhấn enter-->
+<script>
+    // Lắng nghe sự kiện keydown trên document để ngăn chặn nút Enter
+    document.addEventListener('keydown', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) { // 13 là mã ASCII của phím Enter
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Lắng nghe sự kiện keypress trên document để ngăn chặn nút Enter
+    document.addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) { // 13 là mã ASCII của phím Enter
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
+
+
+<!-- MODAL THÊM NHANH HỆ ĐIỀU HÀNH -->
+<div class="modal fade" id="themNhanhHeDieuHanh"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormthemNhanhHeDieuHanh" th:action="@{/he-dieu-hanh/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tenHeDieuHanh" class="form-label">Tên hệ điều hành</label>
+                        <input type="text" id="tenHeDieuHanh" name="ten" class="form-control" required>
+                        <div id="tenHeDieuHanhFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhHeDieuHanh()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhHeDieuHanh() {
+        var form = document.getElementById('FormthemNhanhHeDieuHanh');
+        var ten = document.getElementById('tenHeDieuHanh');
+        var feedback = document.getElementById('tenHeDieuHanhFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH MÀN HÌNH -->
+<div class="modal fade" id="themNhanhManHinh"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormThemNhanhManHinh" th:action="@{/man-hinh/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tenManHinh" class="form-label">Tên màn hình</label>
+                        <input type="text" id="tenManHinh" name="ten" class="form-control" required>
+                        <div id="tenManHinhFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhManHinh()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhManHinh() {
+        var form = document.getElementById('FormThemNhanhManHinh');
+        var ten = document.getElementById('tenManHinh');
+        var feedback = document.getElementById('tenManHinhFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH HÃNG -->
+<div class="modal fade" id="themNhanhHang"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormThemNhanhHang" th:action="@{/hang/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên hệ hãng</label>
+                        <input type="text" id="tenHang" name="ten" class="form-control" required>
+                        <div id="tenHangFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhHang()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhHang() {
+        var form = document.getElementById('FormThemNhanhHang');
+        var ten = document.getElementById('tenHang');
+        var feedback = document.getElementById('tenHangFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!--    MODAL THÊM NHANH CAMERA TRƯỚC-->
+<div class="modal fade" id="themNhanhCameraTruoc"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormCameraTruoc" th:action="@{/cameraTruoc/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên camera trước</label>
+                        <input type="text" id="tenCameraTruoc" name="ten" class="form-control" required>
+                        <div id="tenCameraTruocFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhCameraTruoc()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhCameraTruoc() {
+        var form = document.getElementById('FormCameraTruoc');
+        var ten = document.getElementById('tenCameraTruoc')
+        var feedback = document.getElementById('tenCameraTruocFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+
+<!-- MODAL THÊM NHANH CAMERA SAU -->
+<div class="modal fade" id="themNhanhCameraSau"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormCameraSau" th:action="@{/cameraSau/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên camera sau</label>
+                        <input type="text" id="tenCameraSau" name="ten" class="form-control" required>
+                        <div id="tenCameraSauFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhCameraSau()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhCameraSau() {
+        var form = document.getElementById('FormCameraSau');
+        var ten = document.getElementById('tenCameraSau');
+        var feedback = document.getElementById('tenCameraSauFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH SIM -->
+<div class="modal fade" id="themNhanhSim"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormSim" th:action="@{/sim/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên sim</label>
+                        <input type="text" id="tenSim" name="ten" class="form-control" required>
+                        <div id="tenSimFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhSim()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhSim() {
+        var form = document.getElementById('FormSim');
+        var ten = document.getElementById('tenSim');
+        var feedback = document.getElementById('tenSimFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH PIN -->
+<div class="modal fade" id="themNhanhPin"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormPin" th:action="@{/pin/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên sim</label>
+                        <input type="text" id="tenPin" name="ten" class="form-control" required>
+                        <div id="tenPinFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhPin()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhPin() {
+        var form = document.getElementById('FormPin');
+        var ten = document.getElementById('tenPin');
+        var feedback = document.getElementById('tenPinFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH CHIP -->
+<div class="modal fade" id="themNhanhChip"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormChip" th:action="@{/chip/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên chip</label>
+                        <input type="text" id="tenChip" name="ten" class="form-control" required>
+                        <div id="tenChipFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhChip()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhChip() {
+        var form = document.getElementById('FormChip');
+        var ten = document.getElementById('tenChip');
+        var feedback = document.getElementById('tenChipFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+
+<!-- MODAL THÊM NHANH RAM -->
+<div class="modal fade" id="themNhanhRam"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormRam" th:action="@{/ram/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên ram</label>
+                        <input type="text" id="tenRam" name="ten" class="form-control" required>
+                        <div id="tenRamFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhRam()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhRam() {
+        var form = document.getElementById('FormRam');
+        var ten = document.getElementById('tenRam');
+        var feedback = document.getElementById('tenRamFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH ROM -->
+<div class="modal fade" id="themNhanhRom"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormRom" th:action="@{/rom/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên rom</label>
+                        <input type="text" id="tenRom" name="ten" class="form-control" required>
+                        <div id="tenRomFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhRom()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhRom() {
+        var form = document.getElementById('FormRom');
+        var ten = document.getElementById('tenRom');
+        var feedback = document.getElementById('tenRomFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+<!-- MODAL THÊM NHANH MÀU SẮC -->
+<div class="modal fade" id="themNhanhMauSac"
+     tabindex="-1" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Mới</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="FormMauSac" th:action="@{/mau-sac/quick-store}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+
+                        <label class="form-label">Mã màu sắc</label>
+                        <input type="text" id="maMauSac" name="ma" class="form-control" required>
+                        <br>
+                        <label class="form-label">Tên màu sắc</label>
+                        <input type="text" id="tenMauSac" name="ten" class="form-control" required>
+                        <div id="tenMauSacFeedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="themNhanhMauSac()">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function themNhanhMauSac() {
+        var form = document.getElementById('FormMauSac');
+        var ten = document.getElementById('tenMauSac');
+        var ma = document.getElementById('maMauSac');
+        var feedback = document.getElementById('tenMauSacFeedback');
+
+        var formData = new FormData(form);
+        var action = form.getAttribute('action');
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == 1) {
+                    feedback.textContent = 'Tên không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 2) {
+                    feedback.textContent = 'Mã không được để trống.';
+                    ten.classList.add('is-invalid');
+                } else if (response == 3) {
+                    feedback.textContent = 'Tên không được trùng.';
+                    ma.classList.add('is-invalid');
+                } else if (response == 4) {
+                    feedback.textContent = 'Mã không được trùng.';
+                    ma.classList.add('is-invalid');
+                } else if (response == 5) {
+                    window.location.reload(); // Load lại trang web khi thêm thành công
+                }
+
+            },
+            error: function (xhr, status, error) {
+                alert('Thêm mới thất bại!');
+                console.error('Error: ', error);
+            }
+        });
+    }
+
+</script>
+
+
+
+
+<!--//////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--IMPORT IM-->
+<script>
+    function uploadFile(idRAM, idROM, idMauSac) {
+        var formId = 'formImport' + idRAM + '_' + idROM + '_' + idMauSac;
+        var form = document.getElementById(formId);
+        if (form) {
+            var formData = new FormData(form);
+            var action = form.getAttribute('action');
+
+            $.ajax({
+                url: action,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle success response
+                    if (response != null && response.trim() !== "") {
+                        alert(response);
+                    }
+                    window.location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert('File upload failed!');
+                    console.error('Error: ', error);
+                    // Handle error response
+                }
+            });
+        } else {
+            console.error('Form not found: ' + formId);
+        }
+    }
+</script>
+
+<!--ADD IM-->
+<script>
+    function addIM(idRAM, idROM, idMauSac) {
+        var formId = 'formAdd' + idRAM + '_' + idROM + '_' + idMauSac;
+        var form = document.getElementById(formId);
+        if (form) {
+            var formData = new FormData(form);
+            var action = form.getAttribute('action');
+
+            $.ajax({
+                url: action,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle success response
+                    if (response != null && response.trim() !== "") {
+                        alert(response);
+                    }
+                    window.location.reload();
+
+                },
+                error: function (xhr, status, error) {
+                    alert('File upload failed!');
+                    console.error('Error: ', error);
+                    // Handle error response
+                }
+            });
+        } else {
+            console.error('Form not found: ' + formId);
+        }
+    }
+</script>
+
+<!--                           CHỌN CAMERA SAU-->
+<script>
+    function toggleOptions(event) {
+        const options = event.currentTarget.nextElementSibling;
+        options.style.display = options.style.display === "none" || options.style.display === "" ? "block" : "none";
+    }
+
+    function toggleRadioAvailability(event) {
+        const checkbox = event.target;
+        const radioButton = checkbox.parentNode.querySelector('input[type="radio"][name="idCameraChinhSau"]');
+        radioButton.disabled = !checkbox.checked;
+
+        // Cập nhật danh sách các camera sau đã chọn
+        updateSelectedCameras();
+    }
+
+    function updateSelectedCameras() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="idCameraSau"]');
+        const selectedCameras = [];
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                const cameraName = checkbox.nextElementSibling.innerText;
+                selectedCameras.push(cameraName);
+            }
+        });
+
+        const optionToggle = document.querySelector('.option-toggle span');
+        if (selectedCameras.length > 0) {
+            optionToggle.innerText = selectedCameras.join(', ');
+        } else {
+            optionToggle.innerText = "Chọn Camera Sau";
+        }
+    }
+
+    function validateForm(event) {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="idCameraSau"]');
+        const radioButtons = document.querySelectorAll('input[type="radio"][name="idCameraChinhSau"]');
+        let checkboxChecked = false;
+        let radioChecked = false;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkboxChecked = true;
+            }
+        });
+
+        radioButtons.forEach(radio => {
+            if (radio.checked) {
+                radioChecked = true;
+            }
+        });
+
+        if (!checkboxChecked || !radioChecked) {
+            document.getElementById('error-message').style.display = 'block';
+            event.preventDefault();
+            return false;
+        }
+
+        return true;
+    }
+
+    // function initializeRadioButtons() {
+    //     const checkboxes = document.querySelectorAll('input[type="checkbox"][name="idCameraSau"]');
+    //     checkboxes.forEach(checkbox => {
+    //         const radioButton = checkbox.parentNode.querySelector('input[type="radio"][name="idCameraChinhSau"]');
+    //         radioButton.disabled = !checkbox.checked;
+    //     });
+    // }
+    //
+    // document.addEventListener('DOMContentLoaded', initializeRadioButtons);
+</script>
+
+
+<!--lưu giá vào local stage-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hàm lưu giá trị vào localStorage
+        function saveToLocalStorage(input) {
+            const ramId = input.getAttribute('data-ram-id');
+            const romId = input.getAttribute('data-rom-id');
+            const colorId = input.getAttribute('data-color-id');
+            const key = `price-${ramId}-${romId}-${colorId}`;
+            localStorage.setItem(key, input.value);
+        }
+
+        // Lấy tất cả các ô input cần lưu
+        const inputs = document.querySelectorAll('.price-input');
+
+        // Khôi phục giá trị từ localStorage
+        inputs.forEach(input => {
+            const ramId = input.getAttribute('data-ram-id');
+            const romId = input.getAttribute('data-rom-id');
+            const colorId = input.getAttribute('data-color-id');
+            const key = `price-${ramId}-${romId}-${colorId}`;
+            const savedValue = localStorage.getItem(key);
+            if (savedValue !== null) {
+                input.value = savedValue;
+            }
+        });
+
+        // Lưu giá trị khi ô input thay đổi
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                saveToLocalStorage(input);
+            });
+        });
+
+        // Đăng ký sự kiện click cho các nút cập nhật
+        document.querySelectorAll('.update-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const versionInput = button.previousElementSibling;
+                const newValue = versionInput.value;
+                const ramId = versionInput.getAttribute('data-ram-id');
+                const romId = versionInput.getAttribute('data-rom-id');
+
+                document.querySelectorAll('.price-input').forEach(input => {
+                    if (input.getAttribute('data-ram-id') === ramId && input.getAttribute('data-rom-id') === romId) {
+                        input.value = newValue;
+                        saveToLocalStorage(input); // Lưu giá trị sau khi cập nhật
+                    }
+                });
+            });
+        });
+
+        // Đăng ký sự kiện input cho các ô version
+        document.querySelectorAll('.version-input').forEach(input => {
+            input.addEventListener('input', function () {
+                const newValue = input.value;
+                const ramId = input.getAttribute('data-ram-id');
+                const romId = input.getAttribute('data-rom-id');
+
+                document.querySelectorAll('.price-input').forEach(priceInput => {
+                    if (priceInput.getAttribute('data-ram-id') === ramId && priceInput.getAttribute('data-rom-id') === romId) {
+                        priceInput.value = newValue;
+                        saveToLocalStorage(priceInput); // Lưu giá trị sau khi cập nhật
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tất cả các ô input cần lưu
+        const inputs = document.querySelectorAll('.price-input');
+
+        // Khôi phục giá trị từ localStorage
+        inputs.forEach(input => {
+            const ramId = input.getAttribute('data-ram-id');
+            const romId = input.getAttribute('data-rom-id');
+            const colorId = input.getAttribute('data-color-id');
+            const key = `price-${ramId}-${romId}-${colorId}`;
+            const savedValue = localStorage.getItem(key);
+            if (savedValue !== null) {
+                input.value = savedValue;
+            }
+        });
+
+        // Lưu giá trị khi ô input thay đổi
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                const ramId = input.getAttribute('data-ram-id');
+                const romId = input.getAttribute('data-rom-id');
+                const colorId = input.getAttribute('data-color-id');
+                const key = `price-${ramId}-${romId}-${colorId}`;
+                localStorage.setItem(key, input.value);
+            });
+        });
+    });
+</script>
+
+
+
+
+<!-- Hàm để xóa tất localStorage-->
+<script>
+    function clearPriceKeys() {
+        // Lấy tất cả các khóa trong localStorage
+        const keys = Object.keys(localStorage);
+
+        // Lặp qua các khóa và xóa những khóa bắt đầu bằng "price"
+        keys.forEach(key => {
+            if (key.startsWith('price')) {
+                localStorage.removeItem(key);
+            }
+        });
+
+        keys.forEach(key => {
+            if (key.includes("product")) {
+                localStorage.removeItem(key);
+            }
+        });
+
+        keys.forEach(key => {
+            if (key.startsWith('idCameraChinhSau')) {
+                localStorage.removeItem(key);
+            }
+        });
+
+    }
+</script>
+
+
+<!--LƯU SẢN PHẨM CÀO LOCALSTOGARE-->
+<script>
+    function saveToLocalStorage() {
+        const productData = {
+            tenSanPham: document.getElementById('tenSanPham').value,
+            idHeDieuHanh: document.querySelector('select[name="idHeDieuHanh"]').value,
+            idManHinh: document.querySelector('select[name="idManHinh"]').value,
+            idHang: document.querySelector('select[name="idHang"]').value,
+            idCameraTruoc: document.querySelector('select[name="idCameraTruoc"]').value,
+            // idCameraChinhSau: document.querySelector('select[name="idCameraChinhSau"]').value,
+
+            idCameraSau: Array.from(document.querySelectorAll('input[name="idCameraSau"]:checked')).map(cb => cb.value),
+            idSim: document.querySelector('select[name="idSim"]').value,
+            idPin: document.querySelector('select[name="idPin"]').value,
+            idChip: document.querySelector('select[name="idChip"]').value,
+            idRAM: Array.from(document.querySelectorAll('input[name="idRAM"]:checked')).map(cb => cb.value),
+            idROM: Array.from(document.querySelectorAll('input[name="idROM"]:checked')).map(cb => cb.value),
+            idMauSac: Array.from(document.querySelectorAll('input[name="idMauSac"]:checked')).map(cb => cb.value)
+
+        };
+
+        localStorage.setItem('productData', JSON.stringify(productData));
+    }
+
+    // Load stored data when the page loads
+    window.onload = function() {
+        const storedProductData = localStorage.getItem('productData');
+
+        if (storedProductData) {
+            const productData = JSON.parse(storedProductData);
+
+            document.getElementById('tenSanPham').value = productData.tenSanPham || '';
+            document.querySelector('select[name="idHeDieuHanh"]').value = productData.idHeDieuHanh || '';
+            document.querySelector('select[name="idManHinh"]').value = productData.idManHinh || '';
+            document.querySelector('select[name="idHang"]').value = productData.idHang || '';
+            document.querySelector('select[name="idCameraTruoc"]').value = productData.idCameraTruoc || '';
+            // document.querySelector('select[name="idCameraChinhSau"]').value = productData.idCameraChinhSau || '';
+
+
+            if (productData.idCameraSau) {
+                productData.idCameraSau.forEach(id => {
+                    document.querySelector(`input[name="idCameraSau"][value="${id}"]`).checked = true;
+                });
+            }
+
+            document.querySelector('select[name="idSim"]').value = productData.idSim || '';
+            document.querySelector('select[name="idPin"]').value = productData.idPin || '';
+            document.querySelector('select[name="idChip"]').value = productData.idChip || '';
+
+            if (productData.idRAM) {
+                productData.idRAM.forEach(id => {
+                    document.querySelector(`input[name="idRAM"][value="${id}"]`).checked = true;
+                });
+            }
+
+            if (productData.idROM) {
+                productData.idROM.forEach(id => {
+                    document.querySelector(`input[name="idROM"][value="${id}"]`).checked = true;
+                });
+            }
+
+            if (productData.idMauSac) {
+                productData.idMauSac.forEach(id => {
+                    document.querySelector(`input[name="idMauSac"][value="${id}"]`).checked = true;
+                });
+            }
+        }
+    }
+
+    // Attach event listeners to save data on input or change
+    document.querySelectorAll('input, select').forEach(element => {
+        element.addEventListener('input', saveToLocalStorage);
+        element.addEventListener('change', saveToLocalStorage);
+    });
+</script>
+
+
+
+
+<!--                            DELETE PHIÊN BẢN-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const spctContainers = document.querySelectorAll('.spct-container');
+
+        const displayedIds = new Set();
+        spctContainers.forEach(container => {
+            const [ramId, romId] = container.id.split('-').slice(1);
+            const uniqueKey = `${ramId}-${romId}`;
+
+            if (displayedIds.has(uniqueKey)) {
+                container.style.display = 'none';
+            } else {
+                displayedIds.add(uniqueKey);
+            }
+        });
+    });
+</script>
+
+<style>
+    .form-select {
+        width: 100%;
+        position: relative;
+    }
+
+    .option-toggle {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .options {
+        display: none;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+
+    .options .option {
+        padding: .375rem .75rem;
+    }
+</style>
+
+
+<style>
+    .btn-xs {
+        padding: .25rem .5rem;
+        font-size: .875rem;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+</style>
+
+
+</div>
+</div>
+
+<script th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script th:src="@{/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
+
+<!-- Main JS -->
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+<!-- Page JS -->
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js}"></script>
+
+
+</body>
+</html>

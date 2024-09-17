@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+      data-template="vertical-menu-template-free" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <title>Bán hàng tại quầy</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);"
+                   class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item active">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3'></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3'></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3'></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div>Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div>Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div>Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div>Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/rom/index';|" class="menu-link">
+                                <div>ROM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div>Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3'></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <h4 style="color: black" class="fw-bold py-3 mb-2 mt-2">Bán hàng tại quầy</h4>
+
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="../assets/img/avatars/avt.png" alt
+                                         class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+
+
+            <!-- ALERT -->
+            <!-- ALERT -->
+            <div class="success slideInRight" id="successMessage">
+                <div class="success__icon">
+                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                              d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                              fill="#393a37" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="success__title"></div>
+            </div>
+
+
+            <div th:if="${error}" class="error slideInRight" id="errorMessage">
+                <div class="error__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
+                        <path fill="#393a37"
+                              d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="error__title" th:text="${error}"></div>
+            </div>
+
+            <!-- QR Modal -->
+            <div class="modal fade" id="qrModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Quét mã QR</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="qr-reader" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--CONTENT-->
+            <div class="content-wrapper">
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!-- Basic Bootstrap Table -->
+                    <div style="min-height: 230px;" class="card">
+                        <div class="nav-align-top mt-3 mb-1">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li th:each="gioHang, iterStat : ${listHoaDon}" class="nav-item">
+                                    <button type="button" class="nav-link"
+                                            th:classappend="${iterStat.index == 0} ? 'active' : ''" role="tab"
+                                            data-bs-toggle="tab" th:id="'gioHangId_' + ${gioHang.id}"
+                                            th:data-giohang-id="${gioHang.id}"
+                                            th:data-bs-target="'#navs-top-home-' + ${gioHang.id}"
+                                            th:aria-controls="'navs-top-home-' + ${gioHang.id}"
+                                            th:aria-selected="${iterStat.index == 0} ? true : false"
+                                            style="color: #830000">
+                                        HD<span th:text="${gioHang.id}"></span>
+                                        <span
+                                                class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">0</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="ms-3" id="addCartTab"><i class="bi bi-plus-circle"
+                                                                               style="font-size: 25px; color: black;"></i></a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content mt-3">
+                                <div th:each="gioHang, iterStat : ${listHoaDon}" class="tab-pane fade"
+                                     th:classappend="${iterStat.index == 0} ? 'show active' : ''"
+                                     th:id="'navs-top-home-' + ${gioHang.id}" role="tabpanel">
+                                    <div class="table-responsive text-nowrap">
+                                        <h4 class="d-flex justify-content-between align-items-center"
+                                            style="color: #af0606; font-size: 24px">
+                                            Giỏ hàng
+                                            <div>
+                                                <!-- Nút để mở modal quét QR -->
+                                                <button style="background-color: #ff8548; color: #ffffff;" type="button"
+                                                        class="btn me-2" data-bs-toggle="modal"
+                                                        data-bs-target="#qrModal">Quét QR
+                                                </button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#addProduct">+ Thêm sản phẩm
+                                                </button>
+                                            </div>
+                                        </h4>
+                                        <hr>
+                                        <div>
+                                            <!-- Bảng dữ liệu giỏ hàng -->
+                                            <table class="table custom-table1" style="display: none ;">
+                                                <thead style="background-color: #f8e1e3;">
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Sản phẩm</th>
+                                                    <th>Imei</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Xóa</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="cartTableBody" style="color: black">
+                                                <!-- Các sản phẩm trong giỏ hàng -->
+                                                </tbody>
+                                            </table>
+                                            <div id="cartTableFooter" style="display: none;">
+                                                <p style="color: black" colspan="4" class="text-end fw-bold mt-3 ">Tổng
+                                                    tiền: <span class="total-amount fw-bold"></span></p>
+                                            </div>
+
+                                            <div class="no-data d-flex flex-column justify-content-center align-items-center"
+                                                 style="height: 240px; display: none ;">
+                                                <img src="../assets/img/icons/brands/R.png" width="25%"
+                                                     alt="No data"/>
+                                                <p style="color: #868080">Hiện chưa có sản phẩm nào trong giỏ hàng!
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card px-3 mt-3">
+                        <h4 class="mt-4 d-flex justify-content-between align-items-center"
+                            style="color: #af0606; font-size: 24px">
+                            Thông tin khách hàng
+                            <!-- Search -->
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input id="search-customer-input" type="text"
+                                       class="form-control border-0 shadow-none" placeholder="Tìm kiếm khách hàng..."
+                                       aria-label="Tìm kiếm khách hàng..."/>
+                            </div>
+                            <!-- /Search -->
+
+                            <!-- Button thêm khách hàng -->
+                            <button id="add-customer-button" type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#addCustomer">
+                                + Thêm khách hàng
+                            </button>
+                        </h4>
+                        <hr>
+                        <div class="text-nowrap mb-3">
+                            <form id="customer-form">
+                                <div class="row g-2 mb-3">
+                                    <div class="col mb-0">
+                                        <label class="form-label" style="color: black">Họ và tên</label>
+                                        <div class="input-group input-group-merge">
+                                            <!-- Thẻ ẩn để lưu trữ ID khách hàng -->
+                                            <input type="hidden" id="khach-hang-id" value="">
+                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i
+                                                        class="bx bx-user"></i></span>
+                                            <input id="customer-name" type="text" class="form-control"
+                                                   style="color: black" placeholder="Khách lẻ"
+                                                   aria-describedby="basic-icon-default-fullname2"/>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-0">
+                                        <label class="form-label" style="color: black">Số điện thoại</label>
+                                        <div class="input-group input-group-merge">
+                                                <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                        class="bx bx-phone"></i></span>
+                                            <input id="customer-phone" type="text" class="form-control phone-mask"
+                                                   style="color: black" aria-describedby="basic-icon-default-phone2"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="px-3 card mt-3">
+                        <div class="mt-4 d-flex justify-content-between align-items-center">
+                            <h4 style="color: #af0606; font-size: 24px">Thông tin đơn hàng</h4>
+
+                            <!-- Bán giao hàng switch -->
+                            <div class="form-check form-switch mb-1 d-flex justify-content-end">
+                                <input style="border-color: #7d8ed8;" class="form-check-input me-1" type="checkbox"
+                                       id="flexSwitchCheckChecked"/>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Bán giao hàng</label>
+                            </div>
+
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="recipient-info d-none text-nowrap mb-3">
+                                    <form class="card p-4">
+                                        <h5 style="color: black">Thông tin người nhận</h5>
+                                        <hr>
+                                        <div class="row g-2 mb-3">
+                                            <div class="col mb-0">
+                                                <label class="form-label" style="color: black">Tên người
+                                                    nhận</label>
+                                                <input style="border: solid 1px #dee2e6; color: black" type="text"
+                                                       class="form-control ten"/>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label class="form-label" style="color: black">Số điện thoại</label>
+                                                <input style="border: solid 1px #dee2e6; color: black" type="text"
+                                                       class="form-control sdt"/>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 mb-3">
+                                            <div class="col mb-0">
+                                                <label class="form-label" style="color: black">Tỉnh/ Thành
+                                                    phố</label>
+                                                <select id="city" class="form-select"
+                                                        aria-label="Default select example">
+                                                </select>
+
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label class="form-label" style="color: black">Quận/ Huyện</label>
+                                                <select id="district" class="form-select"
+                                                        aria-label="Default select example">
+                                                </select>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label class="form-label" style="color: black">Phường/ xã</label>
+                                                <select id="ward" class="form-select"
+                                                        aria-label="Default select example">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label class="form-label" style="color: black">Địa chỉ cụ
+                                                    thể</label>
+                                                <input style="border: solid 1px #dee2e6; color: black" type="text"
+                                                       id="address" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" style="color: black">Ghi chú</label>
+                                            <textarea style="border: solid 1px #dee2e6; color: black"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card p-4 text-nowrap mb-3 ps-4">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <label class="form-label" style="color: black">Mã giảm giá</label>
+                                            <select id="discount-code-select" class="form-control">
+                                                <option value="">Không áp dụng voucher</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-auto align-self-end">
+                                            <button id="apply-voucher-button" class="btn btn-primary">Áp dụng</button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-1">
+                                        <div class="col">
+                                            <p>Tổng tiền hàng:</p>
+                                        </div>
+                                        <div class="col-auto align-self-end">
+                                            <p id="total-amount">0 ₫</p>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-1">
+                                        <div class="col">
+                                            <p>Giảm giá:</p>
+                                        </div>
+                                        <div class="col-auto align-self-end">
+                                            <p id="discount-amount">0 ₫</p>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-1">
+                                        <div class="col">
+                                            <p>Tổng tiền cần thanh toán:</p>
+                                        </div>
+                                        <div class="col-auto align-self-end">
+                                            <p id="total-pay-amount">0 ₫</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 phuongThucThanhToan">
+                                        <div class="checkbox-container">
+                                            <input type="checkbox" id="btncheck2" autocomplete="off">
+                                            <label class="custom-checkbox" for="btncheck2"><i
+                                                    class="bi bi-credit-card-fill"></i> Chuyển khoản</label>
+                                        </div>
+                                        <div class="checkbox-container">
+                                            <input type="checkbox" id="btncheck1" autocomplete="off">
+                                            <label class="custom-checkbox" for="btncheck1"><i
+                                                    class="bi bi-cash-stack"></i> Tiền mặt</label>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-1">
+                                        <div class="col">
+                                            <input id="bank-input" style="border: solid 1px #dee2e6" type="text"
+                                                   class="cash_input form-control mt-2 d-none"
+                                                   placeholder="Nhập số tiền chuyển khoản"/>
+                                            <p id="bank-error" class="text-danger"></p>
+                                        </div>
+                                        <div class="col">
+                                            <input id="cash-input" style="border: solid 1px #dee2e6" type="text"
+                                                   class="cash_input form-control mt-2 d-none"
+                                                   placeholder="Nhập số tiền khách đưa"/>
+
+                                            <p id="cash-error" class="text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-1 mt-2 cash_text d-none" id="change-row">
+                                        <div class="col">
+                                            <p>Tiền thừa trả khách:</p>
+                                        </div>
+                                        <div class="col-auto align-self-end">
+                                            <p id="change-amount">0 ₫</p>
+                                        </div>
+                                    </div>
+                                    <div class="thanhToanKhiNhanHang mt-2 form-check form-switch mb-1 d-flex justify-content-end">
+                                        <input style="border-color: #7d8ed8;" class="form-check-input me-1"
+                                               type="checkbox" id="btncheck4"/>
+                                        <label class="form-check-label" for="btncheck4">Thanh toán khi nhận hàng</label>
+                                    </div>
+                                    <div class="text-end my-4">
+                                        <button style="background-color: #1f5dba; color: rgb(255, 255, 255);"
+                                                class="btn btnTaoHoaDon" id="create-invoice-button" disabled>TẠO HÓA ĐƠN
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!---->
+
+            </div>
+
+            <!-- Modal thêm nhanh khách hàng -->
+            <div class="modal fade" id="addCustomer" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Thêm mới khách hàng</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body recipient-info">
+                            <div class="row g-2 mb-3">
+                                <div class="col mb-0">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input id="customerName" style="border: solid 1px #dee2e6" type="text"
+                                           class="form-control"/>
+                                    <span id="customerNameError" class="text-danger"
+                                          style="font-style: italic;"></span>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input id="customerPhone" style="border: solid 1px #dee2e6" type="text"
+                                           class="form-control"/>
+                                    <span id="customerPhoneError" class="text-danger"
+                                          style="font-style: italic;"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">Email</label>
+                                    <input id="customerEmail" style="border: solid 1px #dee2e6" type="email"
+                                           class="form-control"/>
+                                    <span id="customerEmailError" class="text-danger"
+                                          style="font-style: italic;"></span>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col mb-0">
+                                    <label class="form-label">Tỉnh/ Thành phố</label>
+                                    <select id="city1" class="form-select" aria-label="Default select example">
+                                    </select>
+                                    <span id="cityError" class="text-danger" style="font-style: italic;"></span>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Quận/ Huyện</label>
+                                    <select id="district1" class="form-select" aria-label="Default select example">
+                                    </select>
+                                    <span id="districtError" class="text-danger" style="font-style: italic;"></span>
+                                </div>
+                                <div class="col mb-0">
+                                    <label class="form-label">Phường/ xã</label>
+                                    <select id="ward1" class="form-select" aria-label="Default select example">
+                                    </select>
+                                    <span id="wardError" class="text-danger" style="font-style: italic;"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">Địa chỉ cụ thể</label>
+                                    <input id="address1" style="border: solid 1px #dee2e6" type="text"
+                                           class="form-control"/>
+                                    <span id="addressError" class="text-danger" style="font-style: italic;"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-primary" onclick="addCustomer()">Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Thêm sản phẩm vào giỏ hàng -->
+            <div class="modal fade" id="addProduct" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="color: black" id="exampleModalLabel4">Chọn sản phẩm</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="product-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Mã sản phẩm</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Giá sản phẩm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                                </thead>
+                                <tbody style="color: black" class="table-group-divider">
+                                <tr th:each="sp, i : ${products}">
+                                    <th th:text="${i.index + 1}"></th>
+                                    <td th:text="${sp.idSanPham.maSanPham}"></td>
+                                    <td th:text="${sp.idSanPham.tenSanPham + ' ' + sp.idRAM.ten + ' ' + sp.idROM.tenRom + ' (' + sp.idMauSac.tenMauSac + ')'}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatDecimal(sp.giaBan, 0, 'COMMA', 2, 'POINT'), '.00', '')}"></td>
+                                    <td th:text="${imeiCounts[sp.getId()]}"></td>
+                                    <td>
+                                        <button style="background-color: #168708; color: white;" class="btn"
+                                                th:attr="data-product-id=${sp.id}"
+                                                onclick="loadImeis(this);" data-bs-toggle="modal"
+                                                data-bs-target="#imeiProduct">Chọn
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="imeiProduct" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="color: black">Danh sách IMEI</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <hr>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã Imei</th>
+                                    <th scope="col">Chọn</th>
+                                </tr>
+                                </thead>
+                                <tbody style="color: black" class="table-group-divider" id="imeiTableBody">
+                                <!-- IMEI list will be loaded here -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button class="btn btn-sm" id="prevPage" onclick="prevPage()"><i
+                                        class="tf-icon bx bx-chevrons-left"
+                                        style="color: #010a17;background-color: #c9ddfd"></i></button>
+                                <span id="pageInfo"></span>
+                                <button class="btn btn-sm" id="nextPage" onclick="nextPage()"><i
+                                        class="tf-icon bx bx-chevrons-right"
+                                        style="color: #010a17;background-color: #c9ddfd"></i></button>
+                            </div>
+                            <h5 style="color: black">Imei đã chọn</h5>
+                            <div id="selectedImeiList"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-primary" onclick="addProductsToCart()">Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer bg-light">
+                <div
+                        class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                    <div>
+                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                           target="_blank" class="footer-text fw-bolder ms-5">MPSHOP</a>
+                        ©
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-danger" id="openCustomerView">Mở màn hình khách hàng</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/print.js/1.6.0/print.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" th:src="@{/js/ban_hang_tai_quay.js}"></script>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<!-- HTML5 QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</body>
+
+</html>
+
+<script>
+    // Kết nối WebSocket
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        sendTabChangeMessage();
+    });
+
+    document.getElementById('openCustomerView').addEventListener('click', function () {
+        window.open('/ban-hang-tai-quay/customer', '_blank');
+    });
+
+    // Hiển thị mã QR thanh toán
+    document.getElementById('btncheck2').addEventListener('click', function () {
+        const currentTabId = getCurrentTabId();
+        if (currentTabId) {
+            const totalPayAmountElement = document.getElementById('total-pay-amount').textContent;
+            const totalPayAmount = parseFloat(totalPayAmountElement.replace(/\./g, '').replace(/[^0-9.-]+/g, '')) || 0;
+            const accountNumber = '13238633993';
+            const template = 'compact';
+            const info = `Thanh toan hoa don ${currentTabId}`;
+            const qrURL = `https://img.vietqr.io/image/tpbank-${accountNumber}-${template}.png?amount=${totalPayAmount}&addInfo=${encodeURIComponent(info)}`;
+
+            stompClient.send("/app/showPaymentQR", {}, JSON.stringify({
+                hoaDonId: currentTabId,
+                qrURL: qrURL,
+                totalPayAmount: totalPayAmount
+            }));
+        }
+    });
+
+    function getCurrentTabId() {
+        const activeTab = document.querySelector('.nav-link.active');
+        const gioHangId = activeTab.getAttribute('data-giohang-id');
+        return gioHangId ? gioHangId : null;
+    }
+
+    // Hàm gửi thông điệp WebSocket khi thay đổi tab
+    function sendTabChangeMessage() {
+        const currentTabId = getCurrentTabId();
+        if (currentTabId) {
+            const discountAmountElement = document.getElementById('discount-amount').textContent;
+            const discountAmount = Math.abs(parseFloat(discountAmountElement.replace(/\./g, '').replace(/[^0-9.-]+/g, '')) || 0);
+            stompClient.send("/app/tabChange", {}, JSON.stringify({
+                hoaDonId: currentTabId,
+                discountAmount: discountAmount
+            }));
+        }
+    }
+
+    // Gửi thông điệp khi thay đổi tab
+    document.querySelectorAll('.nav-link').forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (event) {
+            sendTabChangeMessage();
+        });
+    });
+
+    window.addEventListener('load', sendTabChangeMessage);
+
+
+    //===================================================================================
+
+    window.onload = function () {
+        if (localStorage.getItem('invoiceCreated') === 'true') {
+            localStorage.removeItem('invoiceCreated');
+            document.getElementById('printableBill').style.display = 'block';
+            window.print();
+        }
+    }
+
+
+    // Tìm kiếm sản phẩm theo mã/tên trong modal thêm sản phẩm vào giỏ hàng
+    $(document).ready(function () {
+        var table = $('#product-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "language": {
+                "search": "Tìm kiếm sản phẩm: ",
+                "zeroRecords": "Không tìm thấy sản phẩm",
+                "info": "",
+                "infoEmpty": " ",
+                "infoFiltered": "",
+                "lengthMenu": "Hiển thị _MENU_ ",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Kế tiếp",
+                    "previous": "Trước đó"
+                }
+            },
+            "columnDefs": [
+                {
+                    "targets": [1, 2, 3],
+                    "searchable": true
+                },
+                {
+                    "targets": '_all',
+                    "searchable": false
+                }
+            ]
+        });
+        $('#button-addon2').on('click', function () {
+            var searchTerm = $('#product-search').val();
+            table.search(searchTerm).draw();
+        });
+    });
+
+
+
+    //======================================================================================================================
+
+
+    //====================================================================
+    // Thông báo error
+    var errorMessage = document.getElementById('errorMessage');
+    if (errorMessage) {
+        errorMessage.classList.add('slideInRight');
+        setTimeout(function () {
+            errorMessage.classList.remove('slideInRight');
+            errorMessage.classList.add('slideOutRight');
+            setTimeout(function () {
+                errorMessage.style.display = 'none';
+            }, 1000);
+        }, 4000);
+    }
+
+    // Tạo hàm để gọi API địa chỉ
+    function getAddressData(cityId, districtId, wardId) {
+        axios.get("https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json")
+            .then(function (response) {
+                var data = response.data;
+                renderAddressData(data, cityId, districtId, wardId);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    function renderAddressData(data, cityId, districtId, wardId) {
+        var cityDropdown = document.getElementById(cityId);
+        var districtDropdown = document.getElementById(districtId);
+        var wardDropdown = document.getElementById(wardId);
+
+        data.forEach(city => {
+            var opt = document.createElement('option');
+            opt.value = city.Name;
+            opt.text = city.Name;
+            opt.setAttribute('data-id', city.Id);
+            cityDropdown.appendChild(opt);
+        });
+
+        cityDropdown.onchange = function () {
+            districtDropdown.length = 1;
+            wardDropdown.length = 1;
+            const selectedCityId = this.options[this.selectedIndex].dataset.id;
+            if (selectedCityId) {
+                const selectedCity = data.find(city => city.Id === selectedCityId);
+                selectedCity.Districts.forEach(districtItem => {
+                    var opt = document.createElement('option');
+                    opt.value = districtItem.Name;
+                    opt.text = districtItem.Name;
+                    opt.setAttribute('data-id', districtItem.Id);
+                    districtDropdown.appendChild(opt);
+                });
+            }
+        };
+
+        districtDropdown.onchange = function () {
+            wardDropdown.length = 1;
+            const selectedCityId = cityDropdown.options[cityDropdown.selectedIndex].dataset.id;
+            const selectedDistrictId = this.options[this.selectedIndex].dataset.id;
+            if (selectedCityId && selectedDistrictId) {
+                const selectedCity = data.find(city => city.Id === selectedCityId);
+                const selectedDistrict = selectedCity.Districts.find(districtItem => districtItem.Id == selectedDistrictId);
+                if (selectedDistrict && selectedDistrict.Wards) {
+                    selectedDistrict.Wards.forEach(wardItem => {
+                        var opt = document.createElement('option');
+                        opt.value = wardItem.Name;
+                        opt.text = wardItem.Name;
+                        wardDropdown.appendChild(opt);
+                    });
+                }
+            }
+        };
+    }
+
+    // Gọi hàm để lấy dữ liệu địa chỉ khi trang web được tải
+    getAddressData("city1", "district1", "ward1");
+    getAddressData("city", "district", "ward");
+    //==========================================================================================================================
+
+
+
+
+</script>

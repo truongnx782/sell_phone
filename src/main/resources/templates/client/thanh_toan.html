@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--<html xmlns:th="https://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/extras/java8time">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:java8="http://www.thymeleaf.org/extras/java8time">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <style>
+        .zoom-in-zoom-out {
+            margin: 24px;
+            width: 50px;
+            height: 50px;
+            background: green;
+            animation: zoom-in-zoom-out 1s ease-out infinite;
+        }
+
+        @keyframes zoom-in-zoom-out {
+            0% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1.2);
+            }
+
+            100% {
+                transform: scale(1, 1);
+            }
+        }
+
+        #sigup img:hover {
+            transform: scale(1.2);
+        }
+
+        #thuong-hieu img:hover {
+            transform: scale(1.2);
+        }
+
+        .productDetail:hover {
+            transform: scale(1.1);
+        }
+
+        #list a:hover {
+            transform: scale(1.2);
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container > .img2 {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateX(5px) rotate(5deg);
+            }
+
+            75% {
+                transform: translateX(-5px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .shake-animation img {
+            animation-name: shake;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        .fade-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fade-effect img {
+            display: block;
+            width: 100%;
+            height: auto;
+            animation: fade 2s linear infinite;
+        }
+
+        @keyframes fade {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(0.5);
+            }
+        }
+
+        .title-subcontent {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-stack {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-layer {
+            position: absolute;
+        }
+
+        .image-layer:nth-child(1) {
+            top: 20;
+            left: 0;
+            z-index: 2;
+        }
+
+        .image-layer:nth-child(2) {
+            top: 80px;
+            left: 200px;
+            z-index: 3;
+        }
+
+        .image-layer:nth-child(3) {
+            top: 50px;
+            left: 500px;
+            z-index: 1;
+        }
+
+        .input-with-icon::placeholder {
+            background-image: url('data:image/svg+xml;utf8,<svg height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            padding-left: 30px;
+            /* Điều chỉnh khoảng cách giữa icon và placeholder */
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 10px;
+            background-color: #da5361;
+            color: #fff;
+            position: relative;
+            width: auto;
+            height: 30px;
+        }
+
+        .badge .text {
+            margin-left: 6px;
+            /* Khoảng cách giữa close và văn bản */
+        }
+
+        .badge .close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        .selected {
+            border: 2px solid #da5361;
+            background-color: #da5361;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<div class="container-fluid" id="grad" style="background: #FF3131;">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light py-0 my-0" style="height: 64px;">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/trang-chu}">
+                    <img th:src="@{/images/logo/mpshop.png}" alt="" style="width: 150px; height: 52px;">
+                </a>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent"
+                     style="margin-left: 100px; justify-content: space-around;">
+                    <form class="d-flex">
+                        <input class="form-control input-with-icon" type="search" placeholder="Bạn cần tìm gì?"
+                               aria-label="Search" style="width: 500px; border-radius: 8px; height: 33px;">
+
+                    </form>
+                    <div class="d-flex float-end">
+                        <div id="sigup" class="me-2">
+                            <a href="">
+                                <img th:src="@{/images/icons/4.png}" alt="" style="width: 45px; height: 38px;"
+                                     class="mx-2">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Đơn hàng</p>
+                        </div>
+                        <div id="sigup" class="me-3">
+                            <a href="">
+                                <img th:src="@{/images/icons/3.png}" alt="" style="width: 42px; height: 38px;">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Giỏ hàng</p>
+                        </div>
+                        <div id="sigup">
+                            <a href="">
+                                <img th:src="@{/images/icons/5.png}" alt="" style="width: 38px; height: 38px;">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Tài khoản</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+</div>
+<!-- content -->
+<div class="container">
+<!--    <input type="hidden" id="idKhachHang" th:value="1">-->
+    <div class="text-start my-3">
+        <h3 style="color: #da5361">Thanh toán</h3>
+    </div>
+    <div class="row ms-2">
+        <div class="col-sm-5 text-center">
+            <h5>Thông tin hóa đơn</h5>
+        </div>
+        <div class="col-sm-5 text-center">
+            <h5>Thông tin nhận hàng</h5>
+        </div>
+<!--        <form class="row g-3" style="font-size: 14px;"  th:action="@{/path/to/controller}" method="post">-->
+<!--        &lt;!&ndash; Thông tin chi tiết hóa đơn &ndash;&gt;-->
+<!--        <div class="col-sm-6 me-3 shadow-lg p-1" style=" min-height: 300px;">-->
+<!--            <table>-->
+<!--                <thead>-->
+<!--                <th style="font-size: 13px;">Sản phẩm</th>-->
+
+<!--                </thead>-->
+<!--                <tr style="font-size: 13px;" th:each="imei, index : ${lstImei}">-->
+<!--                    <td>-->
+<!--                        <div class="row g-0 mt-2 " style=" border-color: #72320d;">-->
+<!--                            <div class="d-flex">-->
+<!--                                <p class="ms-2" style="max-width: 200px; min-width: 200px;" th:text="${imei.idChiTietSP.idSanPham.tenSanPham}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td style="text-align: center; width: 100px;" th:text="${imei.maImei}"></td>-->
+<!--                    <td style="text-align: center;  width: 50px;" th:text="${imei.idChiTietSP.idMauSac.tenMauSac}"></td>-->
+<!--                    <td style="text-align: center;  width: 50px;" th:text="${imei.idChiTietSP.idROM.tenRom}"></td>-->
+<!--                    <td style="text-align: end;  width: 130px; font-size: 14px; color: #da5361;" th:text="${#numbers.formatDecimal(imei.idChiTietSP.giaBan, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}">-->
+<!--                    </td>-->
+<!--                    &lt;!&ndash; </div> &ndash;&gt;-->
+<!--                </tr>-->
+
+<!--            </table>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Thông tin nhận hàng &ndash;&gt;-->
+<!--        <div class="col-sm-5 shadow-lg p-2">-->
+
+<!--                <div class="col-md-6">-->
+<!--                    <label class="form-label"><b>Họ và tên(<span class="text-danger">*</span>):</b></label>-->
+<!--                    <input type="text" class="form-control p-0" style="font-size: 14px;" required th:value="${khachHang.tenKhachHang}">-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                    <label class="form-label"><b>Số điện thoại(<span class="text-danger">*</span>):</b></label>-->
+<!--                    <input type="text" class="form-control p-0" style="font-size: 14px;" required  th:value="${khachHang.sdt}">-->
+<!--                </div>-->
+<!--                <div th:if="${lstDiaChi.size() > 0}" th:each="dc, index : ${lstDiaChi}" class="row mt-2">-->
+<!--                    <div class="col-md-4">-->
+
+<!--                        <label class="form-label"><b>Tỉnh/Thành phố(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" style="font-size: 14px;" required  th:value="${dc.tinh}" name="tinh">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <label for="inputQuan" class="form-label"><b>Quận/Huyện(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" id="inputQuan" style="font-size: 14px;" required  th:value="${dc.quan}" name="quan">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <label for="inputXa" class="form-label"><b>Phường/Xã(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" id="inputXa" style="font-size: 14px;" required  th:value="${dc.phuong}" name="xa">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <label class="form-label"><b>Địa chỉ cụ thể(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" style="font-size: 14px;" required  th:value="${dc.diaChiCuThe}" name="diaChiCuThe">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div th:if="${lstDiaChi.size() == 0}" class="row mt-2">-->
+<!--                    <div class="col-md-4">-->
+<!--                        <label class="form-label"><b>Tỉnh/Thành phố(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" style="font-size: 14px;" required>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--                        <label for="inputQuan1" class="form-label"><b>Quận/Huyện(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" id="inputQuan1" style="font-size: 14px;" required>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--                        <label for="inputXa1" class="form-label"><b>Phường/Xã(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" id="inputXa1" style="font-size: 14px;" required>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <label class="form-label"><b>Địa chỉ cụ thể(<span class="text-danger">*</span>):</b></label>-->
+<!--                        <input type="text" class="form-control p-0" style="font-size: 14px;" required >-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 mt-2">-->
+<!--                    <label class="form-label"> <b>Hình thức thanh toán</b></label>-->
+<!--                    <div class="d-flex">-->
+<!--                        <div class="form-check me-5">-->
+<!--                            <input class="form-check-input" type="radio" name="hinhThucThanhToan" id="flexRadioDefault1"-->
+<!--                                   checked>-->
+<!--                            <label class="form-check-label" for="flexRadioDefault1">-->
+<!--                                Thanh toán khi nhận hàng-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="radio" name="hinhThucThanhToan" id="flexRadioDefault1">-->
+<!--                            <label class="form-check-label" for="flexRadioDefault1">-->
+<!--                                Thanh toán online-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row fixed-bottom ms-5">-->
+<!--                    <div class="col-sm-2"></div>-->
+<!--                    <div class="col-sm-7 d-flex justify-content-between border rounded" style="background-color: #d6dee1; margin-left: 28px">-->
+<!--                        <div class="mt-3">-->
+<!--                            <h5 style="color: #010a17">Tổng tiền tạm tính</h5>-->
+<!--                            <b class="text-danger" th:text="${#numbers.formatDecimal(tongTien, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></b>-->
+<!--                        </div>-->
+<!--                        <div class="mt-3">-->
+<!--                            <button type="submit" class="btn btn-lg text-white py-1"-->
+<!--                               style="height: 40px; width: 140px; background-color: #da5361">Mua-->
+<!--                                ngay</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--        </div>-->
+<!--        </form>-->
+<!--    -->
+        <form class="row g-3" style="font-size: 14px;" th:action="@{/tao-hoa-don}" method="post">
+            <!-- Thông tin chi tiết hóa đơn -->
+            <input type="hidden" id="idKhachHang" th:value="10">
+            <div class="col-sm-6 me-3 shadow-lg p-1" style="min-height: 300px;">
+                <table>
+                    <thead>
+                    <th style="font-size: 13px;">Sản phẩm</th>
+                    </thead>
+                    <tr style="font-size: 13px;" th:each="imei, index : ${lstImei}">
+                        <td>
+                            <div class="row g-0 mt-2" style="border-color: #72320d;">
+                                <div class="d-flex">
+                                    <p class="ms-2" style="max-width: 200px; min-width: 200px;" th:text="${imei.idChiTietSP.idSanPham.tenSanPham}"></p>
+                                    <input type="hidden" name="imeiIds" th:value="${imei.idChiTietSP.idSanPham.id}">
+                                </div>
+                            </div>
+                        </td>
+                        <td style="text-align: center; width: 100px;" th:text="${imei.maImei}">
+                            <input type="hidden" name="imeiIds" th:value="${imei.maImei}">
+                        </td>
+                        <td style="text-align: center; width: 50px;" th:text="${imei.idChiTietSP.idMauSac.tenMauSac}">
+                            <input type="hidden" name="imeiIds" th:value="${imei.idChiTietSP.idMauSac.tenMauSac}">
+                        </td>
+                        <td style="text-align: center; width: 50px;" th:text="${imei.idChiTietSP.idROM.tenRom}">
+                            <input type="hidden" name="imeiIds" th:value="${imei.idChiTietSP.idROM.tenRom}">
+                        </td>
+                        <td style="text-align: end; width: 130px; font-size: 14px; color: #da5361;" th:text="${#numbers.formatDecimal(imei.idChiTietSP.giaBan, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}">
+                            <input type="hidden" name="imeiIds" th:value="${imei.idChiTietSP.giaBan}">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Thông tin nhận hàng -->
+            <div class="col-sm-5 shadow-lg p-2">
+                <div class="col-md-6">
+                    <label class="form-label"><b>Họ và tên(<span class="text-danger">*</span>):</b></label>
+                    <input type="text" class="form-control p-0" style="font-size: 14px;" required th:value="${khachHang.tenKhachHang}" name="tenKhachHang">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><b>Số điện thoại(<span class="text-danger">*</span>):</b></label>
+                    <input type="text" class="form-control p-0" style="font-size: 14px;" required th:value="${khachHang.sdt}" name="sdt">
+                </div>
+                <div th:if="${lstDiaChi.size() > 0}" th:each="dc, index : ${lstDiaChi}" class="row mt-2">
+                    <div class="col-md-4">
+                        <label class="form-label"><b>Tỉnh/Thành phố(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" style="font-size: 14px;" required th:value="${dc.tinh}" name="diaChi[${index}].tinh">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputQuan" class="form-label"><b>Quận/Huyện(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" id="inputQuan" style="font-size: 14px;" required th:value="${dc.quan}" name="diaChi[${index}].quan">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputXa" class="form-label"><b>Phường/Xã(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" id="inputXa" style="font-size: 14px;" required th:value="${dc.phuong}" name="diaChi[${index}].phuong">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label"><b>Địa chỉ cụ thể(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" style="font-size: 14px;" required th:value="${dc.diaChiCuThe}" name="diaChi[${index}].diaChiCuThe">
+                    </div>
+                </div>
+                <div th:if="${lstDiaChi.size() == 0}" class="row mt-2">
+                    <div class="col-md-4">
+                        <label class="form-label"><b>Tỉnh/Thành phố(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" style="font-size: 14px;" required name="tinh">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="inputQuan1" class="form-label"><b>Quận/Huyện(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" id="inputQuan1" style="font-size: 14px;" required name="quan">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="inputXa1" class="form-label"><b>Phường/Xã(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" id="inputXa1" style="font-size: 14px;" required name="phuong">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label"><b>Địa chỉ cụ thể(<span class="text-danger">*</span>):</b></label>
+                        <input type="text" class="form-control p-0" style="font-size: 14px;" required name="diaChiCuThe">
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label class="form-label"><b>Hình thức thanh toán</b></label>
+                    <div class="d-flex">
+                        <div class="form-check me-5">
+                            <input class="form-check-input" type="radio" name="hinhThucThanhToan" id="flexRadioDefault1" value="COD" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Thanh toán khi nhận hàng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="hinhThucThanhToan" id="flexRadioDefault2" value="Online">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Thanh toán online
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fixed-bottom ms-5">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-7 d-flex justify-content-between border rounded" style="background-color: #d6dee1; margin-left: 28px">
+                        <div class="mt-3">
+                            <h5 style="color: #010a17">Tổng tiền tạm tính</h5>
+                            <b class="text-danger" th:text="${#numbers.formatDecimal(tongTien, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></b>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-lg text-white py-1" style="height: 40px; width: 140px; background-color: #da5361">Mua ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<!-- footer -->
+
+<script type="text/javascript" th:src="@{/js/chi_tiet_san_pham_client.js}"></script>
+</body>
+</html>

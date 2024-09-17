@@ -1,0 +1,106 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>QR Code Scanner</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>QR Code Scanner</h1>-->
+<!--<form action="/scanQRCode" method="post" enctype="multipart/form-data">-->
+<!--    <form action="/scanQRCode" method="post" enctype="multipart/form-data">-->
+<!--        <input type="file" name="file" id="file">-->
+<!--        <button type="submit">Scan QR Code</button>-->
+<!--    </form>-->
+<!--</form>-->
+<!--<video id="video" width="300" height="200" autoplay></video>-->
+<!--<button id="captureButton">Capture</button>-->
+<!--<canvas id="canvas" style="display:none;"></canvas>-->
+<!--<script>-->
+<!--    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })-->
+<!--        .then(function(stream) {-->
+<!--            var video = document.getElementById('video');-->
+<!--            video.srcObject = stream;-->
+
+<!--            setInterval(function() { // Lặp chụp ảnh từ webcam mỗi giây-->
+<!--                var canvas = document.getElementById('canvas');-->
+<!--                var context = canvas.getContext('2d');-->
+<!--                context.drawImage(video, 0, 0, canvas.width, canvas.height);-->
+<!--                canvas.toBlob(function(blob) {-->
+<!--                    var formData = new FormData();-->
+<!--                    formData.append('file', blob, 'snapshot.png');-->
+<!--                    fetch('/scanQRCode', {-->
+<!--                        method: 'POST',-->
+<!--                        body: formData-->
+<!--                    })-->
+<!--                        .then(response => response.json())-->
+<!--                        .then(data => {-->
+<!--                            if (data.result) {-->
+<!--                                alert("QR Code text: " + data.result);-->
+<!--                            } else if (data.error) {-->
+<!--                                alert("Error: " + data.error);-->
+<!--                            }-->
+<!--                        })-->
+<!--                        .catch(error => {-->
+<!--                            console.error('Error:', error);-->
+<!--                        });-->
+<!--                });-->
+<!--            }, 1000); // Thực hiện lặp mỗi giây (1000 ms)-->
+<!--        })-->
+<!--        .catch(function(err) {-->
+<!--            console.log("An error occurred: " + err);-->
+<!--        });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+</head>
+<body>
+<h1>QR Code Scanner</h1>
+
+<video id="video" width="300" height="200" autoplay></video>
+
+<canvas id="canvas" style="display:none;"></canvas>
+<script>
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            function captureAndSend() {
+                // Chụp ảnh từ video và đặt vào canvas
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Tạo một đối tượng FormData từ ảnh chụp
+                var formData = new FormData();
+                canvas.toBlob(function(blob) {
+                    formData.append('file', blob, 'snapshot.png');
+
+                    // Gửi dữ liệu đến máy chủ
+                    fetch('/scanQRCode', {
+                        method: 'POST',
+                        body: formData
+                    }).then(function(response) {
+                        if(response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    });
+                });
+            }
+
+            // Tự động chụp ảnh sau mỗi 5 giây
+            setInterval(captureAndSend, 2000);
+        })
+        .catch(function(err) {
+            console.log("An error occurred: " + err);
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html
+        lang="en"
+        class="light-style customizer-hide"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Đăng ký</title>
+    <meta name="description" content="" />
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}" />
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin />
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap}" rel="stylesheet" />
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" th:href="@{/assets/css/demo.css}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/libs/apex-charts/apex-charts.css}" />
+    <script th:src="@{/assets/vendor/js/helpers.js}"></script>
+    <script th:src="@{/assets/js/config.js}"></script>
+</head>
+
+<body>
+<!-- Content -->
+
+<div class="container-xxl">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="authentication-wrapper authentication-basic container-p-y">
+                <div class="authentication-inner">
+                    <!-- Register Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Logo -->
+                            <div class="app-brand justify-content-center">
+                                <a href="index.html" class="app-brand-link gap-2">
+                                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                                </a>
+                            </div>
+                            <!-- /Logo -->
+                            <h4 class="my-4">Chào mừng bạn đến với MPShop 👋</h4>
+                            <p class="mb-4 mt-3">Đăng ký tài khoản để bắt đầu mua sắm</p>
+
+                            <!--                            <form id="formAuthentication" class="mb-3">-->
+                            <!--                                <div class="mb-3">-->
+                            <!--                                    <label for="username" class="form-label">Họ và tên</label>-->
+                            <!--                                    <input type="text" class="form-control" id="username" name="username" placeholder="Nhập họ và tên của bạn" autofocus />-->
+                            <!--                                    <div id="usernameError" class="text-danger"></div>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="mb-3">-->
+                            <!--                                    <label for="sdt" class="form-label">Số điện thoại</label>-->
+                            <!--                                    <input type="text" class="form-control" id="sdt" name="sdt" placeholder="Nhập số điện thoại của bạn" />-->
+                            <!--                                    <div id="sdtError" class="text-danger"></div>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="mb-3">-->
+                            <!--                                    <label for="email" class="form-label">Email</label>-->
+                            <!--                                    <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email của bạn" />-->
+                            <!--                                    <div id="emailError" class="text-danger"></div>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="mb-3 form-password-toggle">-->
+                            <!--                                    <label class="form-label" for="password">Mật khẩu</label>-->
+                            <!--                                    <div class="input-group input-group-merge">-->
+                            <!--                                        <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />-->
+                            <!--                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="mb-3">-->
+                            <!--                                    <div class="form-check">-->
+                            <!--                                        <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />-->
+                            <!--                                        <label class="form-check-label" for="terms-conditions">-->
+                            <!--                                            Tôi đồng ý-->
+                            <!--                                            <a href="javascript:void(0);">chính sách và điều khoản</a>-->
+                            <!--                                        </label>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                                <button type="submit" class="btn btn-primary d-grid w-100">Đăng ký</button>-->
+                            <!--                            </form>-->
+                            <form id="formAuthentication" class="mb-3">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Nhập họ và tên của bạn" autofocus />
+                                    <div id="usernameError" class="text-danger"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sdt" class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="sdt" name="sdt" placeholder="Nhập số điện thoại của bạn" />
+                                    <div id="sdtError" class="text-danger"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email của bạn" />
+                                    <div id="emailError" class="text-danger"></div>
+                                </div>
+                                <div class="mb-3 form-password-toggle">
+                                    <label class="form-label" for="password">Mật khẩu</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    </div>
+                                    <div id="passwordError" class="text-danger"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                                        <label class="form-check-label" for="terms-conditions">
+                                            Tôi đồng ý
+                                            <a href="javascript:void(0);">chính sách và điều khoản</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary d-grid w-100">Đăng ký</button>
+                            </form>
+
+                            <p class="text-center">
+                                <span>Bạn đã có tài khoản?</span>
+                                <a th:href="@{/client}">
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Register Card -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+</div>
+
+
+<script th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+
+<script th:src="@{/assets/vendor/js/menu.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+<script async defer th:src="@{https://buttons.github.io/buttons.js}"></script>
+
+
+<script>
+    document.getElementById('formAuthentication').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const usernameErrorElem = document.getElementById('usernameError');
+        const sdtErrorElem = document.getElementById('sdtError');
+        const emailErrorElem = document.getElementById('emailError');
+        const passwordErrorElem = document.getElementById('passwordError');
+
+        if (usernameErrorElem && sdtErrorElem && emailErrorElem && passwordErrorElem) {
+            usernameErrorElem.textContent = '';
+            sdtErrorElem.textContent = '';
+            emailErrorElem.textContent = '';
+            passwordErrorElem.textContent = '';
+        }
+
+        // Lấy giá trị của các trường thông tin
+        const username = document.getElementById('username').value.trim();
+        const sdt = document.getElementById('sdt').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const termsChecked = document.getElementById('terms-conditions').checked;
+
+        let isValid = true;
+
+        // Kiểm tra các trường thông tin
+        if (!username) {
+            if (usernameErrorElem) usernameErrorElem.textContent = 'Họ và tên không được để trống';
+            isValid = false;
+        }
+        if (!sdt) {
+            if (sdtErrorElem) sdtErrorElem.textContent = 'Số điện thoại không được để trống';
+            isValid = false;
+        }
+        if (!email) {
+            if (emailErrorElem) emailErrorElem.textContent = 'Email không được để trống';
+            isValid = false;
+        }
+        if (!password) {
+            if (passwordErrorElem) passwordErrorElem.textContent = 'Mật khẩu không được để trống';
+            isValid = false;
+        }
+        if (!termsChecked) {
+            alert('Bạn cần đồng ý với chính sách và điều khoản');
+            isValid = false;
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        const formData = new FormData(this);
+        const data = new URLSearchParams();
+        formData.forEach((value, key) => {
+            data.append(key, value);
+        });
+
+        fetch('/tao-tai-khoan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    if (result.error.includes("Số điện thoại")) {
+                        if (sdtErrorElem) sdtErrorElem.textContent = result.error;
+                    } else if (result.error.includes("Email")) {
+                        if (emailErrorElem) emailErrorElem.textContent = result.error;
+                    } else {
+                        alert(result.error);
+                    }
+                } else if (result.success) {
+                    alert(result.success);
+                    window.location.href = 'Login/login';
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    });
+</script>
+
+</body>
+</html>

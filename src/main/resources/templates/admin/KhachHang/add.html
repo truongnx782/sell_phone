@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+      data-template="vertical-menu-template-free" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <title>Thêm khách hàng</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3' ></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3' ></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div >Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item active">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div >Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div >Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div >Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/rom/index';|" class="menu-link">
+                                <div >ROM</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div >Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3' ></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    <div class="fw-bold py-3 mb-2 mt-2">
+                        <a th:href="@{'/khach-hang/hien-thi'}" class="text-decoration-none">
+                            <span class="text-muted fw-light" th:text="${message_title1}"></span>
+                        </a>
+                        /
+                        <span th:text="${message_title2}"></span>
+                    </div>
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- Place this tag where you want the button to render. -->
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="../assets/img/avatars/avt.png" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="../assets/img/avatars/1.png" alt
+                                                         class="w-px-40 h-auto rounded-circle"/>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">John Doe</span>
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+            <!--CONTENT-->
+            <div class="content-wrapper">
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="card mb-4 px-4">
+                                <h3 class="card-header">Tạo tài khoản khách hàng</h3>
+                                <!-- Account -->
+                                <div class="card-body">
+                                    <form id="outerForm" th:action="@{/khach-hang/store}" th:object="${KhachHang} "
+                                          method="POST" enctype="multipart/form-data">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                            <img th:if="${anhKhachHang==null}" th:src="@{/assets/img/avatars/logo.png}"
+                                                 alt="user-avatar"
+                                                 class="d-block rounded mb-2" height="100" width="100"
+                                                 id="uploadedAvatar"/>
+                                            <img th:if="${anhKhachHang}" th:src="@{${anhKhachHang}}" alt="user-avatar"
+                                                 class="d-block rounded mb-2" height="100" width="100"
+                                                 id="uploadedAvatar"/>
+                                        </div>
+
+
+                                        <hr class="my-0"/>
+                                        <div class="row mt-3 ">
+                                            <div class="mb-3 col-md-6">
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Họ và tên</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                                        <input type="text" class="form-control" id="tenKhachHang"
+                                                               th:field="*{tenKhachHang}"
+                                                               th:value="${tenKhachHang}"/>
+                                                    </div>
+                                                    <small id="tenKhachHangHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('tenKhachHang')}"
+                                                           th:errors="*{tenKhachHang}"></small>
+
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Số điện thoại</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <span class="input-group-text"><i class="bx bx-phone"></i></span>
+                                                        <input type="number" class="form-control" id="sdt" th:field="*{sdt}"
+                                                               th:value="${sdt}"/>
+                                                    </div>
+                                                    <small id="sdtHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('sdt')}"
+                                                           th:errors="*{sdt}"></small>
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Email</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                                        <input type="email" class="form-control" id="email" th:field="*{email}"
+                                                               th:value="${email}"/>
+                                                    </div>
+                                                    <small id="emailHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('email')}"
+                                                           th:errors="*{email}"></small>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">Địa chỉ mặc định</label>
+                                                <div>
+                                                    <button type="button" class="btn btn-success btn-sm mb-2" onclick="toggleDiv()"
+                                                            id="addButton">
+                                                        Thêm mới
+                                                    </button>
+                                                </div>
+                                                <h4 th:text="${errorMessage}"></h4>
+                                                <input type="hidden" id="khachHangId" th:value="${KhachHang.id}">
+
+                                                <table class="table table-bordered pt-0">
+                                                    <tbody>
+                                                    <tr th:each="diaChi : ${listDC}">
+                                                        <td>
+                                                            <input type="radio"
+                                                                   th:checked="${diaChi.trangThai == 2}"
+                                                                   th:value="${diaChi.id}"
+                                                                   name="idDiaChi">
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="${diaChi.diaChiCuThe + ' - ' + diaChi.phuong + ', ' + diaChi.quan + ', ' + diaChi.tinh}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-danger btn-sm ms-2" href="#" th:attr="data-diaChiId=${diaChi.id}" onclick="openModal(this.getAttribute('data-diaChiId'))">Xoá</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <div>
+                                                    <span th:text="${messageDiaChi} " class="form-text text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="mt-2">
+                                            <button id="outerSubmitBtn" class="btn btn-primary me-2" type="submit"
+                                                    onclick="return confirmKhachHang()" >Xác nhận
+                                            </button>
+                                            <button type="reset" class="btn btn-outline-secondary" onclick="clearLocalStorage()">
+                                                Làm mới
+                                            </button>
+                                            </button>
+
+
+                                            <div id="myModalConfirm" class="modal fade">
+                                                <div class="modal-dialog modal-confirm">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header flex-column">
+                                                            <i class="bi bi-check-circle"
+                                                               style="color: #19702d; font-size: 50px;"></i>
+                                                            <h4 class="modal-title w-100">Xác nhận?</h4>
+                                                            <button type="button" class="btn-close" aria-label="Close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Bạn có xác nhận thêm mới khách hàng?</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Huỷ
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                function confirmKhachHang() {
+                                                    $('#myModalConfirm').modal('show');
+                                                    return false;
+                                                }
+                                            </script>
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                            <div class="row" id="hiddenDiv" style="display: none;">
+                                <form id="innerForm" th:action="@{'/dia-chi/storeNoIDKhachHang'}" th:object="${DiaChi}"
+                                      method="post">
+                                    <div class="card mb-4 px-4">
+                                        <div class="modal-header">
+                                            <h3 style="text-align:center">Thêm địa chỉ</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6 form-group">
+                                                    <label class="form-label">Tỉnh thành:</label>
+                                                    <select id="city" class="form-control" th:field="*{tinh}">
+                                                        <option th:value="${DiaChi.tinh}" selected
+                                                                th:text="${DiaChi.tinh}"></option>
+                                                    </select>
+                                                    <small id="tinhHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></small>
+
+                                                </div>
+                                                <div class=" mb-3 col-md-6 form-group">
+                                                    <label class="form-label">Quận huyện:</label>
+                                                    <select id="district" class="form-control" th:field="*{quan}">
+                                                        <option th:value="${DiaChi.quan}" selected
+                                                                th:text="${DiaChi.quan}"></option>
+                                                    </select>
+                                                    <small id="quanHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('quan')}" th:errors="*{quan}"></small>
+
+                                                </div>
+                                                <div class="mb-3 col-md-6 form-group">
+                                                    <label class="form-label">Phường xã:</label>
+                                                    <select id="ward" class="form-control" th:field="*{phuong}">
+                                                        <option th:value="${DiaChi.phuong}" selected
+                                                                th:text="${DiaChi.phuong}"></option>
+                                                    </select>
+                                                    <small id="phuongHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('phuong')}" th:errors="*{phuong}"></small>
+
+                                                </div>
+                                                <div class=" mb-3 col-md-6 form-group">
+                                                    <label class="form-label">Địa chỉ cụ thể:</label>
+                                                    <input type="text" th:field="*{diaChiCuThe}" class="form-control"
+                                                           placeholder="Địa chỉ cụ thể" aria-describedby="diaChiCuThe"/>
+                                                    <small id="diaChiCuTheHelp" class="form-text text-danger"
+                                                           th:if="${#fields.hasErrors('diaChiCuThe')}"
+                                                           th:errors="*{diaChiCuThe}"></small>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="reset" class="btn btn-secondary">Làm mới</button>
+                                            <button id="innerSubmitBtn" class="btn btn-primary me-2" type="submit"
+                                                    onclick="return confirmDiaChi()" >Xác nhận
+                                            </button>
+
+
+                                            <div id="myModalConfirmDiaChi" class="modal fade">
+                                                <div class="modal-dialog modal-confirm">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header flex-column">
+                                                            <i class="bi bi-check-circle"
+                                                               style="color: #19702d; font-size: 50px;"></i>
+                                                            <h4 class="modal-title w-100">Xác nhận</h4>
+                                                            <button type="button" class="btn-close" aria-label="Close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Bạn có xác nhận thêm mới địa chỉ?</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Huỷ
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                function confirmDiaChi() {
+                                                    $('#myModalConfirmDiaChi').modal('show');
+                                                    return false;
+                                                }
+                                            </script>
+
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog modal-confirm">
+                        <div class="modal-content">
+                            <div class="modal-header flex-column">
+                                <i class="bi bi-x-circle" style="color: #bf2121; font-size: 50px;"></i>
+                                <h4 class="modal-title w-100">Xác nhận xoá?</h4>
+                                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Bạn xác nhận xoá địa chỉ vừa chọn?</p>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở lại</button>
+                                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xoá</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <footer class="footer bg-light">
+                <div
+                        class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                    <div>
+                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                           target="_blank" class="footer-text fw-bolder ms-5">MPSHOP</a>
+                        ©
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="bx bx-log-out-circle"></i>
+                            Logout</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div class="layout-overlay layout-menu-toggle"></div>
+
+<script>
+    function openModal(diaChiId) {
+        var deleteUrl = '/dia-chi/delete/' + diaChiId;
+        document.getElementById('confirmDeleteBtn').setAttribute('onclick', 'confirmDelete("' + deleteUrl + '")');
+        $('#myModal').modal('show');
+    }
+
+    function confirmDelete(deleteUrl) {
+        window.location.href = deleteUrl;
+    }
+</script>
+
+
+
+<!--        api địa chỉ-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            var opt = document.createElement('option');
+            opt.value = x.Name;
+            opt.text = x.Name;
+            opt.setAttribute('data-id', x.Id);
+            citis.options.add(opt);
+        }
+        citis.onchange = function () {
+            district.length = 1;
+            ward.length = 1;
+            if (this.options[this.selectedIndex].dataset.id != "") {
+                const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
+
+                for (const k of result[0].Districts) {
+                    var opt = document.createElement('option');
+                    opt.value = k.Name;
+                    opt.text = k.Name;
+                    opt.setAttribute('data-id', k.Id);
+                    district.options.add(opt);
+                }
+            }
+        };
+        district.onchange = function () {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.options[citis.selectedIndex].dataset.id);
+            if (this.options[this.selectedIndex].dataset.id != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.options[this.selectedIndex].dataset.id)[0].Wards;
+
+                for (const w of dataWards) {
+                    var opt = document.createElement('option');
+                    opt.value = w.Name;
+                    opt.text = w.Name;
+                    opt.setAttribute('data-id', w.Id);
+                    wards.options.add(opt);
+                }
+            }
+        };
+    }
+</script>
+
+
+<!--xổ form địa chỉ khi validate-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var check = /*[[${check}]]*/ false; // Lấy giá trị từ controller
+        if (check) {
+            $("#hiddenDiv").show(); // Hiển thị hiddenDiv
+        }
+    });
+</script>
+
+
+<!--        xổ form thêm địa chỉ-->
+<script>
+    function toggleDiv() {
+        var div = document.getElementById("hiddenDiv");
+        div.style.display = "block"; // Hiển thị form mỗi khi nút được nhấn
+    }
+</script>
+
+
+<!--        lưu giá trị của ô input khi load lại trang-->
+<script>
+    // Kiểm tra xem có dữ liệu đã lưu trong Local Storage không
+    window.onload = function () {
+        var tenKhachHang = localStorage.getItem('tenKhachHang');
+        var sdt = localStorage.getItem('sdt');
+        var email = localStorage.getItem('email');
+        var passwordInput = localStorage.getItem('passwordInput');
+        var upload = localStorage.getItem("upload")
+
+        if (tenKhachHang) document.getElementById('tenKhachHang').value = tenKhachHang;
+        if (sdt) document.getElementById('sdt').value = sdt;
+        if (email) document.getElementById('email').value = email;
+        if (passwordInput) document.getElementById('passwordInput').value = passwordInput;
+
+    }
+
+    // Lưu trữ dữ liệu khi có sự thay đổi trong form
+    document.getElementById('tenKhachHang').addEventListener('change', function () {
+        localStorage.setItem('tenKhachHang', this.value);
+    });
+    document.getElementById('sdt').addEventListener('change', function () {
+        localStorage.setItem('sdt', this.value);
+    });
+    document.getElementById('email').addEventListener('change', function () {
+        localStorage.setItem('email', this.value);
+    });
+    document.getElementById('passwordInput').addEventListener('change', function () {
+        localStorage.setItem('passwordInput', this.value);
+    });
+
+
+    function clearLocalStorage() {
+        localStorage.clear();
+        // Cập nhật lại giá trị của các trường input trong form
+        document.getElementById('tenKhachHang').value = '';
+        document.getElementById('sdt').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('passwordInput').value = '';
+
+    }
+
+    if (window.location.href === 'http://localhost:8080/khach-hang/hien-thi') {
+        // Xoá hết dữ liệu trong Local Storage
+        localStorage.clear();
+    }
+
+</script>
+
+<style>
+    .modal-confirm {
+        color: #0e0d0d;
+        width: 400px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .btn-close {
+        position: absolute;
+        top: -5px;
+        right: -1px;
+    }
+
+    .modal-confirm .modal-body {
+        color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+    .modal-confirm .modal-footer a {
+        color: #999;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #219d53;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+        background: #918f8f;
+    }
+
+    .modal-confirm .btn-danger {
+        background: #b72d2d;
+    }
+
+</style>
+
+
+<script th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script th:src="@{/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
+
+<!-- Main JS -->
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+<!-- Page JS -->
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

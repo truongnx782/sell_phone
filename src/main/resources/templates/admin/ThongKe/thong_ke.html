@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="http://www.thymeleaf.org"
+
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Bán hàng tại quầy</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+<link rel="preconnect" th:href="@{https://fonts.googleapis.com}"/>
+<link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item active">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3'></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3'></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3'></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div>Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div>Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div>Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div>Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="pages-misc-under-maintenance.html" class="menu-link">
+                                <div>ROM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div>Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3'></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <h4 class="fw-bold py-3 mb-2 mt-2">Thống kê</h4>
+
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- Place this tag where you want the button to render. -->
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="../assets/img/avatars/avt.png" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="../assets/img/avatars/1.png" alt
+                                                         class="w-px-40 h-auto rounded-circle"/>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">John Doe</span>
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row">
+                    <div class="col-lg-8 mb-4 order-0">
+<!--                        báo cáo hàng ngày-->
+                        <div class="row">
+                            <div class="col-lg-12 mb-4 order-0">
+                                <div class="card">
+                                    <div class="d-flex align-items-end row">
+                                        <div class="col-sm-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-primary">Báo cáo hôm nay 🎉</h5>
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Mã nhân viên</th>
+                                                            <th>Tên nhân viên</th>
+                                                            <th>Tổng đơn</th>
+                                                            <th>Doanh thu</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="dt, index : ${lstDoanhThuTrongNgay}">
+                                                            <td th:text="${dt.maNhanVien}"></td>
+                                                            <td th:text="${dt.tenNhanVien}"></td>
+                                                            <td th:text="${dt.soHoaDonTheoNhanVien}"></td>
+                                                            <td th:text="${#numbers.formatDecimal(dt.doanhThuNhanVien, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <caption class="ms-4">
+                                                            <div class="d-flex">
+                                                                <div class="me-5 text-primary">
+                                                                    <p th:text="'Đơn tại quầy: '+${HoaDonTaiQuay}"></p>
+                                                                </div>
+                                                                <div class="text-success">
+                                                                    <p th:text="'Đơn online: '+${HoaDonOnline}"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex justify-content-around">
+                                                                <div class="me-5 text-primary">
+                                                                    <p th:text="'Tổng doanh thu: '+  ${#numbers.formatDecimal(tongDoanhThuNgay, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></p>
+                                                                </div>
+                                                                <a th:href="@{/download/excel}" type="button" class="btn" style="background-color: #ff8548; color: #ffffff;">
+                                                                    <i class='bx bxs-down-arrow-circle' ></i>&nbsp; Xuất báo cáo
+                                                                </a>
+                                                                <a th:href="@{/send-email}" type="button" class="btn btn-primary" >
+                                                                    <i class='bx bxs-envelope'></i>&nbsp; Gửi báo cáo
+                                                                </a>
+                                                            </div>
+                                                        </caption>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Doanh thu theo tháng -->
+<!--                            <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">-->
+                            <div class="col-lg-12 mb-4 order-0">
+                                <div class="card">
+                                    <div class="row row-bordered g-0">
+                                        <div class="col-md-12">
+                                            <h5 class="card-header m-0 me-2 pb-3">Doanh thu theo tháng</h5>
+                                            <div id="totalRevenueChart" class="px-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 order-1">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAA8hJREFUSEu9lF1MHFUYht/vzC4xUkvbpLTsQJC6iSFKo0YNF9oa03hpDQq7tVRiTHpn0hR2pYlW/IktO1BuvDLRkFiBYaW19abRpDFV22iaSIyVpA2mKcxC1WpKu4Cwc14d/goUZpdKurfznnn2/c4zn+Au/+Qu85AzMLrfKdGGrgCNsAhNgAUQ9Sc0BjT0JbjsTbaV/JWtgC+wpsHZIYIIgCoAG7K9DJB+gD2Kgc86Wzb9vFR+WWA0nmonWZcdsnSCIu91J0IHFz9dEhiNOR0Edt0pbPYcwbe6reL357/nNmB1w3CZEve3/wubOX/VtszN/sDY4CMK8tMqAWFb5oJSS440EhvsB2TLKkBP2Jb5gn/Dpgt5gdF12zVxHED+nUPlFwT0i/ah4ov+wDcGKjJKUnmZ4Dpg8k1A1QIMrACcJvEhXf1OIKie6kyYX/sCo/HU4wTr7YQ5ZWm11zi9/lkKK0HZqsEnABQIkE9yRESuC3BWA73UmbPJ1tLvps/9vkalJ3+wLfMhX2DtvstFk8FgCkC7uDjYdcQcWEG7qWgkPlgJLa0QlNqWWewL9B7WxJwTAjwPgAKeIaRHBQPdnR9surocPBJzHgOwE8TLEISnc3LAtkKHs0tzY/1areiN5sFFgGEILoLwvtNhEWwh4dlcvlgwUj4fG0Hdlx+FRnOSJjDOUTGMWlGsBfG093dzGO0YgOPQ6qjduvnUrnhqR1ZpZkZTb1vm7llA9YGhjSrjviQij5IoEzB4a32p9H/X1gfyW+3qr5JtJR50RpqJc7ZVXOHbcPfr19Zm7hm/BuCoVvJ2sjl0JYdmCyKeNEI5QmCNbZlbs0oTiTmHADTOl0Zn9LFkW4mzEmlEsLMrYZ7M2nBieENa3T/0CcBXbpMG6Bcwc2uk4m2jxdJMQFCvZfzTZPMD132B3h0qpf7pbC66UN04EFau2gOwCpCHs4xWA3KGRAeNsW4PFG1wXutqMT/OaqnSqn1M8p45mdh4Y06cxoGwkTGeJHSZKJknDdIg+wzD/b7jcOnfs/lIPFUO8rRtmUW+wL17zwdHCoqGCKRISdB1e2bNy0We6U2VVwdwP4Hebst8Lrs0DU4Ugs6Z4CjIU1DqmAbP/3FvqP+bJpm7wz0Nw/mTSpdT621Q4m2abVPniJvKUJXe1WQFeoFI3HmVxLsCLNiFubQUyI8u9b5kS/G5xXnf7dHURPXrqLNdtFRRUCNAoQ+wl8QXAdEdHVbJpeVyuayrubPR+JWQdgNhKIYFUgjyMqj69X1GX7Kp8GZu7XNJrWLmX8IFmSy5C9iLAAAAAElFTkSuQmCC"/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2">Tổng đơn hàng</p>
+                                        </div>
+
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDTong.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small style="color: #2F55C9; font-weight: bold" th:text="${HDTong.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAidJREFUSEvtlkFo02AUx/+vGasyRBC8iEMcguDFJK7QtCq9iSDizYsX3ZpYBUEEz7t6GSIoTVdR8OBRQdBrPSxNmW3iZeBBUJl48WDVw7bW70k6Cm3WtE1TNhBzy5e8/4/33v9930fY4Yd2mIfdB55/cCz+Y3LfZSKaiZK9gGCJsbJ83X3dqdOVYeZJZs/6Zt0m4GQUmA9QtAwn217rAmqmfAmgF+OCtXXExuT+yq3KT+/dB1QNgPNjB8ZotpKtVf8Dx1ZZ0aekOsDmCKRVYuSY8BzAIX88I3bKNqq1Xj0MDSTgOyTMWvPO59OPEjN/pObHMMCwLm0QcdrS3RUwSDOVNyCc8wNHKymhBEamU4yJr9q6+9RbS5nyPQbd7dWOEUpKt8tG7b5mKo8BXGv1grBo6c6dFiyvXmHiZ0G9D8wwacrzBFryBdZZsGzn3E9e2ZKmahLx4fI35wIWINJLalIILgGIBwGJWLF0191mmlRBzjJToUfgGgs+04IuIJaePj61PPfhV+JhYnpiountIAf7OlsItZx774Tdab6ShLTnRi9QW9T2Ymr9HYATg8aon2kGuXQLOud8SRWUlwxcHATzvoftoV9zjYBXDOSGgW0ZLKCHmvmvnxYBYzFs5QL/Cx6LvHKWCW8jE7oFGvHmxoHSzdXf28aiZXdT8U58Y0zQBoNv2IZbbOv1vCamisoR0eCjUaAkEW9yzK0a1Xqnzu7fS6NkNUzsX8a/CCxQzcU5AAAAAElFTkSuQmCC"/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2" th:text="${HDHoanThanh.tenTrangThai}"></p>
+                                        </div>
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDHoanThanh.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small style="color: #399931; font-weight: bold" th:text="${HDHoanThanh.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAqpJREFUSEvNlkto1GAUhc/9M32gCwURXRRddDJttQt1o0IXVoqCGxFBEBXqQnBXhTKZFtv8rbaTDgjqQhFRqaAuBl8ggi504xMUBKvUpC9FEXFREEHrJLkyhU5TO4/80hazPvd8uTf3XEJY4IcWmIf/D5iwZRMIDYUm4bPvaeAHydjxF2GmVbxDBhlD5g8Ai0KYDRLTaUuX50HgQvqiQGPYXAUfH0LAchJi6rdisvmfgAnH3MbAfRVgVsueV5uqPfE+X13xDu3OFhCdUgYy7U7F5E1lYHzIPEeMw6pAAu+x9O60MtBwzIcAGlWBgF8P0pb0ReXTv2uLj9QxvwBYqQakzxHKbHa5bJRcRK06ORasLwg8MiqXVrg8rgYDGNxOoEoAnczUkorJM6GAbXbHRp/EczUgvRLuxHY/Up7d0GUESlq6bA8FTNiymYkvhwUyMBDRMk2uW3aJCDsm46HSYdyRFoGNkkDCGIPSgr3rDHEWwKapGmKqtmJyJFSHhiNvA7xzWkzjTP5RwWLy8njA93I/89UV2gawOAia1IopPYOepHQ56wYXXBrDloMgrgm8bQ+DK0BoLdk1aIIFGlLV8mWoWMhHMvKzCr8A1qaPJO0F8yEAW0sAXQY3p/Tuq6GDH7eP1RFp72YU+P46CHEXQFUB4Ecw3dHc38neNb3Z/OZ98o40MdS5i5mCt9B3fVoREfxtxgIw9XvsXdQqMwPWaitUZvMCDcfMZqcnsDDDDOwn8LMgUAiqSVZLu/Q3DTjlEycceYXBB3Ibx7gniG4x+EKgdGIk+nZxmtLeXAAlgC05IPk3AKoCIx4wf92nd61XgWW1oX+iZucS1/r0rn3zBow75hsC6nO5JG61ot0n5w1oOB1rCdryKUDlJzyWjdKdN6CqsVIO58o8n88fhLf4HSj2xYYAAAAASUVORK5CYII="/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2" th:text="${HDChoXacNhan.tenTrangThai}"></p>
+                                        </div>
+
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDChoXacNhan.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small style="color: #71dd37; font-weight: bold" th:text="${HDChoXacNhan.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAA9lJREFUSEu9Vm+IFGUY/z0zyy0RZWHQ7dydVBZE+SGMKMhvQRF9qVAqyC9Bd6Y7eyreqjh7vc7cmZrd2u2cehuWoR+iowiCSCToSwaRUJDgR03bObvcKLpub9uZJ+d2dvfdcfZ270Dfb+/z7/f8fZ+XcIsP3WI8LAvQMfT1nkJrmN3TvdbE90txekmAV8TWxxTXtQE8XQdhTFFMTSfE4YudAHcE+NuezX1E6gEQXgUis1IGYMdV7F0pcn8vBrwo4DWh31nyYBAjBSAeGCoTIQtFPea53hCB+wHEAl4RzGbi9/IRyuf/iwKOBGQhYo5bTAGcAXCXpMhM3nM95sSZGu2qoa92CfsBrJfkLhHxUMK0p8KgNwAWDP1lEA4CWC0JXwbQF9xdgI9ThYzEO7mZmoyTGXyCyRsDY11dj3AWLg9qo/aPNVod0BFb72PXPSU3BAHfsMe7EqP2OSeTHADIul6rewLlf8G0z51Vx/qy2bmawcJw6iUwjwB4pNFY/PF87J9N94sTpTpgIaO/DyzUqnqIRzXTNuSUFHf2ryh1xQUAHYAa8BwQ3k4oK4+TEJ5P4w0bVOfh7q8APNvQ542aZZ9qABp6HoQ3Qzn/HJ63XRuduCTTLxuph2LERxl4RhqPXwi0E8SzzLBBWNNki9CvmbkPpAiTkwD5HRc+ZYDGlLmuke5Dh2ZlpjOsv8AMPzNyvWWRvwCsqGYsDBgdoaw8w8S7NdP+kACuMaZ37Ljdu23+h6aaASUQZ+eV2MG46/4Z1GhAs8bznUQYjvhnBm/RLPvsdEbfyIDfSKuahTivWfaATytk9MA5WjZgzbY8Kn7IJxRgHQMPgjCpmblNTYDLSGlEeRdI33mqmuwVh38qGPo5ENYCNyfC69PAnyQs+7WaJ4WM7g/440Q4kDBzu25ChI1IqsZTJ0HeF5ppfyY50aKG7bv0xpRKtYrK9/Qe/SlPQbAvQ03jZPRhBva2KlQ0nY5p1vhbYZ6/zhRS32XCK42HgZ7XRsa/ro/FeSG67nav+dthSFpFi+Iz6EiPNb6leSbLBsDbJBt/MHG6x7Q/qs5/6PwqklqsQvtBeL3Fsm1oEI5qZm4zC6EU3OIbhIVH+95AwH/Qs8pcfJ/8QrVcwJHfiZBzfoQK+FMGJgA8GrD9JjlZUXn3KmEXwgG1/WIUjOSLILwH0AMR+W28lVXmt56qbvNnslUt2gL6iv4PYLpSHGBifzXV9qFs8wIT0j1m7st2TdcRYM3ITDp9RyVeMhg8GDTFDIFF94WrkzQ15bYDi2yaTpSuCL1X8fjJuEJn2v3SllzDThxYisz/+fKWLKzzPNgAAAAASUVORK5CYII="/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2" th:text="${HDChoGiao.tenTrangThai}"></p>
+                                        </div>
+
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDChoGiao.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small class="" style="color: #d24e5c; font-weight: bold" th:text="${HDChoGiao.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAoNJREFUSEvllk1oE1EQx/+ziU1F0YOIHweP0mq2WogWu6kfd0FPpQhelKrUZrc96UHEIkLppc3GIAbBiyDiQSjoxVNrNgdFKUm2WhXEg71ZWgWbtO6ObJqPTVjX1cRc+k6Pnf+8HzM7M+8RmryoyTysQ2BqMC0aftrmNdU+g7klvzITSoSWvPiUU/pyQN+56jdnAOzw4lijeSepYrsXvzIwqWTOE+OeFycnjaSKnuqhLErJmTsMXGoaUJOzdwG+8K9AACMVX/68IhhPTkx0LtaeV45Qi6QTIOqvA1jrOsetGw6Fx9q+2w0VYP0RTtkOPlbcRyVVHHIG1hmhvWg0OfMQQB8AQxAgHpkQ35agDUupHTg9NLvLZxqfAAQAJCVV7PmvQOvwlJIdYebr1p4JfeGo+MjaNyzC6ioFGBQg8NViZF8CufzeUCL0o5FF417ghLNSVHzQyAhdgQS+2K12JNYTUMmOgvmKrXxfm8zjJKCNmYYJ2OSWMwLc9YyTUkx8WhneEf0wkzld7B0IAvaVGlaTM3EAA27AP+iXArn89lAitFp1pWhKth/MiULv+IRgeHy/bu2Tcvo2gS4DyAMYLYOZd5fm72/0ywCd8xu+513x9q9VfVho1ojeyWS+KRrWUkRkXawKgM0ApiRVPF4CPot8CGylnHUjtJZTatczT0qxjlOOs7T0UZMz1hA+6pi+4n+w2zQlfRNM1xz0DKIuKRp85Qp8Iet7BJiTAA7YhCaDboXVYGFU2Zd+Q29ZXDDHAMi2ybVATIPdsaA1xKuW47NgLVXLZ8A4zSTMsvHzfk/84Hu3okkNpzayuSXIML7Nz8997H3cazjpPb1D3GfW31mbDvwFtyoPLKnoV2oAAAAASUVORK5CYII="/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2" th:text="${HDDangGiao.tenTrangThai}"></p>
+                                        </div>
+
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDDangGiao.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small  style="color: #c56ed3; font-weight: bold" th:text="${HDDangGiao.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-6 mb-5 mt-2">
+                                <div class="card">
+                                    <div class="card-body text-center" style="padding: 15px">
+                                        <div class="card-title d-flex align-items-start justify-content-center">
+                                            <div class="avatar flex-shrink-0">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAASdJREFUSEvt1j8vBEEYx/HvswjRKuSm03gBYhQaEpXC3VVqlatFT+IF6Em8AJ1dQncJHWtfgo6NmlwkEh5BIvHnsjM7l3O53LbzbD77/J7MzghdfqTLHgOw44n3TqS3dbsUKVvAPDDs0WpLoBnJ68bkUXbz8722HeZVe4qw7AF9KxXYrsTpjjtYs0/AWFkQuDBxuuADagAGaGbi69kB+JVAXrP/F6nAMaK7RTNVlT1g+rMuZIbKvknSRhGY122GMhMOoplKdFIEiuo6UOkAWET9tR4SaRkvaIb9CraA8VLNfewKzk2SLjr/2u6q9lCE1fKgbJrk6tfebXs83a/MTb1Euibv56Ey4gorPIpoc/R56GDi7PLBuUNXwLeud64Yvl/uWt//Hb4BFhuAHWjDdqIAAAAASUVORK5CYII="/>
+                                            </div>
+                                            <p class="fw-semibold d-block mt-2" th:text="${HDHuy.tenTrangThai}"></p>
+                                        </div>
+
+                                        <h4 class="card-title mb-2" th:text="${#numbers.formatDecimal(HDHuy.doanhThu, 0, 'COMMA', 0, 'COMMA').replace(',', '.') + 'đ'}"></h4>
+                                        <small style="color: #e64f35; font-weight: bold" th:text="${HDHuy.soHoaDon} +' đơn'"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <!-- Doanh thu theo hãng -->
+                    <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                                <div class="card-title mb-0">
+                                    <h5 class="m-0 me-2">Tỷ lệ doanh thu theo hãng</h5>
+                                </div>
+                                <div class="dropdown">
+                                    <button
+                                            class="btn p-0"
+                                            type="button"
+                                            id="orederStatistics"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                    >
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
+                                        <a class="dropdown-item" href="javascript:void(0);">Select All</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+<!--                                    <div class="d-flex flex-column align-items-center gap-1">-->
+<!--                                        <h2 class="mb-2">8,258</h2>-->
+<!--                                        <span>Total Orders</span>-->
+<!--                                    </div>-->
+                                    <div id="doanhThuHang"></div>
+                                </div>
+                                <ul class="p-0 m-0" id="tenHang">
+                                    <!-- Các mục sẽ được thêm vào đây bởi JavaScript -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Doanh thu theo hãng -->
+
+                    <!-- Phân phối đa kênh -->
+                    <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                                <div class="card-title mb-0">
+                                    <h5 class="m-0 me-2">Phân phối đa kênh</h5>
+                                </div>
+                                <div class="dropdown">
+                                    <button
+                                            class="btn p-0"
+                                            type="button"
+                                            id="doanhThuTheoKenh"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                    >
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="doanhThuTheoKenh">
+                                        <a class="dropdown-item" href="javascript:void(0);">Select All</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+<!--                                    <div class="d-flex flex-column align-items-center gap-1">-->
+<!--                                        <h2 class="mb-2">8,258</h2>-->
+<!--                                        <span>Total Orders</span>-->
+<!--                                    </div>-->
+                                    <div id="doanhThuTheoKenhChart"></div>
+                                </div>
+                                <ul class="p-0 m-0" id="tenKenhPhanPhoi">
+                                    <!-- Các mục sẽ được thêm vào đây bởi JavaScript -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Phân phối đa kênh -->
+
+                    <!-- Transactions -->
+                    <div class="col-md-6 col-lg-4 order-2 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="card-title m-0 me-2">Top 5 sản phẩm bán chạy</h5>
+                                <div class="dropdown">
+                                    <button
+                                            class="btn p-0"
+                                            type="button"
+                                            id="transactionID"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                    >
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                                        <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="p-0 m-0">
+                                    <li class="d-flex mb-4 pb-1" th:each="sp, index : ${lstTop5SanPham}">
+<!--                                        Top 1-->
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <i  class='bx bx-medal' style='color:#b2840b'></i>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0" th:text="${sp.tenSanPham}"></h6>
+                                                <small class="text-muted d-block mb-1" th:text="${sp.tenRom}"></small>
+                                            </div>
+                                            <div class="user-progress d-flex align-items-center gap-1">
+                                                <h6 class="mb-0" th:text="${sp.soLuong}"></h6>
+                                                <span class="text-muted"> Chiếc</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Transactions -->
+                </div>
+            </div>
+            <!-- / Content -->
+
+            <!--Footer-->
+            <footer class="footer bg-light">
+                <div class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                    <div>
+                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                           target="_blank" class="footer-text fw-bolder ms-5">MPSHOP</a>
+                        ©
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="bx bx-log-out-circle"></i>
+                            Logout</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ALERT -->
+<div th:if="${successMessage}" id="successMessage">
+    <div class="success__icon">
+        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd"
+                  d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                  fill="#393a37" fill-rule="evenodd"></path>
+        </svg>
+    </div>
+    <div class="success__title" th:text="${successMessage}"></div>
+</div>
+
+<script>
+    var successMessage = document.getElementById('successMessage');
+    if (successMessage) {
+        successMessage.classList.add('slideInRight');
+        setTimeout(function() {
+            successMessage.classList.remove('slideInRight');
+            successMessage.classList.add('slideOutRight');
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 1000);
+        }, 4000);
+    }
+</script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/print.js/1.6.0/print.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/apexcharts}"></script>
+<!--Doanh thu theo tháng-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const totalRevenueChartEl = document.querySelector('#totalRevenueChart');
+        let cardColor, headingColor, axisColor, shadeColor, borderColor;
+
+        cardColor = config.colors.white;
+        headingColor = config.colors.headingColor;
+        axisColor = config.colors.axisColor;
+        borderColor = config.colors.borderColor;
+        const totalRevenueChartOptions = {
+            series: [
+                {
+                    name: 'Doanh thu',
+                    data: [] // Placeholder for dynamic data
+                }
+            ],
+            chart: {
+                height: 300,
+                stacked: true,
+                type: 'bar',
+                toolbar: { show: false }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '33%',
+                    borderRadius: 12,
+                    startingShape: 'rounded',
+                    endingShape: 'rounded'
+                }
+            },
+            colors: ['#0DCAF0'], // Replace with your config colors
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 6,
+                lineCap: 'round',
+                colors: ['#fff'] // Replace with your card color
+            },
+            legend: {
+                show: true,
+                horizontalAlign: 'left',
+                position: 'top',
+                markers: {
+                    height: 8,
+                    width: 8,
+                    radius: 12,
+                    offsetX: -3
+                },
+                labels: {
+                    colors: ['#6c757d'] // Replace with your axis color
+                },
+                itemMargin: {
+                    horizontal: 10
+                }
+            },
+            grid: {
+                borderColor: '#dee2e6', // Replace with your border color
+                padding: {
+                    top: 0,
+                    bottom: -8,
+                    left: 20,
+                    right: 20
+                }
+            },
+            xaxis: {
+                categories: [], // Placeholder for dynamic categories (months)
+                labels: {
+                    style: {
+                        fontSize: '13px',
+                        colors: ['#6c757d'] // Replace with your axis color
+                    }
+                },
+                axisTicks: {
+                    show: false
+                },
+                axisBorder: {
+                    show: false
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        fontSize: '13px',
+                        colors: ['#6c757d'] // Replace with your axis color
+                    }
+                }
+            },
+            responsive: [
+                // Add your responsive breakpoints options here
+            ],
+            states: {
+                hover: {
+                    filter: {
+                        type: 'none'
+                    }
+                },
+                active: {
+                    filter: {
+                        type: 'none'
+                    }
+                }
+            }
+        };
+
+        if (totalRevenueChartEl) {
+            const totalRevenueChart = new ApexCharts(totalRevenueChartEl, totalRevenueChartOptions);
+
+            // Fetch the data from the API
+            fetch('/doanh-thu-theo-thang')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched Data:', data); // Debugging statement
+
+                    const months = [];
+                    const revenueData = [];
+
+                    data.forEach(item => {
+                        months.push(getMonthName(item.month)); // Convert month number to name
+                        revenueData.push(item.doanhThu);
+                    });
+
+                    totalRevenueChart.updateOptions({
+                        xaxis: {
+                            categories: months
+                        },
+                        series: [
+                            {
+                                name: 'Doanh thu',
+                                data: revenueData
+                            }
+                        ]
+                    });
+                })
+                .catch(error => console.error('Error fetching revenue data:', error));
+
+            totalRevenueChart.render();
+        }
+
+        // Helper function to get month name from month number
+        function getMonthName(monthNumber) {
+            const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+            return monthNames[monthNumber - 1]; // monthNumber is 1-based
+        }
+    });
+
+</script>
+
+<!--Doanh thu theo hãng-->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const chartOrderStatistics = document.querySelector('#doanhThuHang');
+        let cardColor, headingColor, axisColor, shadeColor, borderColor;
+
+        // Cấu hình màu sắc từ đối tượng config (giả sử đã được định nghĩa ở đâu đó)
+        cardColor = config.colors.white;
+        headingColor = config.colors.headingColor;
+        axisColor = config.colors.axisColor;
+        borderColor = config.colors.borderColor;
+
+        // Lấy danh sách hãng và doanh thu từ API
+        fetch('/doanh-thu-theo-hang')
+            .then(response => response.json())
+            .then(data => {
+                // Cập nhật biểu đồ donut
+                if (chartOrderStatistics) {
+                    const labels = data.map(item => item.tenHang); // Tên các hãng
+                    const series = data.map(item => item.doanhThuHang); // Doanh thu của các hãng
+
+
+
+                    const orderChartConfig = {
+                        chart: {
+                            height: 265,
+                            width: 230,
+                            type: 'donut'
+                        },
+                        labels: labels,
+                        series: series,
+                        colors: [config.colors.primary, config.colors.success, config.colors.info, config.colors.danger, config.colors.warning],
+                        stroke: {
+                            width: 5,
+                            colors: cardColor
+                        },
+                        dataLabels: {
+                            enabled: false,
+                            formatter: function (val) {
+                                return parseInt(val) + '%';
+                            }
+                        },
+                        legend: {
+                            show: false
+                        },
+                        grid: {
+                            padding: {
+                                top: 0,
+                                bottom: 0,
+                                right: 15
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                donut: {
+                                    size: '65%',
+                                    labels: {
+                                        show: true,
+                                        value: {
+                                            fontSize: '1.5rem',
+                                            fontFamily: 'Public Sans',
+                                            color: headingColor,
+                                            offsetY: -15,
+                                            formatter: function (val) {
+                                                return parseInt(val) + '%';
+                                            }
+                                        },
+                                        name: {
+                                            offsetY: 20,
+                                            fontFamily: 'Public Sans'
+                                        },
+                                        total: {
+                                            show: true,
+                                            fontSize: '0.8125rem',
+                                            color: axisColor,
+                                            label: 'Total',
+                                            formatter: function () {
+                                                return 'Total'; // Thay đổi giá trị của tổng nếu cần
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    // Tạo và hiển thị biểu đồ
+                    if (chartOrderStatistics) {
+                        const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
+                        statisticsChart.render();
+                    }
+                }
+
+                // Cập nhật danh sách HTML
+                const listContainer = document.querySelector('#tenHang');
+                if (listContainer) {
+                    listContainer.innerHTML = ''; // Xóa nội dung hiện tại
+
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'd-flex mb-4 pb-1';
+
+                        listItem.innerHTML = `
+                            <div class="avatar flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded bg-label-primary">
+                                    <i class="bx bx-category"></i>
+                                </span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                <div class="me-2">
+                                    <h6 class="mb-0">${item.tenHang}</h6>
+                                    <small class="text-muted">${item.moTa || 'Description'}</small>
+                                </div>
+                                <div class="user-progress">
+                                    <small class="fw-semibold">${item.doanhThuHang}</small>
+                                </div>
+                            </div>
+                        `;
+
+                        listContainer.appendChild(listItem);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script>
+
+
+
+<!-- Doanh thu theo kênh phân phối-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chartOrderStatistics = document.querySelector('#doanhThuTheoKenhChart');
+        let cardColor, headingColor, axisColor, shadeColor, borderColor;
+
+        // Cấu hình màu sắc từ đối tượng config (giả sử đã được định nghĩa ở đâu đó)
+        cardColor = config.colors.white;
+        headingColor = config.colors.headingColor;
+        axisColor = config.colors.axisColor;
+        borderColor = config.colors.borderColor;
+
+        // Lấy danh sách hãng và doanh thu từ API
+        fetch('/ty-le-phan-phoi')
+            .then(response => response.json())
+            .then(data => {
+                // Tính tổng số hóa đơn
+                const totalHoaDon = data.reduce((acc, item) => acc + item.soHoaDon, 0);
+                console.log("Tổng số hóa đơn: "+totalHoaDon)
+                // Cập nhật biểu đồ donut
+                if (chartOrderStatistics) {
+                    const labels = data.map(item => item.tenLoaiHoaDon); // Tên các loại hóa đơn
+                    const series = data.map(item => item.soHoaDon); // Số lượng theo loại hóa đơn
+
+                    const orderChartConfig = {
+                        chart: {
+                            height: 265,
+                            width: 230,
+                            type: 'donut'
+                        },
+                        labels: labels,
+                        series: series,
+                        colors: [config.colors.danger, config.colors.success],
+                        stroke: {
+                            width: 5,
+                            colors: cardColor
+                        },
+                        dataLabels: {
+                            enabled: false,
+                            formatter: function (val) {
+                                return (parseInt(val)/totalHoaDon*100).toFixed(2) + '%';
+                            }
+                        },
+                        legend: {
+                            show: false
+                        },
+                        grid: {
+                            padding: {
+                                top: 0,
+                                bottom: 0,
+                                right: 15
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                donut: {
+                                    size: '25%',
+                                    labels: {
+                                        show: true,
+                                        value: {
+                                            fontSize: '1.5rem',
+                                            fontFamily: 'Public Sans',
+                                            color: headingColor,
+                                            offsetY: -15,
+                                            formatter: function (val) {
+                                                return (parseInt(val)/totalHoaDon*100).toFixed(2) + '%';
+                                            }
+                                        },
+                                        name: {
+                                            offsetY: 20,
+                                            fontFamily: 'Public Sans'
+                                        },
+                                        total: {
+                                            show: true,
+                                            fontSize: '0.8125rem',
+                                            color: axisColor,
+                                            label: 'Total',
+                                            formatter: function () {
+                                                return ''
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    // Tạo và hiển thị biểu đồ
+                    if (chartOrderStatistics) {
+                        const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
+                        statisticsChart.render();
+                    }
+                }
+
+                // Cập nhật danh sách HTML
+                const listContainer = document.querySelector('#tenKenhPhanPhoi');
+                if (listContainer) {
+                    listContainer.innerHTML = ''; // Xóa nội dung hiện tại
+
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'd-flex mb-4 pb-1';
+
+                        listItem.innerHTML = `
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <span class="avatar-initial rounded bg-label-primary">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(42, 201, 54, 1);transform: ;msFilter:;"><circle cx="10.5" cy="19.5" r="1.5"></circle><circle cx="17.5" cy="19.5" r="1.5"></circle><path d="M13 13h2v-2.99h2.99v-2H15V5.03h-2v2.98h-2.99v2H13V13z"></path><path d="M10 17h8a1 1 0 0 0 .93-.64L21.76 9h-2.14l-2.31 6h-6.64L6.18 4.23A2 2 0 0 0 4.33 3H2v2h2.33l4.75 11.38A1 1 0 0 0 10 17z"></path></svg>
+                            </span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                            <h6 class="mb-0">${item.tenLoaiHoaDon}</h6>
+                            </div>
+                            <div class="user-progress">
+                            <small class="fw-semibold">${item.soHoaDon}</small>
+                            </div>
+                            </div>
+                            `;
+
+                    listContainer.appendChild(listItem);
+                    });
+                    }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+                    });
+</script>
+</body>
+</html>
+
+
+

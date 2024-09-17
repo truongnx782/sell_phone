@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en"
+      class="light-style layout-menu-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../assets/"
+      data-template="vertical-menu-template-free">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}" />
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin />
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap}" rel="stylesheet" />
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" th:href="@{/assets/css/demo.css}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}" />
+    <link rel="stylesheet" th:href="@{/assets/vendor/libs/apex-charts/apex-charts.css}" />
+    <script th:src="@{/assets/vendor/js/helpers.js}"></script>
+    <script th:src="@{/assets/js/config.js}"></script>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+
+
+    <style>
+        .form-outline {
+            position: relative;
+        }
+
+        .form-outline label {
+            position: absolute;
+            top: -10px;
+            /* Điều chỉnh khoảng cách từ trên xuống */
+            left: 10px;
+            /* Điều chỉnh khoảng cách từ trái sang */
+            padding: 0 5px;
+            background-color: white;
+            color: gray;
+            font-size: 12px;
+        }
+
+        .chua-dien-ra {
+            color: yellowgreen;
+        }
+
+        .dang-dien-ra {
+            color: green;
+        }
+
+        .da-ket-thuc {
+            color: red;
+        }
+        .success {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            width: 320px;
+            padding: 12px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            background: #EDFBD8;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px -3px #111;
+            position: fixed;
+            top: 90px;
+            right: 45px;
+        }
+
+        .slideInRight {
+            animation: slideInRight 1s forwards;
+        }
+
+        .slideOutRight {
+            animation: slideOutRight 1.5s forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(150%);
+            }
+        }
+
+
+        .success__icon {
+            width: 20px;
+            height: 20px;
+            transform: translateY(-2px);
+            margin-right: 8px;
+        }
+
+        .success__icon path {
+            fill: #84D65A;
+        }
+
+        .success__title {
+            font-weight: 500;
+            font-size: 14px;
+            color: #2B641E;
+        }
+
+        .success__close {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .success__close path {
+            fill: #2B641E;
+        }
+        .modal-confirm {
+            color: #0e0d0d;
+            width: 400px;
+        }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -10px;
+        }
+
+        .modal-confirm .btn-close {
+            position: absolute;
+            top: -5px;
+            right: -1px;
+        }
+
+        .modal-confirm .modal-body {
+            color: #999;
+        }
+
+        .modal-confirm .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 10px 15px 25px;
+        }
+
+        .modal-confirm .modal-footer a {
+            color: #999;
+        }
+
+        .modal-confirm .btn,
+        .modal-confirm .btn:active {
+            color: #fff;
+            border-radius: 4px;
+            background: #219d53;
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            min-width: 120px;
+            border: none;
+            min-height: 40px;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+        .modal-confirm .btn-secondary {
+            background: #918f8f;
+        }
+
+        .modal-confirm .btn-danger {
+            background: #b72d2d;
+        }
+
+    </style>
+    <title>Thêm phiếu giảm giá</title>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="layout_tt.html" class="app-brand-link">
+                    <img th:src="@{/assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Thống kê</div>
+                    </a>
+                </li>
+
+                <!--                Bán hàng tại quầy-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                        <i class='bx bxs-cart-alt me-3'></i>
+                        <div>Bán hàng tại quầy</div>
+                    </a>
+                </li>
+                <!--                Quản lý đơn hàng-->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-receipt me-3'></i>
+                        <div>Quản lý đơn hàng</div>
+                    </a>
+
+                </li>
+                <!--                Quản lý sản phẩm-->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3'></i>
+                        <div data-i18n="Misc">Quản lý sản phẩm</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                                <div>Camera trước</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                                <div>Camera sau</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                                <div>Chip</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                                <div>Hãng</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                                <div>Hệ điều hành</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                                <div>Màn hình</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                                <div>Màu sắc</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                                <div>Pin</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                                <div>RAM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="pages-misc-under-maintenance.html" class="menu-link">
+                                <div>ROM</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                                <div>Sản phẩm</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                                <div>Sim</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý phiếu giảm giá-->
+                <li class="menu-item active">
+                    <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                        <i class='bx bxs-discount me-3'></i>
+                        <div>Phiếu giảm giá</div>
+                    </a>
+                </li>
+
+                <!-- Quản lý nhân viên -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='bx bxs-shopping-bag me-3' ></i>
+                        <div data-i18n="Misc">Quản lý nhân viên</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                                <div>Nhân viên</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:onclick="|window.location.href='/chuc-vu/index';|" class="menu-link">
+                                <div>Chức vụ</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Quản lý khách hàng -->
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                        <i class='bx bxs-user-detail me-3'></i>
+                        <div>Quản lý khách hàng</div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- Layout container -->
+        <div class="layout-page ms-4 " style="background-color: #f5f5f9">
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <h4 style="color: black" class="fw-bold py-3 mb-2 mt-2">Phiếu giảm giá/ Thêm phiếu mới</h4>
+
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- Place this tag where you want the button to render. -->
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img th:src="@{/assets/img/avatars/avt.png}" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="../assets/img/avatars/1.png" alt
+                                                         class="w-px-40 h-auto rounded-circle"/>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">John Doe</span>
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+            <div class="row">
+                <form th:action="@{/phieu-giam-gia/pgg-create}" method="post" th:object="${pgg}" class="d-flex">
+                <div class="col-sm-7 ms-1 me-2">
+                    <div class="row g-3 mt-5 mb-5 border rounded shadow text-dark" style="border-color: #a5582c; background-color: white">
+                        <!-- Mã phiếu -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label  text-dark">Mã phiếu:</label>
+                            <div class="d-flex">
+                                <label class="form-label  text-dark mt-1">PGG:</label>
+                                <input type="text" class="form-control py-0  text-dark"
+                                       style=" width:250px; height: 30px;" th:field="*{maPhieuGiamGia}"/>
+                            </div>
+                        </div>
+                        <!-- Tên phiếu -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label  text-dark" ng-bind="nameBKF">Tên phiếu:</label>
+                            <div class="d-flex">
+                                <input type="text" class="form-control py-0  text-dark"
+                                       style=" width:250px; height: 30px;" th:field="*{tenPhieuGiamGia}"/>
+
+                            </div>
+                            <i th:errors="*{tenPhieuGiamGia}" style="color: red"></i><br>
+                        </div>
+                        <!-- Hóa đơn tối thiểu -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label text-dark">Giá trị hóa đơn tối thiểu:</label>
+                            <div class="d-flex">
+                                <input th:field="*{giaTriToiThieuApDung}" type="number"
+                                       class="form-control py-0 text-dark" style="width:250px; height: 30px;">
+                            </div>
+                            <i th:errors="*{giaTriToiThieuApDung}" style="color: red"></i><br>
+                        </div>
+                        <!-- Số lượng-->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label text-dark">Số lượng:</label>
+                            <div class="d-flex">
+                                <div class="form-check form-switch">
+                                    <input th:field="*{trangThaiSoLuong}" type="hidden" id="valueTrangThai"
+                                           name="datePlanted" th:value="*{trangThaiSoLuong}"/>
+                                    <input th:checked="*{trangThaiSoLuong}" class="form-check-input" type="checkbox"
+                                           id="flexSwitchCheckChecked" data-target="inputSoLuong">
+                                    <label class="form-check-label text-dark me-3" for="flexSwitchCheckChecked"
+                                           style="font-size: 13px">Không giới hạn</label>
+                                </div>
+                                <input th:field="*{soLuong}" type="number" class="form-control py-0 text-dark"
+                                       style=" width:80px; height: 30px;"
+                                       id="inputSoLuong">
+                            </div>
+                            <i th:errors="*{soLuong}" style="color: red"></i><br>
+                            <div th:if="${#fields.hasErrors('soLuong')}">
+                                <p class="error-message"></p>
+                            </div>
+                        </div>
+                        <!-- Ngày bắt đầu -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label text-dark" ng-bind="nameBKF">Ngày bắt đầu:</label>
+                            <div class="d-flex">
+                                <input th:field="*{ngayBatDau}" type="datetime-local" value="2019-12-19T13:45:00"
+                                       class="form-control py-0 text-dark"
+                                       style=" width:250px; height: 30px;" id="inputNgayBT"/>
+                            </div>
+                            <i th:errors="*{ngayBatDau}" style="color: red"></i><br>
+
+                        </div>
+                        <!-- Ngày kết thúc -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label text-dark" ng-bind="nameBKF">Ngày kết thúc:</label>
+                            <div class="d-flex">
+                                <input th:field="*{ngayKetThuc}" type="datetime-local" value="2019-12-19T13:45:00"
+                                       class="form-control py-0 text-dark"
+                                       style=" width:250px; height: 30px;" id="inputNgayKT">
+                            </div>
+                            <i th:errors="*{ngayKetThuc}" style="color: red"></i><br>
+                            <div th:if="${#fields.hasErrors('ngayKetThuc')}">
+                                <p class="error-message"></p>
+                            </div>
+
+                        </div>
+                        <!--Loại -->
+                        <div class="col-12 col-sm-4 col-md-4">
+                            <label class="form-label  text-dark">Loại giảm giá:</label>
+                            <div class="d-flex">
+                                <div>
+                                    <select th:field="*{loaiGiamGia}" id="mySelect" class="form-select py-0  text-dark"
+                                            aria-label="Default select example" th:value="*{loaiGiamGia}"
+                                            style="width:250px; height: 30px;" onchange="handleOptionChange()">
+                                        <option value="">--Chọn--</option>
+                                        <option value="0">Giảm theo %</option>
+                                        <option value="1">Giảm theo số tiền</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <i th:errors="*{loaiGiamGia}" style="color: red"></i><br>
+
+                            <div id="inputContainer" style="display: none;">
+                                <div>
+                                    <label id="labelElement" class="form-label  text-dark"></label>
+                                    <div class="d-flex">
+                                        <input th:field="*{phanTramGiam}" id="inputElement"
+                                               class="form-control py-0  text-dark" type="number"
+                                               style="width:250px; height: 30px;">
+                                    </div>
+                                    <i th:errors="*{phanTramGiam}" style="color: red"></i><br>
+                                    <div th:if="${#fields.hasErrors('phanTramGiam')}">
+                                        <p class="error-message"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="inputContainerSoTienGiamToiDa" style="display: none;">
+                                <div>
+                                    <label id="labelSoTienGiamToiDa" class="form-label  text-dark"></label>
+                                    <div class="d-flex">
+                                        <input th:field="*{soTienDuocGiamToiDa}" id="inputSoTienGiamToiDa"
+                                               class="form-control py-0  text-dark" type="number"
+                                               style="width:250px; height: 30px;">
+                                    </div>
+                                    <i th:errors="*{soTienDuocGiamToiDa}" style="color: red"></i><br>
+                                    <div th:if="${#fields.hasErrors('soTienDuocGiamToiDa')}">
+                                        <p class="error-message"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--   Số tiền giảm-->
+                            <div id="inputContainerSoTienGiam" style="display: none;">
+                                <div>
+                                    <label id="labelElementSoTienGiam" class="form-label  text-dark"></label>
+                                    <div class="d-flex">
+                                        <input th:field="*{soTienDuocGiam}" id="inputElementSoTienGiam"
+                                               class="form-control py-0  text-dark" type="number"
+                                               style="width:250px; height: 30px;">
+                                    </div>
+                                    <i th:errors="*{soTienDuocGiam}" style="color: red"></i><br>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mô tả-->
+                        <div class="col-12 col-sm-3 col-md-3 mb-3 ">
+                            <label class="form-label text-dark">Mô tả:</label>
+                            <div class="d-flex">
+                                <textarea th:field="*{moTa}" class="form-control text-dark" name="" rows="4"></textarea>
+                            </div>
+                            <i th:errors="*{moTa}" style="color: red"></i><br>
+                        </div>
+                        <!-- Trạng thái công khai-->
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <label class="form-label text-dark">Riêng tư:</label>
+                            <div class="d-flex">
+                                <div class="form-check form-switch">
+                                    <input th:field="*{trangThaiCongKhai}" type="hidden" id="valueCongKhai"
+                                           name="datePlanted" th:value="*{trangThaiCongKhai}"/>
+                                    <input th:checked="*{trangThaiCongKhai == 1}" class="form-check-input"
+                                           th:value="*{trangThaiCongKhai}" type="checkbox" id="congKhaiCheck"
+                                           data-target="inputContainerKhachHang">
+                                </div>
+                                <div id="labelChonKhachHang" style="display: none;">
+                                    <label class="form-label  text-dark">Chọn khách hàng:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-2 col-md-2"></div>
+                        <div class="col-12 col-sm-1 col-md-1"></div>
+                        <div class="col-12 col-sm-3 col-md-3"></div>
+                        <div class="col-12 col-sm-3 col-md-3 my-3 text-center d-flex">
+                            <button type="reset" class="btn btn-light me-2 px-0 text-white" style="width: 350px; background-color: #8e9baa">Làm mới</button>
+                                <a href="#myModalConfirm" class="btn text-white px-0" style="background-color: #50a14f; width: 350px;" data-bs-toggle="modal">Thêm mới</a>
+                            <!-- Modal Confirm -->
+                            <div id="myModalConfirm" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <i class="bi bi-check-circle" style="color: #19702d; font-size: 50px;"></i>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Xác nhận thêm phiếu mới?</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn">Xác nhận</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 ms-4">
+                    <div class="row mb-2 mt-5">
+                        <div class=" d-flex" style="justify-content: space-between">
+                            <h4 class="text-dark">Danh sách khách hàng</h4>
+                            <div class="mt-2 pt-2">
+                                <form action="">
+                                    <input class="form-control me-2 rounded-pill text-dark bg-white" type="search" placeholder="Tìm khách hàng"
+                                           aria-label="Search"
+                                           style="height: 30px; width: 200px; font-size: small;" id="searchKH" disabled>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Danh sách khách hàng-->
+                    <div class=" row table-responsive shadow bg-white mb-3" style="max-height: 250px;">
+                        <table class="table table-bordered rounded-4 text-dark">
+                            <thead class="table-light" style="background-color:slategray">
+                            <tr>
+                                <th></th>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="kh, khListStat : ${lstKH}" th:object="${kh}">
+                                <td>
+                                        <input class="form-check-input mx-2" type="checkbox" th:value="*{id}"
+                                               id="checkBoxKH" name="checkBoxKH" onclick="showSelectedCustomer(this)">
+                                        <input class="form-check-input mx-2" type="hidden" th:value="*{id}"
+                                               id="checkBoxKHHidden">
+                                </td>
+                                <td th:text="*{tenKhachHang}"></td>
+                                <td th:text="*{sdt}"></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <input type="hidden" id="selectedKHValuesInput" name="selectedKHValues"/>
+                    <!-- Danh sách khách hàng đã chọn-->
+                    <h5 class="text-dark">Danh sách khách hàng được áp dụng</h5>
+                    <div class=" row table-responsive shadow bg-white" style="max-height: 150px;">
+                        <table class="table text-dark">
+                            <thead class="table-light" style="background-color:slategray">
+                            <tr>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                            </tr>
+                            </thead>
+                            <tbody id="selectedCustomersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Sự kiện khi chọn loại phiếu giảm giá
+    document.addEventListener("DOMContentLoaded", function () {
+        handleOptionChange();
+    });
+
+    function handleOptionChange() {
+        var selectElement = document.getElementById("mySelect");
+        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+
+        var inputContainer = document.getElementById("inputContainer");
+        var inputContainerSoTienGiam = document.getElementById("inputContainerSoTienGiam");
+        var inputContainerSoTienGiamToiDa = document.getElementById("inputContainerSoTienGiamToiDa");
+        var labelElement = document.getElementById("labelElement");
+        var labelSoTienGiamToiDa = document.getElementById("labelSoTienGiamToiDa");
+        var inputElement = document.getElementById("inputElement");
+        var inputSoTienGiamToiDa = document.getElementById("inputSoTienGiamToiDa");
+
+        var labelElementSoTienGiam = document.getElementById("labelElementSoTienGiam");
+
+        if (selectedValue === "0") {
+            labelElement.innerText = "Phần trăm giảm:";
+            labelSoTienGiamToiDa.innerText = "Số tiền giảm tối đa:";
+            inputContainer.style.display = "block";
+            inputContainerSoTienGiamToiDa.style.display = "block";
+            inputContainerSoTienGiam.style.display = "none";
+        } else if (selectedValue === "1") {
+            labelElementSoTienGiam.innerText = "Số tiền giảm:";
+            inputContainerSoTienGiam.style.display = "block";
+            inputContainer.style.display = "none";
+            inputContainerSoTienGiamToiDa.style.display = "none";
+        }
+    }
+
+    // Sự kiện giới hạn số lượng
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var checkbox = document.getElementById("flexSwitchCheckChecked");
+        var valueTrangThai = document.getElementById("valueTrangThai");
+        var inputSoLuong = document.getElementById(checkbox.getAttribute("data-target"));
+
+        checkbox.addEventListener("change", function () {
+            if (checkbox.checked) {
+                valueTrangThai.value = 1;
+                inputSoLuong.disabled = true;
+            } else {
+                inputSoLuong.disabled = false;
+                valueTrangThai.value = 0;
+            }
+        });
+        // Gọi sự kiện change khi trang được tải lại
+        checkbox.dispatchEvent(new Event('change'));
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        var checkboxKhachHang = document.getElementById("congKhaiCheck");
+        var valueTrangThai = document.getElementById("valueCongKhai");
+        var labelChonKH = document.getElementById("labelChonKhachHang");
+        var searchKH = document.getElementById("searchKH");
+        var selectedKHValuesInput = document.getElementById("selectedKHValuesInput");
+        var checkboxes = document.querySelectorAll("#checkBoxKH");
+        let selectedKHCount = 0;
+        let selectedKHValues = [];
+
+        checkboxKhachHang.addEventListener("change", function () {
+            if (checkboxKhachHang.checked) {
+                valueTrangThai.value = 1;
+                labelChonKH.style.display = "block";
+                searchKH.disabled = false;
+                checkboxes.disabled = false;
+            } else {
+                valueTrangThai.value = 0;
+                labelChonKH.style.display = "none";
+                searchKH.disabled = true;
+                checkboxes.disabled = true;
+            }
+        });
+
+        // Kiểm tra danh sách khách hàng trước khi gửi form
+        document.querySelector("form").addEventListener("submit", function (event) {
+            if (selectedKHValues.length === 0) {
+                // Nếu không có khách hàng nào được chọn, thiết lập giá trị là null
+                selectedKHValuesInput.value = null;
+            } else {
+                // Nếu có khách hàng, chuyển danh sách thành chuỗi JSON
+                selectedKHValuesInput.value = JSON.stringify(selectedKHValues);
+            }
+        });
+        // Gọi sự kiện change khi trang được tải lại
+        checkboxKhachHang.dispatchEvent(new Event('change'));
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function (event) {
+                if (event.target.checked) {
+                    selectedKHCount++;
+                    console.log("ID khách : " + checkbox.value)
+                    selectedKHValues.push(checkbox.value);
+                } else {
+                    selectedKHCount--;
+                    console.log("ID khách : " + checkbox.value)
+                    const index = selectedKHValues.indexOf(checkbox.value);
+                    if (index > -1) {
+                        selectedKHValues.splice(index, 1); // Xóa checkbox.value khỏi danh sách
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    <!--    Hiển thị danh sách chọn-->
+    var valueTrangThai = document.getElementById("valueCongKhai");
+
+    function showSelectedCustomer(checkbox) {
+        var row = checkbox.parentNode.parentNode;
+        var tenKhachHang = row.cells[1].innerText;
+        var soDienThoai = row.cells[2].innerText;
+
+        if (checkbox.checked) {
+            var newRow = document.createElement("tr");
+            var cell1 = document.createElement("td");
+            cell1.innerText = tenKhachHang;
+            var cell2 = document.createElement("td");
+            cell2.innerText = soDienThoai;
+
+            newRow.appendChild(cell1);
+            newRow.appendChild(cell2);
+
+            document.getElementById("selectedCustomersTableBody").appendChild(newRow);
+        } else {
+            var selectedTable = document.getElementById("selectedCustomersTable");
+            var selectedTableBody = document.getElementById("selectedCustomersTableBody");
+
+            for (var i = 0; i < selectedTableBody.rows.length; i++) {
+                var row = selectedTableBody.rows[i];
+                var customerName = row.cells[0].innerText;
+
+                if (customerName === tenKhachHang) {
+                    selectedTableBody.removeChild(row);
+                    break;
+                }
+            }
+        }
+    }
+</script>
+
+<!--<script src="../assets/vendor/libs/jquery/jquery.js"></script>-->
+<!--<script src="../assets/vendor/libs/popper/popper.js"></script>-->
+<!--<script src="../assets/vendor/js/bootstrap.js"></script>-->
+<!--<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>-->
+
+<!--<script src="../assets/vendor/js/menu.js"></script>-->
+<!--&lt;!&ndash; endbuild &ndash;&gt;-->
+
+<!--&lt;!&ndash; Vendors JS &ndash;&gt;-->
+<!--<script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>-->
+
+<!--&lt;!&ndash; Main JS &ndash;&gt;-->
+<!--<script src="../assets/js/main.js"></script>-->
+
+<!--&lt;!&ndash; Page JS &ndash;&gt;-->
+<!--<script src="../assets/js/dashboards-analytics.js"></script>-->
+<!--<script src="../js/phieu_giam_gia.js"></script>-->
+
+<!--&lt;!&ndash; Place this tag in your head or just before your close body tag. &ndash;&gt;-->
+<!--<script async defer src="https://buttons.github.io/buttons.js"></script>-->
+<!---->
+
+<script th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script th:src="@{/assets/vendor/js/menu.js}"></script>
+<script th:src="@{/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/assets/js/dashboards-analytics.js}"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js}"></script>
+<script async defer th:src="@{https://buttons.github.io/buttons.js}"></script>
+</body>
+</html>
+

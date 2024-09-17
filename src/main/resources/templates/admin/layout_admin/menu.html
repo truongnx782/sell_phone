@@ -1,0 +1,134 @@
+<!-- Navbar -->
+<aside xmlns:th="https://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/xhtml"
+     th:fragment="menu_admin" id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+                <img th:src="@{../assets/img/icons/logo/logo.png}" style="width: 202px; height: 58px">
+            </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+        </div>
+
+        <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/thong-ke';|" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Thống kê</div>
+            </a>
+        </li>
+
+        <!--                Bán hàng tại quầy-->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/ban-hang-tai-quay/index';|" class="menu-link">
+                <i class='bx bxs-cart-alt me-3'></i>
+                <div>Bán hàng tại quầy</div>
+            </a>
+        </li>
+        <!--                Quản lý đơn hàng-->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/quan-ly-don-hang/hien-thi';|" class="menu-link">
+                <i class='bx bxs-receipt me-3'></i>
+                <div>Quản lý đơn hàng</div>
+            </a>
+
+        </li>
+        <!--                Quản lý sản phẩm-->
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='bx bxs-shopping-bag me-3'></i>
+                <div data-i18n="Misc">Quản lý sản phẩm</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/cameraTruoc/index';|" class="menu-link">
+                        <div>Camera trước</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/cameraSau/index';|" class="menu-link">
+                        <div>Camera sau</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/chip/index';|" class="menu-link">
+                        <div>Chip</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/hang/index';|" class="menu-link">
+                        <div>Hãng</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/he-dieu-hanh/index';|" class="menu-link">
+                        <div>Hệ điều hành</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/man-hinh/index';|" class="menu-link">
+                        <div>Màn hình</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/mau-sac/index';|" class="menu-link">
+                        <div>Màu sắc</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/pin/index';|" class="menu-link">
+                        <div>Pin</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/ram/index';|" class="menu-link">
+                        <div>RAM</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-misc-under-maintenance.html" class="menu-link">
+                        <div>ROM</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/san-pham/index';|" class="menu-link">
+                        <div>Sản phẩm</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a th:onclick="|window.location.href='/sim/index';|" class="menu-link">
+                        <div>Sim</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- Quản lý phiếu giảm giá-->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/phieu-giam-gia/index';|" class="menu-link">
+                <i class='bx bxs-discount me-3'></i>
+                <div>Phiếu giảm giá</div>
+            </a>
+        </li>
+
+        <!-- Quản lý nhân viên -->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/nhan-vien/hien-thi';|" class="menu-link">
+                <i class='bx bxs-group me-3'></i>
+                <div>Quản lý nhân viên</div>
+            </a>
+        </li>
+        <!-- Quản lý khách hàng -->
+        <li class="menu-item">
+            <a th:onclick="|window.location.href='/khach-hang/hien-thi';|" class="menu-link">
+                <i class='bx bxs-user-detail me-3'></i>
+                <div>Quản lý khách hàng</div>
+            </a>
+        </li>
+    </ul>
+</aside>
+

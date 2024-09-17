@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="http://www.thymeleaf.org"
+
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Danh sách đơn hàng</title>
+</head>
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/logoshop.ico}">
+<link rel="preconnect" th:href="@{https://fonts.googleapis.com}"/>
+<link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"/>
+<link rel="stylesheet" th:href="@{/assets/vendor/fonts/boxicons.css}">
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}">
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" class="template-customizer-core-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" class="template-customizer-theme-css">
+<link rel="stylesheet" th:href="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script type="text/javascript" th:src="@{/assets/vendor/js/helpers.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/config.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<style>
+    .zoom-in-zoom-out {
+        margin: 24px;
+        width: 50px;
+        height: 50px;
+        background: green;
+        animation: zoom-in-zoom-out 1s ease-out infinite;
+    }
+
+    @keyframes zoom-in-zoom-out {
+        0% {
+            transform: scale(1, 1);
+        }
+
+        50% {
+            transform: scale(1.2, 1.2);
+        }
+
+        100% {
+            transform: scale(1, 1);
+        }
+    }
+
+    #sigup img:hover {
+        transform: scale(1.2);
+    }
+
+    #thuong-hieu img:hover {
+        transform: scale(1.2);
+    }
+
+    .productDetail:hover {
+        transform: scale(1.1);
+    }
+
+    #list a:hover {
+        transform: scale(1.2);
+    }
+
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .image-container > .img2 {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px) rotate(-5deg);
+        }
+
+        50% {
+            transform: translateX(5px) rotate(5deg);
+        }
+
+        75% {
+            transform: translateX(-5px) rotate(-5deg);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .shake-animation img {
+        animation-name: shake;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+    }
+
+    .fade-effect {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .fade-effect img {
+        display: block;
+        width: 100%;
+        height: auto;
+        animation: fade 2s linear infinite;
+    }
+
+    @keyframes fade {
+
+        0%,
+        100% {
+            filter: brightness(1);
+        }
+
+        50% {
+            filter: brightness(0.5);
+        }
+    }
+
+    .title-subcontent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-stack {
+        position: relative;
+        width: 300px;
+        height: 300px;
+    }
+
+    .image-layer {
+        position: absolute;
+    }
+
+    .image-layer:nth-child(1) {
+        top: 20;
+        left: 0;
+        z-index: 2;
+    }
+
+    .image-layer:nth-child(2) {
+        top: 80px;
+        left: 200px;
+        z-index: 3;
+    }
+
+    .image-layer:nth-child(3) {
+        top: 50px;
+        left: 500px;
+        z-index: 1;
+    }
+
+    .input-with-icon::placeholder {
+        background-image: url('data:image/svg+xml;utf8,<svg height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        padding-left: 30px;
+        /* Điều chỉnh khoảng cách giữa icon và placeholder */
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 10px 10px;
+        background-color: #da5361;
+        color: #fff;
+        position: relative;
+        width: auto;
+        height: 30px;
+    }
+
+    .badge .text {
+        margin-left: 6px;
+        /* Khoảng cách giữa close và văn bản */
+    }
+
+    .badge .close {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 3px;
+        cursor: pointer;
+    }
+
+    .selected {
+        border: 2px solid #da5361;
+        background-color: #da5361;
+        color: white;
+    }
+</style>
+
+<body style="background-color: #f0f2f3">
+<!-- header -->
+<div class="container-fluid" id="grad" style="background: #FF3131;">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light py-0 my-0" style="height: 64px;">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/trang-chu}">
+                    <img th:src="@{/images/logo/mpshop.png}" alt="" style="width: 150px; height: 52px;">
+                </a>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent"
+                     style="margin-left: 100px; justify-content: space-around;">
+                    <form class="d-flex">
+                        <input class="form-control input-with-icon" type="search" placeholder="Bạn cần tìm gì?"
+                               aria-label="Search" style="width: 500px; border-radius: 8px; height: 33px;">
+
+                    </form>
+                    <div class="d-flex float-end">
+                        <div id="sigup" class="me-2">
+                            <a th:if="${KhachHang != null}" th:href="@{'/danh-sach-don-hang/' + ${KhachHang.id}}">
+                                <img th:src="@{/images/icons/4.png}" alt="" style="width: 45px; height: 38px;"
+                                     class="mx-2">
+                            </a>
+                            <a th:if="${KhachHang == null}" href="">
+                                <img th:src="@{/images/icons/4.png}" alt="" style="width: 45px; height: 38px;"
+                                     class="mx-2">
+                            </a>
+                            <p style="color: white; font-size: 11px;" class="m-0">Đơn hàng</p>
+                        </div>
+                        <div id="sigup" class="me-3">
+                            <!--                            <a th:if="${KhachHang != null}" th:href="@{'/gio-hang/' + ${KhachHang.id}}">-->
+                            <a th:href="@{/gio-hang}">
+                                <img th:src="@{/images/icons/3.png}" alt="" style="width: 42px; height: 38px;">
+                            </a>
+                            <!--                            <a th:if="${KhachHang == null}" th:href="@{'/gio-hang/' + ${KhachHang.id}}>-->
+                            <!--                                <img th:src="@{/images/icons/3.png}" alt="" style="width: 42px; height: 38px;">-->
+                            <!--                            </a>-->
+                            <p style="color: white; font-size: 11px;" class="m-0">Giỏ hàng</p>
+                        </div>
+                        <div id="sigup">
+                            <a th:href="@{/client}">
+                                <img th:src="@{/images/icons/5.png}" alt="" style="width: 38px; height: 38px;">
+                            </a>
+                            <p th:if="${KhachHang != null}"  style="color: white; font-size: 11px;" class="m-0" th:text="${KhachHang.tenKhachHang}"></p>
+                            <p th:if="${KhachHang == null}"  style="color: white; font-size: 11px;" class="m-0">Tài khoản</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+</div>
+<!-- content -->
+<div class="container" >
+    <div class="container-fluid py-5 card" >
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <!--            <img th:src="@{/images/icons/cart_product.png}" alt="" style="width: 30px; height: 30px;" class="me-2">-->
+            <h3 style="color: #da5361" >Đơn hàng của bạn</h3>
+        </div>
+        <hr class="mb-2">
+        <!--Time line đơn hàng-->
+        <div class="row mt-5">
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Ngày đặt</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody th:if="${KhachHang == null}" class="table-border-bottom-0">
+                            <tr>
+                                <h5>Chưa có đơn hàng nào!</h5>
+                            </tr>
+
+                        </tbody>
+                        <tbody th:if="${KhachHang != null}" class="table-border-bottom-0">
+                        <tr th:each="hd, index : ${lstHoaDon}">
+                            <td th:text="${index+1}"></td>
+                            <td th:text="${hd.tenSanPham}"></td>
+                            <td th:text="${hd.maHD}"></td>
+                            <td th:text="${#strings.replace(#numbers.formatDecimal(hd.tongTienSauGiam, 0, 'COMMA', 2, 'POINT'), '.00', '')}"></td>
+                            <td th:text="${#dates.format(hd.ngayTao, 'dd-MM-yyyy')}"></td>
+                            <td>
+                                <span class="badge me-1"
+                                      th:class="${hd.trangThai == 1 ? 'bg-label-primary' : (hd.trangThai == 2 ? 'bg-label-success' : (hd.trangThai == 3 ? 'bg-label-danger' : (hd.trangThai == 4 ? 'bg-label-warning' : 'bg-label-info')))}">
+                                    [[${hd.trangThai == 1 ? 'Chờ xác nhận' : (hd.trangThai == 2 ? 'Chờ giao hàng' : (hd.trangThai == 3 ? 'Đang giao hàng' : (hd.trangThai == 4 ? 'Hoàn thành' : 'Hủy')))}]]
+                                </span>
+                            </td>
+                            <td>
+                                <a class="dropdown-item"
+                                   th:href="@{'/don-hang-cua-toi/' + ${KhachHang.id}}">
+                                  <p>Chi tiết</p>
+                                </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->
+        </div>
+
+    </div>
+</div>
+<!-- footer -->
+<div style="background-color: #e93838;">
+    <div class="row mt-2 container ms-3 text-white">
+        <div class="col-12 col-sm-6 col-md-4 ms-5">
+            <div class="d-flex mt-3 mb-5">
+                <img th:src="@{/images/logo/mpshop.png}" alt="" style="width: 180px;height: 60px;">
+            </div>
+            <div class="d-flex mb-2">
+                <img th:src="@{/images/icons/address.png}" alt="" style="width: 30px;height: 30px;">
+                <p class="ms-2 mt-1">Số 1, đường Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</p>
+            </div>
+            <div class="d-flex mb-2">
+                <img th:src="@{/images/icons/phone.png}" alt="" style="width: 30px;height: 30px;">
+                <p class="ms-2 mt-1">0978111888</p>
+            </div>
+            <div class="d-flex mb-2">
+                <img th:src="@{/images/icons/email.png}" alt="" style="width: 30px;height: 30px;">
+                <p class="ms-2 mt-1">shoesstore@gamil.com.vn</p>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mt-2 pt-4 ms-4 text-white">
+            <h5 class="mb-5">Kênh truyền thông</h5>
+            <div class="row mb-3">
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/facebook.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/instagram.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/tiktok.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/twitter.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/telegram.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+                <div class="col-2 col-sm-2 col-md-2">
+                    <img th:src="@{/images/logo/youtube.png}" alt="" style="width: 40px;height: 40px;">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 mt-2 pt-4 text-white">
+            <h5 class="mb-5">Hỗ trợ khách hàng</h5>
+            <div class="row mb-3">
+                <a href="" style="text-decoration: none; color: white;">Hướng dẫn mua hàng</a>
+                <a href="" style="text-decoration: none; color: white;">Chính sách đổi trả và bảo hành</a>
+                <a href="" style="text-decoration: none; color: white;">Chính sách kiểm hàng</a>
+                <a href="" style="text-decoration: none; color: white;">Chính sách vận chuyển</a>
+                <a href="" style="text-decoration: none; color: white;">Chính sách thanh toán</a>
+                <a href="" style="text-decoration: none; color: white; ">Điều khoản trang web</a>
+                <a href="" style="text-decoration: none; color: white;">Chính sách bảo vệ thông tin cá nhân của
+                    khách hàng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<script type="text/javascript" th:src="@{/assets/vendor/libs/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/popper/popper.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/assets/vendor/js/menu.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/pages-account-settings-account.js}"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/print.js/1.6.0/print.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/apexcharts}"></script>
+<style>
+    .horizontal-timeline .items {
+        border-top: 3px solid #e9ecef;
+    }
+
+    .horizontal-timeline .items .items-list {
+        display: block;
+        position: relative;
+        text-align: center;
+        padding-top: 70px;
+        margin-right: 0;
+    }
+
+    .horizontal-timeline .items .items-list:before {
+        content: "";
+        position: absolute;
+        height: 36px;
+        border-right: 2px dashed #dee2e6;
+        top: 0;
+    }
+
+    .horizontal-timeline .items .items-list .event-date {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        right: 0;
+        width: 75px;
+        margin: 0 auto;
+        font-size: 0.9rem;
+        padding-top: 8px;
+    }
+
+    @media (min-width: 1140px) {
+        .horizontal-timeline .items .items-list {
+            display: inline-block;
+            width: 24%;
+            padding-top: 45px;
+        }
+
+        .horizontal-timeline .items .items-list .event-date {
+            top: -40px;
+        }
+    }
+
+</style>
+</body>
+</html>
